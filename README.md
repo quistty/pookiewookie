@@ -16,4 +16,15 @@ Ok the structure we should have for the github thing:
     - to update the main branch, click the pull request button, and add create a name/description for the things you did
     - a menu should pop up after you click create. go to the left hand side where reviewers is and click the gear cog. Add the other person
     - you can add comments with more information like the stuff to check and review (dont forget to document the test cases you use when you test your stuff)
-- once you think the code you have uploaded is good and should be reviewed by someone else, input the code into the 
+- once the code has been reviewed, the merge should be performed :D
+
+# how to review the code
+- go to the github website https://github.com/quistty/pookiewookie/tree/working and make sure you're under the working tree
+- click pull requests in the top right and click the one that has the action you want to review
+- click files changed and look at what has been changed. You can review the code and make sure it functions (by clicking rewview in codespace). If it doesnt, edit it in the codespace and commit it again (it will go into the created pull request)
+- when it makes sense just commit the code
+
+# WHAT AM I ABOUT TO DO UPSTAIRS
+CREATE A BASIC HELLO WORLD TEST CODE 
+- run it on my alt account and preview there
+- review it based on the instructions i wrot ehere
