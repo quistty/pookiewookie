@@ -16,4 +16,3 @@ Ok the structure we should have for the github thing:
     - to update the main branch, click the pull request button, and add create a name/description for the things you did
     - a menu should pop up after you click create. go to the left hand side where reviewers is and click the gear cog. Add the other person
     - you can add comments with more information like the stuff to check and review (dont forget to document the test cases you use when you test your stuff)
-- once you think the code you have uploaded is good and should be reviewed by someone else, input the code into the 
