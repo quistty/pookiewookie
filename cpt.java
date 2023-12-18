@@ -50,7 +50,7 @@ public class cpt { // needed because you need a class to have a main method (in 
 
         Scanner in = new Scanner(System.in);
         if (!beginnerInformation) {
-            System.out.println("Welcome to this game, the rules are x");
+            System.out.println("Welcome to this game, the rules are 1. this game is fun. 2. i like chocolate");
             System.out.println("\n");
             System.out.println("What username would you like for your character?");
             String userName = in.nextLine();
