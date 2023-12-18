@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+// FIX wrap line length
 public class cpt { // needed because you need a class to have a main method (in the lesson its just
                    // class main with no public)
 
@@ -33,7 +34,7 @@ public class cpt { // needed because you need a class to have a main method (in 
                     System.out.println("Unknown command, make sure it exists and try again!"); // FIGURE OUT A WAY TO
                                                                                                // BREAK THIS SYSTEM, AND
                                                                                                // ASK FOR THE REQUEST
-                                                                                               // AGAIN AFTER REQUEST //
+                                                                                               // AGAIN AFTER REQUEST
                                                                                                // DONE
             }
         } else {
