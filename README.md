@@ -25,6 +25,5 @@ Ok the structure we should have for the github thing:
 - when it makes sense just commit the code
 
 # WHAT AM I ABOUT TO DO UPSTAIRS
-CREATE A BASIC HELLO WORLD TEST CODE 
-- run it on my alt account and preview there
-- review it based on the instructions i wrote here
+- install java coding pack from vscode
+- install java run extension
