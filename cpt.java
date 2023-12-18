@@ -4,13 +4,14 @@ import java.util.Scanner;
 public class cpt { // needed because you need a class to have a main method (in the lesson its just
                    // class main with no public)
 
-    // ------------------ VARIABLES ------------------------------------------
+    // ---------------------------------------------------------------VARIABLES------------------------------------------
     // always declare them here, and with public static before the variable
-    public static int healthStats = 100, happinessStats = 100, intelligenceStats = 50, age = 1;
+    public static int healthStats = 100, happinessStats = 100, intelligenceStats = 50, ageStats = 1;
     public static double netWorth = 0;
     public static boolean beginnerInformation = false; // so beginner information runs once
     public static String command;
-    // ------------------------COMMANDS------------------------------------------------
+
+    // ----------------------------------------------------------------COMMANDS------------------------------------------------
     // where all the commands for the game are
 
     public static void stats() {
@@ -18,8 +19,10 @@ public class cpt { // needed because you need a class to have a main method (in 
         System.out.println("Happiness: " + happinessStats);
         System.out.println("Intelligence: " + intelligenceStats);
         System.out.println("Networth: " + netWorth);
+        System.out.println("Age: " + ageStats);
     }
 
+    // ----------------------------------------------------------------MAIN---------------------------------------------
     public static void commandProcess(String command) {
         if (command.startsWith("!")) {
             String actualCommand = command.substring(1); // removes the first char of the variable, the exclamation mark
@@ -27,6 +30,7 @@ public class cpt { // needed because you need a class to have a main method (in 
             switch (actualCommand) {
                 case "stats":
                     stats();
+                    main(null);
                     break;
                 case "commands":
 
@@ -38,7 +42,7 @@ public class cpt { // needed because you need a class to have a main method (in 
                                                                                                // DONE
             }
         } else {
-            System.out.println("Unknown command, please make sure it exits and your command starts with \"!\"");
+            System.out.println("Unknown command, please make sure it exists and your command starts with \"!\"");
         }
     }
 
@@ -55,7 +59,7 @@ public class cpt { // needed because you need a class to have a main method (in 
             System.out.println("Health: " + healthStats);
             System.out.println("Happiness: " + happinessStats);
             System.out.println("Intelligence: " + intelligenceStats);
-            System.out.println("Age: " + age);
+            System.out.println("Age: " + ageStats);
             System.out.println("Networth: " + netWorth);
             beginnerInformation = true;
             System.out.println("To advance in this game, you must perform commands to build your player's profile.");
