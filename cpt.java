@@ -64,8 +64,7 @@ public class cpt { // needed because you need a class to have a main method (in 
             beginnerInformation = true;
             System.out.println("To advance in this game, you must perform commands to build your player's profile.");
             System.out.println("\n");
-            System.out.println(
-                    "Try a command by saying \"!commamds\". Change the word after the exclamation mark to perform a different command!");
+            System.out.println("Try a command by saying \"!commamds\".");
             command = in.nextLine();
             commandProcess(command);
         }
