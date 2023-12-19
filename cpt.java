@@ -10,18 +10,66 @@ public class cpt { // needed because you need a class to have a main method (in 
     public static double netWorth = 0;
     public static boolean beginnerInformation = false; // so beginner information runs once
     public static String command;
+    public static boolean alive = true;
+    public static boolean resetI = false;
+    public static int commandCountStats = 1;
 
     // ----------------------------------------------------------------COMMANDS------------------------------------------------
     // where all the commands for the game are
 
     public static void stats() {
+        System.out.println("-------------------- STATS --------------------");
         System.out.println("Health: " + healthStats);
         System.out.println("Happiness: " + happinessStats);
         System.out.println("Intelligence: " + intelligenceStats);
         System.out.println("Networth: " + netWorth);
         System.out.println("Age: " + ageStats);
+        System.out.println("Command Count: " + commandCountStats);
+        System.out.println("----------------------------------------");
     }
 
+    public static void leavegame() {
+        Scanner in = new Scanner(System.in); //needed in every method to call for a variable
+        System.out.println("-------------------- ARE YOU SURE YOU WANT TO END THE GAME? (Y/N) --------------------");
+        String reponse = in.nextLine();
+        if (reponse.equalsIgnoreCase("y")) {
+            alive = false;
+        } else if (reponse == "n") {
+            alive = true;
+        } else {
+            System.out.println("Please input Y or N, rerun the command to try again");
+        }
+        System.out.println("----------------------------------------");
+         //needed in every method to end the calling of variables
+    }
+
+    public static boolean hilow() { //make it play a game and return a win if the player wins
+        Scanner in = new Scanner(System.in);
+        int correctNum = (int) (25 * Math.random() + 1);
+        int numGuesses = 0;
+        boolean winner = false;
+        int guess;
+        System.out.println(correctNum); // only used for debugging
+        while (numGuesses < 7) {
+            System.out.println("Input a number between 1 and 25: ");
+            guess = in.nextInt();
+            numGuesses++;
+            if (guess == correctNum) {
+                System.out.println("Congrats, you win!");
+                winner = true;
+                numGuesses = 7;
+            } else if (guess > correctNum) {
+                System.out.println("Too high, try again!");
+            } else {
+                System.out.println("Too low, try again!");
+            }
+        }
+        if (!winner) {
+            System.out.println("Oops, you lost. Sorry!");
+            System.out.println("The correct number is: " + correctNum);
+        }
+        return winner;
+    }
     // ----------------------------------------------------------------MAIN---------------------------------------------
     public static void commandProcess(String command) {
         if (command.startsWith("!")) {
@@ -29,10 +77,22 @@ public class cpt { // needed because you need a class to have a main method (in 
             switch (actualCommand) {
                 case "stats":
                     stats();
-                    main(null);
-                    break;
+                    // resetI = true; // add this to every method in this switch if not an essential program
+                    return;
                 case "commands":
+                case "beg":
+                    boolean winner = hilow();
+                    if (winner == true) {
+                        int winnings = (int) (1000 * Math.random() + 1);
+                        netWorth += winnings;
+                        System.out.println("Your new networth is: " + netWorth);
+                    }
 
+                    return;
+                //randomize a number between 1 and 3 to play the different types of games
+                case "leavegame":
+                    leavegame();
+                    return;
                 default:
                     System.out.println("Unknown command, make sure it exists and try again!"); // FIGURE OUT A WAY TO BREAK THIS SYSTEM, AND ASK FOR THE REQUEST AGAIN AFTER REQUEST DONE
             }
@@ -52,22 +112,49 @@ public class cpt { // needed because you need a class to have a main method (in 
             String userName = in.nextLine();
             System.out.println("Hi " + userName + ", your stats are: ");
             System.out.println("\n");
+            System.out.println("----------------------------------------");
             System.out.println("Health: " + healthStats);
             System.out.println("Happiness: " + happinessStats);
             System.out.println("Intelligence: " + intelligenceStats);
             System.out.println("Age: " + ageStats);
             System.out.println("Networth: " + netWorth);
+            System.out.println("----------------------------------------");
             System.out.println("To advance in this game, you must perform commands to build your player's profile.");
             System.out.println("\n");
-            System.out.println("Try a command by saying \"!commamds\".");
-            stats();
-            System.out.println("See! its that easy! Good luck, and may the odds be ever in your favour");
+            System.out.println("Try a command by saying \"!stats\".");
             command = in.nextLine();
             commandProcess(command);
+            System.out.println("See! its that easy! If you need help, do !help to guide you, or !commands to get a list of commands. Good luck, and may the odds be ever in your favour");
         }
 
-        System.out.println("Input a command");
+        do {
+            for (int i = 1; i > 0; i++) { // counts the amount of commands that have occured
+               if (i%100 == 0) {
+                    ageStats++;
+                }
+                System.out.println("Command count: " + i);
+                System.out.println("Input a command");
+                command = in.nextLine();
+                commandProcess(command);  
+                commandCountStats++;
+                if (resetI == true) { // if the method is not an essential method, such as checking stats it will not increase age stat
+                    resetI = false;
+                    i = 0;
+                }
+            }
+            
+            // THIS SHOULD BE WHERE ALL THE CODE THAT HAPPENS AFTER A CERTAIN AGE OR RANDOM STUFF OCCURS GOES.
 
+        } while (alive == true);
+        
+        System.out.println("Thanks for playing!");
+        if (ageStats < 80) { // average life span is around 80, if it is done it is
+            System.out.println("The odds were never in your favour.");
+            stats();
+        } else {
+            System.out.println("The odds were in your favour");
+            stats();
+        }
         in.close(); // this ensures we do not have a resource leak (leave at the end)
     }
 }
