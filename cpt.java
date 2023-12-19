@@ -1,9 +1,7 @@
 import java.util.Scanner;
 
 // FIX wrap line length
-public class cpt { // needed because you need a class to have a main method (in the lesson its just
-                   // class main with no public)
-
+public class cpt { 
     // ---------------------------------------------------------------VARIABLES------------------------------------------
     // always declare them here, and with public static before the variable
     public static int healthStats = 100, happinessStats = 100, intelligenceStats = 50, ageStats = 1;
@@ -14,10 +12,11 @@ public class cpt { // needed because you need a class to have a main method (in 
     public static boolean resetI = false;
     public static int commandCountStats = 1;
 
+
     // ----------------------------------------------------------------COMMANDS------------------------------------------------
     // where all the commands for the game are
 
-    public static void stats() {
+    public static void stats() {  // command to print out the stats of a player
         System.out.println("-------------------- STATS --------------------");
         System.out.println("Health: " + healthStats);
         System.out.println("Happiness: " + happinessStats);
@@ -28,29 +27,31 @@ public class cpt { // needed because you need a class to have a main method (in 
         System.out.println("----------------------------------------");
     }
 
-    public static void leavegame() {
-        Scanner in = new Scanner(System.in); //needed in every method to call for a variable
+    public static void leavegame() { // if the player wants to leave the game
+        Scanner in = new Scanner(System.in); // needed in every method to call for a user input
         System.out.println("-------------------- ARE YOU SURE YOU WANT TO END THE GAME? (Y/N) --------------------");
         String reponse = in.nextLine();
-        if (reponse.equalsIgnoreCase("y")) {
+
+        // checks if the user wants to quit or not 
+        if (reponse.equalsIgnoreCase("y")) { // ends the code
             alive = false;
             return;
-        } else if (reponse.equalsIgnoreCase("n")) {
-            return; // filler to return back without changing anything
-        } else {
+        } else if (reponse.equalsIgnoreCase("n")) { // returns back to regular useage
+            return; 
+        } else { // err message
             System.out.println("Please input Y or N, rerun the command to try again");
         }
         System.out.println("----------------------------------------");
          //needed in every method to end the calling of variables
     }
 
-    public static boolean hilow() { //make it play a game and return a win if the player wins
-        Scanner in = new Scanner(System.in);
-        int correctNum = (int) (25 * Math.random() + 1);
-        int numGuesses = 0;
-        boolean winner = false;
-        int guess;
-        System.out.println(correctNum); // only used for debugging
+    public static boolean hilow() { // game to dictate if a player won or not
+        Scanner in = new Scanner(System.in); 
+        int correctNum = (int) (25 * Math.random() + 1); // picks a random # between 1 and 25
+        int numGuesses = 0; // guess count
+        boolean winner = false; // 
+        int guess; 
+        System.out.println("BLAHHHHHHHHHHHHHHHHHH" + correctNum); // only used for debugging ------------------ REMOVE IN FINAL VERSION ------------------------
         while (numGuesses < 7) {
             System.out.println("Input a number between 1 and 25: ");
             guess = in.nextInt();
