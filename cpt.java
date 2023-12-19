@@ -15,6 +15,14 @@ public class cpt {
     // ----------------------------------------------------------------COMMANDS------------------------------------------------
     // where all the commands for the game are
 
+    public static void randomAgeEvents() {
+
+    }
+
+    public static void increaseage() {
+
+    }
+
     public static void stats() { // command to print out the stats of a player
         System.out.println("-------------------- STATS --------------------");
         System.out.println("Health: " + healthStats);
@@ -148,10 +156,12 @@ public class cpt {
                 if (i % 50 == 0) {
                     ageStats++;
                 }
-                System.out.println("Command count: " + i);
+                System.out.println("Command count: " + i); // REMOVE ONLY FOR DEBUGGING
                 if (alive != true) {
                     break;
                 }
+
+                // when ages goes up, by 1, do random event
 
                 // THIS SHOULD BE WHERE ALL THE CODE THAT HAPPENS AFTER A CERTAIN AGE OR RANDOM
                 // STUFF OCCURS GOES.
