@@ -51,7 +51,7 @@ public class cpt {
         int numGuesses = 0; // guess count
         boolean winner = false; // 
         int guess; 
-        System.out.println("BLAHHHHHHHHHHHHHHHHHH" + correctNum); // only used for debugging ------------------ REMOVE IN FINAL VERSION ------------------------
+       // System.out.println("BLAHHHHHHHHHHHHHHHHHH" + correctNum); // only used for debugging ------------------ REMOVE IN FINAL VERSION ------------------------
         while (numGuesses < 7) {
             System.out.println("Input a number between 1 and 25: ");
             guess = in.nextInt();
@@ -81,7 +81,7 @@ public class cpt {
             switch (actualCommand) {
                 case "stats":
                     stats();
-                    // resetI = true; // add this to every method in this switch if not an essential program
+                    // resetI = true; // add this to every method in this switch if not an essential program, to balance the rapidly increasing age
                     return;
                 case "commands":
                 case "beg":
@@ -134,10 +134,10 @@ public class cpt {
 
         do {
             for (int i = 1; i > 0; i++) { // counts the amount of commands that have occured
-               if (i%100 == 0) {
+               if (i%50 == 0) {
                     ageStats++;
                 }
-                System.out.println("Command count: " + i);
+                System.out.println("Command count: " + i); 
                     if (alive != true) {
                         break;
                     }
