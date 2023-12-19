@@ -34,8 +34,9 @@ public class cpt { // needed because you need a class to have a main method (in 
         String reponse = in.nextLine();
         if (reponse.equalsIgnoreCase("y")) {
             alive = false;
-        } else if (reponse == "n") {
-            alive = true;
+            return;
+        } else if (reponse.equalsIgnoreCase("n")) {
+            return; // filler to return back without changing anything
         } else {
             System.out.println("Please input Y or N, rerun the command to try again");
         }
@@ -58,6 +59,7 @@ public class cpt { // needed because you need a class to have a main method (in 
                 System.out.println("Congrats, you win!");
                 winner = true;
                 numGuesses = 7;
+                happinessStats++; //increases happiness due to a win
             } else if (guess > correctNum) {
                 System.out.println("Too high, try again!");
             } else {
@@ -66,6 +68,7 @@ public class cpt { // needed because you need a class to have a main method (in 
         }
         if (!winner) {
             System.out.println("Oops, you lost. Sorry!");
+            happinessStats--; //decreases happiness due to a loss
             System.out.println("The correct number is: " + correctNum);
         }
         return winner;
@@ -85,6 +88,7 @@ public class cpt { // needed because you need a class to have a main method (in 
                     if (winner == true) {
                         int winnings = (int) (1000 * Math.random() + 1);
                         netWorth += winnings;
+                        System.out.println("You won: " + winnings);
                         System.out.println("Your new networth is: " + netWorth);
                     }
 
@@ -133,6 +137,14 @@ public class cpt { // needed because you need a class to have a main method (in 
                     ageStats++;
                 }
                 System.out.println("Command count: " + i);
+                    if (alive != true) {
+                        break;
+                    }
+
+                    // THIS SHOULD BE WHERE ALL THE CODE THAT HAPPENS AFTER A CERTAIN AGE OR RANDOM STUFF OCCURS GOES.
+
+
+
                 System.out.println("Input a command");
                 command = in.nextLine();
                 commandProcess(command);  
@@ -142,9 +154,6 @@ public class cpt { // needed because you need a class to have a main method (in 
                     i = 0;
                 }
             }
-            
-            // THIS SHOULD BE WHERE ALL THE CODE THAT HAPPENS AFTER A CERTAIN AGE OR RANDOM STUFF OCCURS GOES.
-
         } while (alive == true);
         
         System.out.println("Thanks for playing!");
