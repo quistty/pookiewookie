@@ -30,67 +30,36 @@ public class cpt {
     public static void callEventMethodBaby(String eventName) {
         switch (eventName) {
             case "pneumonia":
-                pneumonia();
+                healthStats -= 10;
+                System.out.println("You obtained pneumonia. -10% health. Your current health is: " + healthStats);
                 break;
             case "flu":
-                flu();
+                healthStats -= 10;
+                System.out.println("You obtained the flu. -10% health. Your current health is: " + healthStats);
                 break;
             case "gotDropped":
-                gotDropped();
+                intelligenceStats -= 50;
+                System.out.println("You were dropped as a baby. -50% intelligence. Your current intelligence is: "
+                        + intelligenceStats);
                 break;
             case "noCake":
-                noCake();
+                happinessStats -= 30;
+                System.out.println(
+                        "You didnt get cake today. -30% happiness. Your current happiness is: " + happinessStats);
                 break;
             case "reallyGoodMilk":
-                reallyGoodMilk();
+
                 break;
             case "newToy":
-                newToy();
+
                 break;
             case "learnedNewSkill":
-                learnedNewSkill();
+
                 break;
             case "gotAPet":
-                gotAPet();
+
                 break;
         }
-    }
-
-    // Define your event methods here
-    private static void pneumonia() {
-        // Your implementation for the "pneumonia" event
-    }
-
-    private static void flu() {
-        // Your implementation for the "flu" event
-    }
-
-    private static void gotDropped() {
-        // Your implementation for the "gotDropped" event
-    }
-
-    private static void noCake() {
-        // Your implementation for the "noCake" event
-    }
-
-    private static void reallyGoodMilk() {
-        // Your implementation for the "reallyGoodMilk" event
-    }
-
-    private static void newToy() {
-        // Your implementation for the "newToy" event
-    }
-
-    private static void learnedNewSkill() {
-        // Your implementation for the "learnedNewSkill" event
-    }
-
-    private static void gotAPet() {
-        // Your implementation for the "gotAPet" event
-    }
-
-    public static void increaseage() {
-
     }
 
     public static void stats() { // command to print out the stats of a player
