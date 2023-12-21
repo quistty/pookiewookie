@@ -205,7 +205,7 @@ public class cpt {
             if (guess == correctNum) {
                 System.out.println("Congrats, you win!");
                 winner = true;
-                numGuesses = 7;
+                numGuesses = 5;
                 happinessStats++; // increases happiness due to a win
             } else if (guess > correctNum) {
                 System.out.println("Too high, try again!");
