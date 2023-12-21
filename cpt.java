@@ -16,13 +16,77 @@ public class cpt {
     // where all the commands for the game are
 
     public static void randomAgeEvents() {
-        if ((ageStats <= 3) && (ageStats >= 0)) { // baby events 
-            String[] babyEvents = {"pneumonia", "flu", "gotDropped", "noCake", "reallyGoodMilk", "newToy", "learnedNewSkill", "gotAPet"};
-            int random = (int) (8 * Math.random()+1);
+        if ((ageStats <= 3) && (ageStats >= 0)) { // baby events
+            String[] babyEvents = { "pneumonia", "flu", "gotDropped", "noCake", "reallyGoodMilk", "newToy",
+                    "learnedNewSkill", "gotAPet" };
+            int random = (int) (8 * Math.random() + 1);
             random--;
-            
+            String event = babyEvents[random];
+            callEventMethodBaby(event);
         }
+    }
 
+    // Method to dynamically call event methods
+    public static void callEventMethodBaby(String eventName) {
+        switch (eventName) {
+            case "pneumonia":
+                pneumonia();
+                break;
+            case "flu":
+                flu();
+                break;
+            case "gotDropped":
+                gotDropped();
+                break;
+            case "noCake":
+                noCake();
+                break;
+            case "reallyGoodMilk":
+                reallyGoodMilk();
+                break;
+            case "newToy":
+                newToy();
+                break;
+            case "learnedNewSkill":
+                learnedNewSkill();
+                break;
+            case "gotAPet":
+                gotAPet();
+                break;
+        }
+    }
+
+    // Define your event methods here
+    private static void pneumonia() {
+        // Your implementation for the "pneumonia" event
+    }
+
+    private static void flu() {
+        // Your implementation for the "flu" event
+    }
+
+    private static void gotDropped() {
+        // Your implementation for the "gotDropped" event
+    }
+
+    private static void noCake() {
+        // Your implementation for the "noCake" event
+    }
+
+    private static void reallyGoodMilk() {
+        // Your implementation for the "reallyGoodMilk" event
+    }
+
+    private static void newToy() {
+        // Your implementation for the "newToy" event
+    }
+
+    private static void learnedNewSkill() {
+        // Your implementation for the "learnedNewSkill" event
+    }
+
+    private static void gotAPet() {
+        // Your implementation for the "gotAPet" event
     }
 
     public static void increaseage() {
