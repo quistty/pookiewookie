@@ -39,26 +39,32 @@ public class cpt {
                 break;
             case "gotDropped":
                 intelligenceStats -= 50;
-                System.out.println("You were dropped as a baby. -50% intelligence. Your current intelligence is: "
-                        + intelligenceStats);
+                System.out.println("You were dropped as a baby. -50% intelligence. Your current intelligence is: " + intelligenceStats);
                 break;
             case "noCake":
                 happinessStats -= 30;
-                System.out.println(
-                        "You didnt get cake today. -30% happiness. Your current happiness is: " + happinessStats);
+                System.out.println("You didnt get cake today. -30% happiness. Your current happiness is: " + happinessStats);
                 break;
             case "reallyGoodMilk":
-
+                healthStats += 20;
+                System.out.println(
+                    "Your mother gave you some milk and it tasted exqusite. +20% health. Your current happiness is: " + healthStats);
                 break;
             case "newToy":
-
+                happinessStats += 30;
+                System.out.println(
+                    "Your parents bought you a new toy! +30% happiness. Your current happpiness is: " + happinessStats);
                 break;
             case "learnedNewSkill":
-
+                intelligenceStats += 20;
+                System.out.println("You learned a new skill as a baby! +20% intelligence. Your currernt intelligence is: " + intelligenceStats);
                 break;
             case "gotAPet":
-
+                happinessStats +=50;
+                System.out.println("You got a pet dog! You named him Gojo Satoru. +50% happiness. Your current happiness is: " + happinessStats);
                 break;
+            default:
+                System.out.println("Gambling lesson #1: There are no losses, just intervals between winning");
         }
     }
 
