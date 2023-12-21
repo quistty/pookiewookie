@@ -15,6 +15,18 @@ public class cpt {
     // ----------------------------------------------------------------COMMANDS------------------------------------------------
     // where all the commands for the game are
 
+    public static void blackJack() {
+
+    }
+
+    public static void roulette() {
+
+    }
+
+    public static void slots() {
+
+    }
+
     public static void randomAgeEvents() {
         if ((ageStats <= 3) && (ageStats >= 0)) { // baby events
             String[] babyEvents = { "pneumonia", "flu", "gotDropped", "noCake", "reallyGoodMilk", "newToy",
@@ -163,28 +175,29 @@ public class cpt {
                     resetI = true;
                     System.out.println("Available Functions:");
                     System.out.println("0. Commands - This one! Gives you a list of all the commands");
-                    System.out.println("1. stats - Display available functions");
-                    System.out.println("2. help - Request and save integers");
-                    System.out.println("3. event - Ask for and save user's name");
-                    System.out.println("4. beg - Display a menu and allow user to buy items");
-                    System.out.println("5. increaseage - Quit the program");
-                    System.out.println("6. gambling - Quit the program");
+                    System.out.println("1. stats - Displays stats");
+                    System.out.println("2. help - Tells you how to play the game");
+                    System.out.println("3. event - perform events");
+                    System.out.println(
+                            "4. beg - play a mini game to beg people for money. If you win you gain money, but you can lose too!");
+                    System.out.println("5. increaseage - Increase your age, and a random event will happen");
+                    System.out.println("6. gambling - blackjack, roulette, slots");
                     System.out.println("7. leavegame - Quit the program");
                 case "event":
                 case "increaseage":
                     Scanner in = new Scanner(System.in); // needed in every method to call for a user input
                     System.out.println(
                             "-------------------- ARE YOU SURE YOU WANT TO INCREASE YOUR AGE? (Y/N) --------------------");
-                    String reponse = in.nextLine();
+                    String increaseAgeReponse = in.nextLine();
 
                     // checks if the user wants to quit or not
-                    if (reponse.equalsIgnoreCase("y")) { // ends the code
+                    if (increaseAgeReponse.equalsIgnoreCase("y")) { // ends the code
                         ageStats++;
                         resetI = true;
                         System.out.println("You are " + ageStats + " years old");
                         randomAgeEvents();
                         return;
-                    } else if (reponse.equalsIgnoreCase("n")) { // returns back to regular useage
+                    } else if (increaseAgeReponse.equalsIgnoreCase("n")) { // returns back to regular useage
                         return;
                     } else { // err message
                         System.out.println("Please input Y or N, rerun the command to try again");
@@ -192,6 +205,26 @@ public class cpt {
                     System.out.println("----------------------------------------");
                     return;
                 case "gambling":
+                    Scanner youwanttobespecial = new Scanner(System.in); // needed in every method to call for a user
+                                                                         // input
+                    System.out.println("-------------------- PICK A NUMBER BETWEEN ONE AND THREE --------------------");
+                    System.out.println("1 for BlackJack, 2 for roulette, 3 for slots");
+                    int gamblingResponse = youwanttobespecial.nextInt();
+
+                    // checks if the user wants to quit or not
+                    if (gamblingResponse == 1) { // ends the code
+                        blackJack();
+                        return;
+                    } else if (gamblingResponse == 2) { // returns back to regular useage
+                        roulette();
+                        return;
+                    } else if (gamblingResponse == 3) {
+                        slots();
+                        return;
+                    } else { // err message
+                        System.out.println("Please input a number between 1 and 3, rerun the command to try again");
+                    }
+                    System.out.println("----------------------------------------");
                 case "beg":
                     boolean winner = hilow();
                     if (winner == true) {
