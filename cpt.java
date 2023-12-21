@@ -15,6 +15,18 @@ public class cpt {
     // ----------------------------------------------------------------COMMANDS------------------------------------------------
     // where all the commands for the game are
 
+    public static void blackJack() {
+
+    }
+
+    public static void roulette() {
+
+    }
+
+    public static void slots() {
+
+    }
+
     public static void randomAgeEvents() {
         if ((ageStats <= 3) && (ageStats >= 0)) { // baby events
             String[] babyEvents = { "pneumonia", "flu", "gotDropped", "noCake", "reallyGoodMilk", "newToy",
@@ -46,29 +58,37 @@ public class cpt {
                 break;
             case "gotDropped":
                 intelligenceStats -= 50;
-                System.out.println("You were dropped as a baby. -50% intelligence. Your current intelligence is: " + intelligenceStats);
+                System.out.println("You were dropped as a baby. -50% intelligence. Your current intelligence is: "
+                        + intelligenceStats);
                 break;
             case "noCake":
                 happinessStats -= 30;
-                System.out.println("You didnt get cake today. -30% happiness. Your current happiness is: " + happinessStats);
+                System.out.println(
+                        "You didnt get cake today. -30% happiness. Your current happiness is: " + happinessStats);
                 break;
             case "reallyGoodMilk":
                 healthStats += 20;
                 System.out.println(
-                    "Your mother gave you some milk and it tasted exqusite. +20% health. Your current happiness is: " + healthStats);
+                        "Your mother gave you some milk and it tasted exqusite. +20% health. Your current happiness is: "
+                                + healthStats);
                 break;
             case "newToy":
                 happinessStats += 30;
                 System.out.println(
-                    "Your parents bought you a new toy! +30% happiness. Your current happpiness is: " + happinessStats);
+                        "Your parents bought you a new toy! +30% happiness. Your current happpiness is: "
+                                + happinessStats);
                 break;
             case "learnedNewSkill":
                 intelligenceStats += 20;
-                System.out.println("You learned a new skill as a baby! +20% intelligence. Your currernt intelligence is: " + intelligenceStats);
+                System.out
+                        .println("You learned a new skill as a baby! +20% intelligence. Your currernt intelligence is: "
+                                + intelligenceStats);
                 break;
             case "gotAPet":
                 happinessStats += 50;
-                System.out.println("You got a pet dog! You named him Gojo Satoru. +50% happiness. Your current happiness is: " + happinessStats);
+                System.out.println(
+                        "You got a pet dog! You named him Gojo Satoru. +50% happiness. Your current happiness is: "
+                                + happinessStats);
                 break;
             default:
                 System.out.println("Gambling lesson #1: There are no losses, just intervals between winning");
@@ -155,7 +175,6 @@ public class cpt {
             System.out.println("Please input Y or N, rerun the command to try again");
         }
         System.out.println("----------------------------------------");
-        // needed in every method to end the calling of variables
     }
 
     public static boolean hilow() { // game to dictate if a player won or not
@@ -196,14 +215,77 @@ public class cpt {
                                                          // this is to run all the different commands available
             switch (actualCommand) {
                 case "stats":
+                    resetI = true;
                     stats();
                     // resetI = true; // add this to every method in this switch if not an essential
                     // program, to balance the rapidly increasing age
                     return;
+                case "help":
+                    resetI = true;
+                    System.out.println(
+                            "The objective of the game is to make the most money, have the highest stats and live the longest, all using commands given to you.");
+                    System.out.println("Use !commands to see all the different commands you can do");
+                    System.out.println(
+                            "You can perform commands at any time, unless currently in a command. You start at age 0 and you go up in age every 50 commands (though doing basic commands such as !stats will not increase this).");
+                    System.out.println(
+                            "Every time your age goes up, a random event can happen to you, based on your stats. For example, if you have low health, you have a higher chance of a bad event (such as sickness) occurring to you.");
+                    System.out.println(
+                            "You can increase your stats by performing commands, and winning games within those commands.");
+                    return;
                 case "commands":
+                    resetI = true;
+                    System.out.println("Available Functions:");
+                    System.out.println("0. Commands - This one! Gives you a list of all the commands");
+                    System.out.println("1. stats - Displays stats");
+                    System.out.println("2. help - Tells you how to play the game");
+                    System.out.println("3. event - perform events");
+                    System.out.println(
+                            "4. beg - play a mini game to beg people for money. If you win you gain money, but you can lose too!");
+                    System.out.println("5. increaseage - Increase your age, and a random event will happen");
+                    System.out.println("6. gambling - blackjack, roulette, slots");
+                    System.out.println("7. leavegame - Quit the program");
                 case "event":
                 case "increaseage":
+                    Scanner in = new Scanner(System.in); // needed in every method to call for a user input
+                    System.out.println(
+                            "-------------------- ARE YOU SURE YOU WANT TO INCREASE YOUR AGE? (Y/N) --------------------");
+                    String increaseAgeReponse = in.nextLine();
+
+                    // checks if the user wants to quit or not
+                    if (increaseAgeReponse.equalsIgnoreCase("y")) { // ends the code
+                        ageStats++;
+                        resetI = true;
+                        System.out.println("You are " + ageStats + " years old");
+                        randomAgeEvents();
+                        return;
+                    } else if (increaseAgeReponse.equalsIgnoreCase("n")) { // returns back to regular useage
+                        return;
+                    } else { // err message
+                        System.out.println("Please input Y or N, rerun the command to try again");
+                    }
+                    System.out.println("----------------------------------------");
+                    return;
                 case "gambling":
+                    Scanner youwanttobespecial = new Scanner(System.in); // needed in every method to call for a user
+                                                                         // input
+                    System.out.println("-------------------- PICK A NUMBER BETWEEN ONE AND THREE --------------------");
+                    System.out.println("1 for BlackJack, 2 for roulette, 3 for slots");
+                    int gamblingResponse = youwanttobespecial.nextInt();
+
+                    // checks if the user wants to quit or not
+                    if (gamblingResponse == 1) { // ends the code
+                        blackJack();
+                        return;
+                    } else if (gamblingResponse == 2) { // returns back to regular useage
+                        roulette();
+                        return;
+                    } else if (gamblingResponse == 3) {
+                        slots();
+                        return;
+                    } else { // err message
+                        System.out.println("Please input a number between 1 and 3, rerun the command to try again");
+                    }
+                    System.out.println("----------------------------------------");
                 case "beg":
                     boolean winner = hilow();
                     if (winner == true) {
@@ -211,19 +293,20 @@ public class cpt {
                         netWorth += winnings;
                         System.out.println("You won: " + winnings);
                         System.out.println("Your new networth is: " + netWorth);
+                    } else {
+                        int winnings = (int) (1000 * Math.random() + 1);
+                        netWorth -= winnings;
+                        System.out.println("You lost: " + winnings);
+                        System.out.println("Your new networth is: " + netWorth);
                     }
-
                     return;
                 // randomize a number between 1 and 3 to play the different types of games
                 case "leavegame":
+                    resetI = true;
                     leavegame();
                     return;
                 default:
-                    System.out.println("Unknown command, make sure it exists and try again!"); // FIGURE OUT A WAY TO
-                                                                                               // BREAK THIS SYSTEM, AND
-                                                                                               // ASK FOR THE REQUEST
-                                                                                               // AGAIN AFTER REQUEST
-                                                                                               // DONE
+                    System.out.println("Unknown command, make sure it exists and try again!");
             }
         } else {
             System.out.println("Unknown command, please make sure it exists and your command starts with \"!\"");
@@ -261,6 +344,7 @@ public class cpt {
             for (int i = 1; i > 0; i++) { // counts the amount of commands that have occured
                 if (i % 50 == 0) {
                     ageStats++;
+                    randomAgeEvents();
                 }
                 System.out.println("Command count: " + i); // REMOVE ONLY FOR DEBUGGING
                 if (alive != true) {
@@ -279,7 +363,7 @@ public class cpt {
                 if (resetI == true) { // if the method is not an essential method, such as checking stats it will not
                                       // increase age stat
                     resetI = false;
-                    i = 0;
+                    i--;
                 }
             }
         } while (alive == true);
