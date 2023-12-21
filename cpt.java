@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 // FIX wrap line length
 public class cpt {
-    // ---------------------------------------------------------------VARIABLES------------------------------------------
+    // ---------------------------------------------------------------VARIABLES------------------------------------------------
     // always declare them here, and with public static before the variable
     public static int healthStats = 100, happinessStats = 100, intelligenceStats = 50, ageStats = 1;
     public static double netWorth = 0;
@@ -23,6 +23,13 @@ public class cpt {
             random--;
             String event = babyEvents[random];
             callEventMethodBaby(event);
+        } else if ((ageStats <= 18) && (ageStats >=4)) {
+            String[] childEvents = { "hitByBus", "bullyEncounter", "fallDownStairs", "attackedBySquirrel", "faceplant", "goodGrades", 
+            "madeFriend", "ateGoodCandy", "learnedNewSkill", "goodPoopSession" };
+            int random = (int) (10 * Math.random() + 1);
+            random--;
+            String event = childEvents[random];
+            callEventMethodChild(event);
         }
     }
 
@@ -60,7 +67,7 @@ public class cpt {
                 System.out.println("You learned a new skill as a baby! +20% intelligence. Your currernt intelligence is: " + intelligenceStats);
                 break;
             case "gotAPet":
-                happinessStats +=50;
+                happinessStats += 50;
                 System.out.println("You got a pet dog! You named him Gojo Satoru. +50% happiness. Your current happiness is: " + happinessStats);
                 break;
             default:
@@ -68,6 +75,60 @@ public class cpt {
         }
     }
 
+    public static void callEventMethodChild(String eventName) {
+        switch (eventName) {
+            case "hitByBus":
+                healthStats -= 50;
+                happinessStats -=20;
+                System.out.println("You were hit by a bus! Ouchie!! -50% health and -20% happiness. Your current health is: " 
+                + healthStats + " and your current happiness is: " + happinessStats);
+                break;
+            case "bullyEncounter":
+                happinessStats -= 30;
+                System.out.println("You were bullied by a bully named Dio Brando. -30% happiness. Your current happiness is: " + happinessStats);
+                break;
+            case "fallDownStairs":
+                healthStats -= 20;
+                System.out.println("You fell down the stairs because you didnt look where you were walking. -20% health. Your current health is: " + healthStats);
+                break;
+            case "attackedBySquirrel":
+                healthStats -=10;
+                System.out.println("A squirrel mauled you. -10% health. Your current health is: " + healthStats);
+                break;
+            case "faceplant":
+                intelligenceStats -=20;
+                System.out.println("You fell and hit your head hard. -20% intelligence. Your current intelligence is: " + intelligenceStats);
+                break;
+            case "goodGrades":
+                happinessStats +=20;
+                intelligenceStats +=10;
+                System.out.println("You got a good mark on your last test! +20% happiness and +10% intelligence. Your current health is: " 
+                + healthStats + " and your current intelligence is: " + intelligenceStats);
+                break;
+            case "madeFriend":
+                happinessStats +=30;
+                System.out.println("You made a new friend! +30% health. Your current health is" + healthStats);
+                break;
+            case "ateGoodCandy":
+                happinessStats +=30;
+                healthStats +=10;
+                System.out.println("You had some super yummy candy. +30% happiness and +10% health. Your current happiness is: " +
+                happinessStats + " and your current health is: " + healthStats);
+                break;
+            case "learnedNewSkill":
+                intelligenceStats +=20;
+                System.out.println("You learned a new skill after months of hard work. +20% intelligence. Your current intelligence is: " + intelligenceStats);
+                break;
+            case "goodPoopSession":
+                happinessStats += 50;
+                healthStats += 20;
+                System.out.println("You had a massive poop on the toilet and now you feel amazing. +50% happiness and +20% health. Your current happiness is: " 
+                + happinessStats + " and your current health is: " + healthStats);
+                break;
+            default:
+                break;
+        }
+    }
     public static void stats() { // command to print out the stats of a player
         System.out.println("-------------------- STATS --------------------");
         System.out.println("Health: " + healthStats);
