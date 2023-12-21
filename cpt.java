@@ -16,6 +16,12 @@ public class cpt {
     // where all the commands for the game are
 
     public static void randomAgeEvents() {
+        if ((ageStats <= 3) && (ageStats >= 0)) { // baby events 
+            String[] babyEvents = {"pneumonia", "flu", "gotDropped", "noCake", "reallyGoodMilk", "newToy", "learnedNewSkill", "gotAPet"};
+            int random = (int) (8 * Math.random()+1);
+            random--;
+            
+        }
 
     }
 
