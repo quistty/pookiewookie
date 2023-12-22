@@ -14,6 +14,17 @@ public class cpt {
 
     // ----------------------------------------------------------------COMMANDS------------------------------------------------
     // where all the commands for the game are
+    public static String deathFromStats() {
+        alive = false;
+        String[] randomDeaths = { "cancer", "flu", "heart attack", "cardiac arrest",
+                "bleeding out from little timmy stabbing you", "covid-19",
+                "set foot in oblock", "heart dissease", "stroke", "diabeties", "Stubbed toe", "Liver disease",
+                "Struck by car", "Struck by lightning", "Died in a submarine (titan submersible from oceangate)" };
+        int randomDeathNumber = (int) (15 * Math.random() + 1);
+        randomDeathNumber--;
+        String randomdeathString = randomDeaths[randomDeathNumber];
+        return randomdeathString;
+    }
 
     public static void blackJack() {
 
@@ -28,6 +39,8 @@ public class cpt {
     }
 
     public static void randomAgeEvents() {
+        System.out.println("Happy birthday! You turned " + ageStats + " years old!");
+
         if ((ageStats <= 3) && (ageStats >= 0)) { // baby events
             String[] babyEvents = { "pneumonia", "flu", "gotDropped", "noCake", "reallyGoodMilk", "newToy",
                     "learnedNewSkill", "gotAPet" };
@@ -199,7 +212,7 @@ public class cpt {
         // System.out.println("BLAHHHHHHHHHHHHHHHHHH" + correctNum); // only used for
         // debugging ------------------ REMOVE IN FINAL VERSION ------------------------
         while (numGuesses < 7) {
-            System.out.println("Input a number between 1 and 25: ");
+            System.out.println("Input a NUMBER between 1 and 25: ");
             guess = in.nextInt();
             numGuesses++;
             if (guess == correctNum) {
@@ -207,10 +220,14 @@ public class cpt {
                 winner = true;
                 numGuesses = 5;
                 happinessStats++; // increases happiness due to a win
+                break;
             } else if (guess > correctNum) {
                 System.out.println("Too high, try again!");
-            } else {
+            } else if (guess < correctNum) {
                 System.out.println("Too low, try again!");
+            } else {
+                System.out.println("Incorrect input! how did you get here?");
+                numGuesses = 1000000000;
             }
         }
         if (!winner) {
@@ -251,13 +268,14 @@ public class cpt {
                     System.out.println("0. Commands - This one! Gives you a list of all the commands");
                     System.out.println("1. stats - Displays stats");
                     System.out.println("2. help - Tells you how to play the game");
-                    System.out.println("3. event - perform events");
+                    System.out.println("3. work - work at your job, so you don't get fired and to gain money!");
                     System.out.println(
                             "4. beg - play a mini game to beg people for money. If you win you gain money, but you can lose too!");
                     System.out.println("5. increaseage - Increase your age, and a random event will happen");
                     System.out.println("6. gambling - blackjack, roulette, slots");
-                    System.out.println("7. leavegame - Quit the program");
-                case "event":
+                    System.out.println("7. buy - buy items to add to your inventory!");
+                    System.out.println("8. leavegame - Quit the program");
+                    return;
                 case "increaseage":
                     Scanner in = new Scanner(System.in); // needed in every method to call for a user input
                     System.out.println(
@@ -266,7 +284,6 @@ public class cpt {
 
                     // checks if the user wants to quit or not
                     if (increaseAgeReponse.equalsIgnoreCase("y")) { // ends the code
-                        System.out.println("see if this runs");
                         ageStats++;
                         resetI = true;
                         System.out.println("You are " + ageStats + " years old");
@@ -300,6 +317,7 @@ public class cpt {
                         System.out.println("Please input a number between 1 and 3, rerun the command to try again");
                     }
                     System.out.println("----------------------------------------");
+                    return;
                 case "beg":
                     boolean winner = hilow();
                     if (winner == true) {
@@ -321,6 +339,7 @@ public class cpt {
                     return;
                 default:
                     System.out.println("Unknown command, make sure it exists and try again!");
+                    return;
             }
         } else {
             System.out.println("Unknown command, please make sure it exists and your command starts with \"!\"");
@@ -332,7 +351,7 @@ public class cpt {
         Scanner in = new Scanner(System.in);
         if (!beginnerInformation) {
             beginnerInformation = true;
-            System.out.println("Welcome to this game, the rules are 1. this game is fun. 2. i like chocolate");
+            System.out.println("Welcome to pookiewookie, a game made by Gianluca and David");
             System.out.println("\n");
             System.out.println("What username would you like for your character?");
             String userName = in.nextLine();
@@ -347,7 +366,7 @@ public class cpt {
             System.out.println("----------------------------------------");
             System.out.println("To advance in this game, you must perform commands to build your player's profile.");
             System.out.println("\n");
-            System.out.println("Try a command by saying \"!stats\".");
+            System.out.println("Try a command by saying \"!stats\" or \"!commands\".");
             command = in.nextLine();
             commandProcess(command);
             System.out.println(
@@ -356,7 +375,9 @@ public class cpt {
 
         do {
             for (int i = 1; i > 0; i++) { // counts the amount of commands that have occured
+                System.out.println("command count: " + i);
                 if (i % 50 == 0) {
+                    System.out.println("BOSS ITS RUNNING AGAIN: " + i);
                     ageStats++;
                     randomAgeEvents();
                 }
@@ -365,12 +386,18 @@ public class cpt {
                     break;
                 }
 
+                if (healthStats <= 0) {
+                    String deathCause;
+                    deathCause = deathFromStats();
+                    System.out.println("You died from: " + deathCause);
+                    break;
+                }
                 // when ages goes up, by 1, do random event
 
                 // THIS SHOULD BE WHERE ALL THE CODE THAT HAPPENS AFTER A CERTAIN AGE OR RANDOM
                 // STUFF OCCURS GOES.
 
-                System.out.println("Input a command");
+                System.out.println("Input a command:");
                 command = in.nextLine();
                 commandProcess(command);
                 commandCountStats++;
