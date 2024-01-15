@@ -4,13 +4,18 @@ import java.util.Scanner;
 public class cpt {
     // ---------------------------------------------------------------VARIABLES------------------------------------------------
     // always declare them here, and with public static before the variable
-    public static int healthStats = 100, happinessStats = 100, intelligenceStats = 50, ageStats = 1;
+    public static int healthStats = 300, happinessStats = 100, intelligenceStats = 50, ageStats = 1;
     public static double netWorth = 0;
     public static boolean beginnerInformation = false; // so beginner information runs once
     public static String command;
     public static boolean alive = true;
     public static boolean resetI = false;
     public static int commandCountStats = 1;
+    public static boolean jobStatus = false;
+    public static String jobTitle = "none";
+    public static String schoolTitle = "none";
+    public static int workCount = 0;
+    public static boolean schoolStatus = false;
 
     // ----------------------------------------------------------------COMMANDS------------------------------------------------
     // where all the commands for the game are
@@ -39,6 +44,7 @@ public class cpt {
     }
 
     public static void randomAgeEvents() {
+        Scanner in = new Scanner(System.in);
         System.out.println("Happy birthday! You turned " + ageStats + " years old!");
 
         if ((ageStats <= 3) && (ageStats >= 0)) { // baby events
@@ -48,14 +54,37 @@ public class cpt {
             random--;
             String event = babyEvents[random];
             callEventMethodBaby(event);
-        } else if ((ageStats <= 18) && (ageStats >= 4)) {
+        } else if ((ageStats < 18) && (ageStats >= 4)) {
             String[] childEvents = { "hitByBus", "bullyEncounter", "fallDownStairs", "attackedBySquirrel", "faceplant",
                     "goodGrades",
-                    "madeFriend", "ateGoodCandy", "learnedNewSkill", "goodPoopSession" };
+                    "madeFriend", "ateGoodCandy", "learnedNewSkill", "goodPoopSession", "playedAtRecital", };
             int random = (int) (10 * Math.random() + 1);
             random--;
             String event = childEvents[random];
             callEventMethodChild(event);
+        } else if (ageStats == 18) {
+            System.out.println(
+                    "You graduated from high school, what will you do now? Type 1 to look for a job, 2 to apply to university.");
+            int graduationDecision = in.nextInt();
+            if (graduationDecision == 1) {
+                System.out.println("Currently these jobs are hiring. Pick a job!");
+                jobTitle = pickajob();
+            } else if (graduationDecision == 2) {
+                System.out.println("Apply to a school!");
+                applytoaSchool();
+            } else {
+
+            }
+
+        } else if ((ageStats <= 24) && (ageStats > 18)) {
+            String[] studentEvents = { "drugdealer", "failedExam", "loudNoise", };
+            if (workCount <= 12) {
+                System.out.println(
+                        "You were fired at your job for working too little. You also lost -20% intelligence. ");
+                jobTitle = "none";
+                jobStatus = false;
+                intelligenceStats -= 20;
+            }
         }
     }
 
@@ -148,7 +177,7 @@ public class cpt {
                 break;
             case "madeFriend":
                 happinessStats += 30;
-                System.out.println("You made a new friend! +30% health. Your current health is" + healthStats);
+                System.out.println("You made a new friend! +30% health. Your current health is: " + healthStats);
                 break;
             case "ateGoodCandy":
                 happinessStats += 30;
@@ -170,6 +199,12 @@ public class cpt {
                         "You had a massive poop on the toilet and now you feel amazing. +50% happiness and +20% health. Your current happiness is: "
                                 + happinessStats + " and your current health is: " + healthStats);
                 break;
+            case "playedAtRecital":
+                happinessStats += 30;
+                intelligenceStats += 10;
+                System.out.println(
+                        "You played well at your recital! +30% happiness and +10% intelligence. Your current happiness is: "
+                                + happinessStats + " and your current health is: " + healthStats);
             default:
                 break;
         }
@@ -183,7 +218,238 @@ public class cpt {
         System.out.println("Networth: " + netWorth);
         System.out.println("Age: " + ageStats);
         System.out.println("Command Count: " + commandCountStats);
+        System.out.println("Job title: " + jobTitle);
         System.out.println("----------------------------------------");
+    }
+
+    public static String pickajob() {
+        if (jobStatus == true) {
+            System.out.println("No more than 1 job in this game, quit your job to get a new one!");
+            return jobTitle;
+        }
+        Scanner in = new Scanner(System.in);
+        // print all jobs, with the title and the pay per yea
+        System.out.println("1. School Janitor - $38,480 a year ($20/hr)");
+        System.out.println("2. Barista - $62,400 a year ($30/hr)");
+        System.out.println("3. Car Salesman - $52,000 a year ($25/hr)");
+        System.out.println("4. Groccery store clerk - $31,200 a year ($15/hr)");
+        System.out.println("5. Administrative Assistant - $47,840 a year ($23/hr)");
+        System.out.println("6. Registered nurse - $83,240 a year ($23/hr)");
+        System.out.println("6. Engineer 1 - $72,800 a year ($35/hr)");
+        System.out.println("7. Engineer 2 - $72,800 a year ($35/hr)");
+        System.out.println("8. Project manager - $104,000 a year ($50/hr)");
+        System.out.println("Pick a job by inputting the number corresponding to the job");
+        int jobNumber = in.nextInt();
+        switch (jobNumber) {
+            case 1:
+                if (intelligenceStats > 10) {
+                    jobTitle = "Janitor";
+                    System.out.println("You were hired as a janitor, you start tomorrow.");
+                    jobStatus = true;
+                } else {
+                    System.out.println("You were not hired, use !job to try again!");
+                }
+                break;
+            case 2:
+                if (intelligenceStats > 10) {
+                    jobTitle = "Barista";
+                    System.out.println("You were hired as a Barista, you start tomorrow.");
+                    jobStatus = true;
+                } else {
+                    System.out.println("You were not hired, use !job to try again!");
+                }
+                break;
+            case 3:
+                if (intelligenceStats > 20) {
+                    jobTitle = "Car Salesman";
+                    System.out.println("You were hired as a car salesman, you start tomorrow.");
+                    jobStatus = true;
+                } else {
+                    System.out.println("You were not hired, use !job to try again!");
+                }
+                break;
+            case 4:
+                if (intelligenceStats > 10) {
+                    jobTitle = "Groccey Store clerk";
+                    System.out.println("You were hired as a Groccey Store clerk, you start tomorrow.");
+                    jobStatus = true;
+                } else {
+                    System.out.println("You were not hired, use !job to try again!");
+                }
+
+                break;
+            case 5:
+                if (intelligenceStats > 30) {
+                    jobTitle = "Administrative Assistant";
+                    System.out.println("You were hired as a Administrative Assistant, you start tomorrow.");
+                    jobStatus = true;
+                } else {
+                    System.out.println("You were not hired, use !job to try again!");
+                }
+                break;
+            case 6:
+                if (intelligenceStats > 300) {
+                    jobTitle = "Registered nurse";
+                    System.out.println("You were hired as a Registered nurse, you start tomorrow.");
+                    jobStatus = true;
+                } else {
+                    System.out.println("You were not hired, use !job to try again!");
+                }
+                break;
+            case 7:
+                if (intelligenceStats > 300) {
+                    jobTitle = "Engineer 1";
+                    System.out.println("You were hired as an Engineer 1, you start tomorrow.");
+                    jobStatus = true;
+                } else {
+                    System.out.println("You were not hired, use !job to try again!");
+                }
+                break;
+            case 8:
+                if (intelligenceStats > 300) {
+                    jobTitle = "Engineer 2";
+                    System.out.println("You were hired as an Engineer 2, you start tomorrow.");
+                    jobStatus = true;
+                } else {
+                    System.out.println("You were not hired, use !job to try again!");
+                }
+                break;
+            case 9:
+                if (intelligenceStats > 300) {
+                    jobTitle = "Project Manager";
+                    System.out.println("You were hired as a Project Manager, you start tomorrow.");
+                    jobStatus = true;
+                } else {
+                    System.out.println("You were not hired, use !job to try again!");
+                }
+                break;
+            default:
+                System.out.println(
+                        "dude print a number between 1 and 9, is it that hard?? Use !job to get this prompt again. grrrrrrrrrrrr.");
+                break;
+        }
+        return jobTitle;
+
+    }
+
+    public static void workGame() {
+        if (jobStatus == false) {
+            System.out.println("You don't have a job, use !job to try get a job!");
+            return;
+        }
+        if (workCount > 14) {
+            System.out.println("Stop working overtime! Your family loves and needs you!");
+            return;
+        }
+        switch (jobTitle) {
+            case "Janitor":
+                netWorth += 3206;
+                System.out.println("You got paid $3206 this month! Good work!");
+                return;
+            default:
+                System.out.println("How on earth are u here... thats a big ass bug bro");
+                return;
+        }
+    }
+
+    public static String applytoaSchool() {
+        if (schoolStatus == true) {
+            System.out.println("No more than 1 school in this game, quit your job to get a new one!");
+            return jobTitle;
+        }
+        Scanner in = new Scanner(System.in);
+        // print all jobs, with the title and the pay per yea
+        System.out.println("1. School Janitor - $38,480 a year ($20/hr)");
+        System.out.println("2. Barista - $62,400 a year ($30/hr)");
+        System.out.println("3. Car Salesman - $52,000 a year ($25/hr)");
+        System.out.println("4. Groccery store clerk - $31,200 a year ($15/hr)");
+        System.out.println("5. Administrative Assistant - $47,840 a year ($23/hr)");
+        System.out.println("6. Registered nurse - $83,240 a year ($23/hr)");
+        System.out.println("6. Engineer 1 - $72,800 a year ($35/hr)");
+        System.out.println("7. Engineer 2 - $72,800 a year ($35/hr)");
+        System.out.println("8. Project manager - $104,000 a year ($50/hr)");
+        System.out.println("Pick a job by inputting the number corresponding to the job");
+        int jobNumber = in.nextInt();
+        switch (jobNumber) {
+            case 1:
+                if (intelligenceStats > 10) {
+                    jobTitle = "Janitor";
+                    System.out.println("You were hired as a janitor, you start tomorrow.");
+                    jobStatus = true;
+                } else {
+                    System.out.println("You were not hired, use !job to try again!");
+                }
+            case 2:
+                if (intelligenceStats > 10) {
+                    jobTitle = "Barista";
+                    System.out.println("You were hired as a Barista, you start tomorrow.");
+                    jobStatus = true;
+                } else {
+                    System.out.println("You were not hired, use !job to try again!");
+                }
+            case 3:
+                if (intelligenceStats > 20) {
+                    jobTitle = "Car Salesman";
+                    System.out.println("You were hired as a car salesman, you start tomorrow.");
+                    jobStatus = true;
+                } else {
+                    System.out.println("You were not hired, use !job to try again!");
+                }
+
+            case 4:
+                if (intelligenceStats > 10) {
+                    jobTitle = "Groccey Store clerk";
+                    System.out.println("You were hired as a Groccey Store clerk, you start tomorrow.");
+                    jobStatus = true;
+                } else {
+                    System.out.println("You were not hired, use !job to try again!");
+                }
+            case 5:
+                if (intelligenceStats > 30) {
+                    jobTitle = "Administrative Assistant";
+                    System.out.println("You were hired as a Administrative Assistant, you start tomorrow.");
+                    jobStatus = true;
+                } else {
+                    System.out.println("You were not hired, use !job to try again!");
+                }
+            case 6:
+                if (intelligenceStats > 300) {
+                    jobTitle = "Registered nurse";
+                    System.out.println("You were hired as a Registered nurse, you start tomorrow.");
+                    jobStatus = true;
+                } else {
+                    System.out.println("You were not hired, use !job to try again!");
+                }
+            case 7:
+                if (intelligenceStats > 300) {
+                    jobTitle = "Engineer 1";
+                    System.out.println("You were hired as an Engineer 1, you start tomorrow.");
+                    jobStatus = true;
+                } else {
+                    System.out.println("You were not hired, use !job to try again!");
+                }
+            case 8:
+                if (intelligenceStats > 300) {
+                    jobTitle = "Engineer 2";
+                    System.out.println("You were hired as an Engineer 2, you start tomorrow.");
+                    jobStatus = true;
+                } else {
+                    System.out.println("You were not hired, use !job to try again!");
+                }
+            case 9:
+                if (intelligenceStats > 300) {
+                    jobTitle = "Project Manager";
+                    System.out.println("You were hired as a Project Manager, you start tomorrow.");
+                    jobStatus = true;
+                } else {
+                    System.out.println("You were not hired, use !job to try again!");
+                }
+            default:
+                System.out.println(
+                        "dude print a number between 1 and 9, is it that hard?? Use !job to get this prompt again. grrrrrrrrrrrr.");
+                return jobTitle;
+        }
+
     }
 
     public static void leavegame() { // if the player wants to leave the game
@@ -211,7 +477,7 @@ public class cpt {
         int guess;
         // System.out.println("BLAHHHHHHHHHHHHHHHHHH" + correctNum); // only used for
         // debugging ------------------ REMOVE IN FINAL VERSION ------------------------
-        while (numGuesses < 7) {
+        while (numGuesses < 6) {
             System.out.println("Input a NUMBER between 1 and 25: ");
             guess = in.nextInt();
             numGuesses++;
@@ -337,6 +603,10 @@ public class cpt {
                     resetI = true;
                     leavegame();
                     return;
+                case "work":
+                    workCount++;
+                    workGame();
+                    return;
                 default:
                     System.out.println("Unknown command, make sure it exists and try again!");
                     return;
@@ -363,6 +633,7 @@ public class cpt {
             System.out.println("Intelligence: " + intelligenceStats);
             System.out.println("Age: " + ageStats);
             System.out.println("Networth: " + netWorth);
+            System.out.println("Job title: " + jobTitle);
             System.out.println("----------------------------------------");
             System.out.println("To advance in this game, you must perform commands to build your player's profile.");
             System.out.println("\n");
@@ -377,7 +648,6 @@ public class cpt {
             for (int i = 1; i > 0; i++) { // counts the amount of commands that have occured
                 System.out.println("command count: " + i);
                 if (i % 50 == 0) {
-                    System.out.println("BOSS ITS RUNNING AGAIN: " + i);
                     ageStats++;
                     randomAgeEvents();
                 }
