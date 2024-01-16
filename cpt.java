@@ -16,6 +16,7 @@ public class cpt {
     public static String schoolTitle = "none";
     public static int workCount = 0;
     public static boolean schoolStatus = false;
+    public static boolean resetSpecificI = false;
 
     // ----------------------------------------------------------------COMMANDS------------------------------------------------
     // where all the commands for the game are
@@ -692,6 +693,10 @@ public class cpt {
                     System.out.println("6. gambling - blackjack, roulette, slots");
                     System.out.println("7. buy - buy items to add to your inventory!");
                     System.out.println("8. leavegame - Quit the program");
+                    System.out.println("9. job - allows you to obtain a job");
+                    System.out.println("10. work - allows you to work at your job. Required 12 times yearly");
+                    System.out.println("11. job - allows you to work at your job");
+                    System.out.println("12. quit - allows you to quit your job.");
                     return;
                 case "increaseage":
                     Scanner in = new Scanner(System.in); // needed in every method to call for a user input
@@ -702,7 +707,7 @@ public class cpt {
                     // checks if the user wants to quit or not
                     if (increaseAgeReponse.equalsIgnoreCase("y")) { // ends the code
                         ageStats++;
-                        resetI = true;
+                        resetSpecificI = true;
                         System.out.println("You are " + ageStats + " years old");
                         randomAgeEvents();
                         return;
@@ -760,6 +765,8 @@ public class cpt {
                     return;
                 case "job":
                     pickajob();
+                case "quit":
+                    quitJob();
                 default:
                     System.out.println("Unknown command, make sure it exists and try again!");
                     return;
@@ -800,6 +807,16 @@ public class cpt {
         do {
             for (int i = 1; i > 0; i++) { // counts the amount of commands that have occured
                 System.out.println("command count: " + i);
+                if (resetI == true) { // if the method is not an essential method, such as checking stats it will not
+                    // increase age stat
+                    resetI = false;
+                    i--;
+                }
+                if (resetSpecificI == true) { // if the user just went up in age and increases their age with the
+                                              // command, this catches that and prevents multiple age increases at once
+                    resetSpecificI = false;
+                    i = 1;
+                }
                 if (i % 50 == 0) {
                     ageStats++;
                     randomAgeEvents();
@@ -824,11 +841,7 @@ public class cpt {
                 command = in.nextLine();
                 commandProcess(command);
                 commandCountStats++;
-                if (resetI == true) { // if the method is not an essential method, such as checking stats it will not
-                                      // increase age stat
-                    resetI = false;
-                    i--;
-                }
+
             }
         } while (alive == true);
 
