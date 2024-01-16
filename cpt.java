@@ -78,7 +78,8 @@ public class cpt {
 
         } else if ((ageStats <= 24) && (ageStats > 18)) {
             String[] studentEvents = { "drugdealer", "failedExam", "loudNoise", };
-            if (workCount <= 12) {
+
+            if (workCount <= 12 && jobStatus == true) {
                 System.out.println(
                         "You were fired at your job for working too little. You also lost -20% intelligence. ");
                 jobTitle = "none";
@@ -240,39 +241,68 @@ public class cpt {
         System.out.println("8. Project manager - $104,000 a year ($50/hr)");
         System.out.println("Pick a job by inputting the number corresponding to the job");
         int jobNumber = in.nextInt();
+        boolean jobMiniGameWinnings;
         switch (jobNumber) {
             case 1:
                 if (intelligenceStats > 10) {
-                    jobTitle = "Janitor";
-                    System.out.println("You were hired as a janitor, you start tomorrow.");
-                    jobStatus = true;
+                    jobMiniGameWinnings = hilow();
+                    if (jobMiniGameWinnings == true) {
+                        jobTitle = "Janitor";
+                        System.out.println("You were hired as a janitor, you start tomorrow.");
+                        jobStatus = true;
+                    } else {
+                        System.out.println("You were not hired, use !job to try again!");
+                        break;
+                    }
+
                 } else {
                     System.out.println("You were not hired, use !job to try again!");
                 }
                 break;
             case 2:
                 if (intelligenceStats > 10) {
-                    jobTitle = "Barista";
-                    System.out.println("You were hired as a Barista, you start tomorrow.");
-                    jobStatus = true;
+                    jobMiniGameWinnings = hilow();
+                    if (jobMiniGameWinnings == true) {
+                        jobTitle = "Barista";
+                        System.out.println("You were hired as a Barista, you start tomorrow.");
+                        jobStatus = true;
+                    } else {
+                        System.out.println("You were not hired, use !job to try again!");
+                        break;
+                    }
+
                 } else {
                     System.out.println("You were not hired, use !job to try again!");
                 }
                 break;
             case 3:
                 if (intelligenceStats > 20) {
-                    jobTitle = "Car Salesman";
-                    System.out.println("You were hired as a car salesman, you start tomorrow.");
-                    jobStatus = true;
+                    jobMiniGameWinnings = hilow();
+                    if (jobMiniGameWinnings == true) {
+                        jobTitle = "Car Salesman";
+                        System.out.println("You were hired as a car salesman, you start tomorrow.");
+                        jobStatus = true;
+                    } else {
+                        System.out.println("You were not hired, use !job to try again!");
+                        break;
+                    }
+
                 } else {
                     System.out.println("You were not hired, use !job to try again!");
                 }
                 break;
             case 4:
                 if (intelligenceStats > 10) {
-                    jobTitle = "Groccey Store clerk";
-                    System.out.println("You were hired as a Groccey Store clerk, you start tomorrow.");
-                    jobStatus = true;
+                    jobMiniGameWinnings = hilow();
+                    if (jobMiniGameWinnings == true) {
+                        jobTitle = "Groccey Store clerk";
+                        System.out.println("You were hired as a Groccey Store clerk, you start tomorrow.");
+                        jobStatus = true;
+                    } else {
+                        System.out.println("You were not hired, use !job to try again!");
+                        break;
+                    }
+
                 } else {
                     System.out.println("You were not hired, use !job to try again!");
                 }
@@ -280,45 +310,79 @@ public class cpt {
                 break;
             case 5:
                 if (intelligenceStats > 30) {
-                    jobTitle = "Administrative Assistant";
-                    System.out.println("You were hired as a Administrative Assistant, you start tomorrow.");
-                    jobStatus = true;
+                    jobMiniGameWinnings = hilow();
+                    if (jobMiniGameWinnings == true) {
+                        jobTitle = "Administrative Assistant";
+                        System.out.println("You were hired as a Administrative Assistant, you start tomorrow.");
+                        jobStatus = true;
+                    } else {
+                        System.out.println("You were not hired, use !job to try again!");
+                        break;
+                    }
+
                 } else {
                     System.out.println("You were not hired, use !job to try again!");
                 }
                 break;
             case 6:
-                if (intelligenceStats > 300) {
-                    jobTitle = "Registered nurse";
-                    System.out.println("You were hired as a Registered nurse, you start tomorrow.");
-                    jobStatus = true;
+                if (intelligenceStats > 60) {
+                    jobMiniGameWinnings = hilow();
+                    if (jobMiniGameWinnings == true) {
+                        jobTitle = "Registered nurse";
+                        System.out.println("You were hired as a Registered nurse, you start tomorrow.");
+                        jobStatus = true;
+                    } else {
+                        System.out.println("You were not hired, use !job to try again!");
+                        break;
+                    }
+
                 } else {
                     System.out.println("You were not hired, use !job to try again!");
                 }
                 break;
             case 7:
-                if (intelligenceStats > 300) {
-                    jobTitle = "Engineer 1";
-                    System.out.println("You were hired as an Engineer 1, you start tomorrow.");
-                    jobStatus = true;
+                if (intelligenceStats > 70) {
+                    jobMiniGameWinnings = hilow();
+                    if (jobMiniGameWinnings == true) {
+                        jobTitle = "Engineer 1";
+                        System.out.println("You were hired as an Engineer 1, you start tomorrow.");
+                        jobStatus = true;
+                    } else {
+                        System.out.println("You were not hired, use !job to try again!");
+                        break;
+                    }
+
                 } else {
                     System.out.println("You were not hired, use !job to try again!");
                 }
                 break;
             case 8:
-                if (intelligenceStats > 300) {
-                    jobTitle = "Engineer 2";
-                    System.out.println("You were hired as an Engineer 2, you start tomorrow.");
-                    jobStatus = true;
+                if (intelligenceStats > 70) {
+                    jobMiniGameWinnings = hilow();
+                    if (jobMiniGameWinnings == true) {
+                        jobTitle = "Engineer 2";
+                        System.out.println("You were hired as an Engineer 2, you start tomorrow.");
+                        jobStatus = true;
+                    } else {
+                        System.out.println("You were not hired, use !job to try again!");
+                        break;
+                    }
                 } else {
                     System.out.println("You were not hired, use !job to try again!");
                 }
                 break;
             case 9:
-                if (intelligenceStats > 300) {
-                    jobTitle = "Project Manager";
-                    System.out.println("You were hired as a Project Manager, you start tomorrow.");
-                    jobStatus = true;
+                if (intelligenceStats > 50) {
+                    jobMiniGameWinnings = hilow();
+                    if (jobMiniGameWinnings == true) {
+                        jobTitle = "Project Manager";
+                        System.out.println("You were hired as a Project Manager, you start tomorrow.");
+                        jobStatus = true;
+                    } else {
+                        System.out.println("You were not hired, use !job to try again!");
+                        break;
+                    }
+
                 } else {
                     System.out.println("You were not hired, use !job to try again!");
                 }
@@ -345,7 +409,75 @@ public class cpt {
             case "Janitor":
                 netWorth += 3206;
                 System.out.println("You got paid $3206 this month! Good work!");
-                return;
+                if (workCount > 12) {
+                    System.out.println("You're working overtime! You lose 5% happiness");
+                    happinessStats -= 5;
+                }
+                break;
+            case "Barista":
+                netWorth += 5200;
+                System.out.println("You got paid $5200 this month! Good work");
+                if (workCount > 12) {
+                    System.out.println("You're working overtime! You lose 5% happiness");
+                    happinessStats -= 5;
+                }
+                break;
+            case "Car Salesman":
+                netWorth += 4333;
+                System.out.println("You got paid $4333 this month! Good work!");
+                if (workCount > 12) {
+                    System.out.println("You're working overtime! You lose 5% happiness");
+                    happinessStats -= 5;
+                }
+                break;
+            case "Groccery Store clerk":
+                netWorth += 4333;
+                System.out.println("You got paid $4333 this month! Good work!");
+                if (workCount > 12) {
+                    System.out.println("You're working overtime! You lose 5% happiness");
+                    happinessStats -= 5;
+                }
+                break;
+            case "Administrative Assistant":
+                netWorth += 3986;
+                System.out.println("You got paid $3986 this month! Good work!");
+                if (workCount > 12) {
+                    System.out.println("You're working overtime! You lose 5% happiness");
+                    happinessStats -= 5;
+                }
+                break;
+            case "Registered nurse":
+                netWorth += 6936;
+                System.out.println("You got paid $6936 this month! Good work!");
+                if (workCount > 12) {
+                    System.out.println("You're working overtime! You lose 5% happiness");
+                    happinessStats -= 5;
+                }
+                break;
+            case "Engineer 1":
+                netWorth += 6006;
+                System.out.println("You got paid $6006 this month! Good work!");
+                if (workCount > 12) {
+                    System.out.println("You're working overtime! You lose 5% happiness");
+                    happinessStats -= 5;
+                }
+                break;
+            case "Engineer 2":
+                netWorth += 6006;
+                System.out.println("You got paid $6006 this month! Good work!");
+                if (workCount > 12) {
+                    System.out.println("You're working overtime! You lose 5% happiness");
+                    happinessStats -= 5;
+                }
+                break;
+            case "Project Manager":
+                netWorth += 8666;
+                System.out.println("You got paid $8666 this month! Good work!");
+                if (workCount > 12) {
+                    System.out.println("You're working overtime! You lose 5% happiness");
+                    happinessStats -= 5;
+                }
+                break;
             default:
                 System.out.println("How on earth are u here... thats a big ass bug bro");
                 return;
@@ -450,6 +582,25 @@ public class cpt {
                 return jobTitle;
         }
 
+    }
+
+    public static void quitJob() {
+        Scanner in = new Scanner(System.in); // needed in every method to call for a user input
+        System.out.println("-------------------- ARE YOU SURE YOU WANT TO QUIT YOUR JOB? (Y/N) --------------------");
+        String reponse = in.nextLine();
+
+        // checks if the user wants to quit or not
+        if (reponse.equalsIgnoreCase("y")) { // ends the code
+            workCount = 10000;
+            System.out.println("You quit your job, effective today. use !job to get another job");
+            jobStatus = false;
+            jobTitle = "none";
+        } else if (reponse.equalsIgnoreCase("n")) { // returns back to regular useage
+            return;
+        } else { // err message
+            System.out.println("Please input Y or N, rerun the command to try again");
+        }
+        System.out.println("----------------------------------------");
     }
 
     public static void leavegame() { // if the player wants to leave the game
@@ -607,6 +758,8 @@ public class cpt {
                     workCount++;
                     workGame();
                     return;
+                case "job":
+                    pickajob();
                 default:
                     System.out.println("Unknown command, make sure it exists and try again!");
                     return;
