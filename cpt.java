@@ -237,9 +237,9 @@ public class cpt {
         System.out.println("4. Groccery store clerk - $31,200 a year ($15/hr)");
         System.out.println("5. Administrative Assistant - $47,840 a year ($23/hr)");
         System.out.println("6. Registered nurse - $83,240 a year ($23/hr)");
-        System.out.println("6. Engineer 1 - $72,800 a year ($35/hr)");
-        System.out.println("7. Engineer 2 - $72,800 a year ($35/hr)");
-        System.out.println("8. Project manager - $104,000 a year ($50/hr)");
+        System.out.println("7. Engineer 1 - $72,800 a year ($35/hr)");
+        System.out.println("8. Engineer 2 - $72,800 a year ($35/hr)");
+        System.out.println("9. Project manager - $104,000 a year ($50/hr)");
         System.out.println("Pick a job by inputting the number corresponding to the job");
         int jobNumber = in.nextInt();
         boolean jobMiniGameWinnings;
@@ -592,7 +592,7 @@ public class cpt {
 
         // checks if the user wants to quit or not
         if (reponse.equalsIgnoreCase("y")) { // ends the code
-            workCount = 10000;
+            workCount = 0;
             System.out.println("You quit your job, effective today. use !job to get another job");
             jobStatus = false;
             jobTitle = "none";
@@ -765,8 +765,10 @@ public class cpt {
                     return;
                 case "job":
                     pickajob();
+                    return;
                 case "quit":
                     quitJob();
+                    return;
                 default:
                     System.out.println("Unknown command, make sure it exists and try again!");
                     return;
