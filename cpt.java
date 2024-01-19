@@ -16,7 +16,8 @@ public class cpt {
     public static String schoolTitle = "none";
     public static int workCount = 0;
     public static boolean schoolStatus = false;
-    public static boolean schoolStatusForStudy = false;
+    public static boolean schoolStatusForStudy = false; // created so that when we check if the user is going to school,
+                                                        // it does not count post secondary
     public static boolean resetSpecificI = false;
     public static int schoolYearCount = 0;
 
@@ -49,9 +50,13 @@ public class cpt {
     public static void randomAgeEvents() {
         Scanner in = new Scanner(System.in);
         System.out.println("Happy birthday! You turned " + ageStats + " years old!");
+        if (schoolStatusForStudy == true) {
+            schoolYearCount++;
+        }
         if (schoolStatus == true && schoolYearCount == 5) {
-            intelligenceStats += 50;
-            System.out.println("Congrats! You graduated! You gained 50 intelligence. Your new intelligence is: "
+            intelligenceStats += 100;
+            schoolTitle = "none";
+            System.out.println("Congrats! You graduated! You gained 100 intelligence. Your new intelligence is: "
                     + intelligenceStats);
         }
 
@@ -67,13 +72,11 @@ public class cpt {
                 System.out.println("You are enrolled in MapleWood Elementary School");
                 schoolTitle = "Maplewood Elementary School";
                 schoolStatus = true;
-                schoolStatusForStudy = true;
             }
             if (ageStats == 14) {
                 System.out.println("You are enrolled in Harmony High School");
                 schoolTitle = "Harmony High School";
                 schoolStatus = true;
-                schoolStatusForStudy = true;
             }
             String[] childEvents = { "hitByBus", "bullyEncounter", "fallDownStairs", "attackedBySquirrel", "faceplant",
                     "goodGrades",
@@ -83,6 +86,7 @@ public class cpt {
             String event = childEvents[random];
             callEventMethodChild(event);
         } else if (ageStats == 18) {
+            schoolTitle = "none";
             System.out.println(
                     "You graduated from high school, what will you do now? Type 1 to look for a job, 2 to apply to university.");
             int graduationDecision = in.nextInt();
@@ -239,6 +243,7 @@ public class cpt {
         System.out.println("Networth: " + netWorth);
         System.out.println("Age: " + ageStats);
         System.out.println("Command Count: " + commandCountStats);
+        System.out.println("School: " + schoolTitle);
         System.out.println("Job title: " + jobTitle);
         System.out.println("----------------------------------------");
     }
@@ -509,7 +514,10 @@ public class cpt {
 
     public static void study() {
         Scanner in = new Scanner(System.in);
-
+        if (schoolStatus == false) {
+            System.out.println("Bossman! You need to be enrolled at a school first.");
+            return;
+        }
         System.out.println("Pick how you want to study");
         System.out.println("1. Reading books");
         System.out.println("2. Participate in class");
@@ -546,8 +554,9 @@ public class cpt {
     }
 
     public static String applytoaSchool() {
-        if (schoolStatus == true) {
+        if (schoolStatusForStudy == true || ageStats < 18) {
             System.out.println("No more than 1 school in this game, drop out to get a new one!");
+            System.out.println("you must be 18 or older to get another school");
             return schoolTitle;
         }
         Scanner in = new Scanner(System.in);
@@ -558,9 +567,9 @@ public class cpt {
         System.out.println("4. York - Business ($50,000)");
         System.out.println("5. Western - BioMedical ($70,000)");
         System.out.println("6. McMaster - Accountant ($80,000)");
-        System.out.println("6. Queens - Dental Studies ($175,000)");
-        System.out.println("7. U of T - Neurosurgian doctor ($250,000)");
-        System.out.println("8. Waterloo - Software Engineer ($125,000)");
+        System.out.println("7. Queens - Dental Studies ($175,000)");
+        System.out.println("8. U of T - Neurosurgian doctor ($250,000)");
+        System.out.println("9. Waterloo - Software Engineer ($125,000)");
         System.out.println(
                 "Pick a school by inputting the number corresponding to the school. You pay once you're accepted!");
         int schoolNumber = in.nextInt();
@@ -573,7 +582,7 @@ public class cpt {
                     schoolStatus = true;
                     happinessStats += 8;
                     netWorth -= 30000;
-
+                    schoolStatusForStudy = true;
                     System.out.println("Your new netWorth is: $" + netWorth);
                 } else {
                     System.out.println("You were not accepted, use !school to try again!");
@@ -589,6 +598,7 @@ public class cpt {
                     happinessStats += 8;
                     netWorth -= 40000;
                     schoolStatusForStudy = true;
+
                     System.out.println("Your new netWorth is: $" + netWorth);
                 } else {
                     System.out.println("You were not accepted, use !school to try again!");
@@ -733,7 +743,8 @@ public class cpt {
         if (reponse.equalsIgnoreCase("y")) { // ends the code
             schoolYearCount = 0;
             System.out.println("You dropped out of school, effective today. use !school to go back to school.");
-            schoolStatusForStudy = true;
+            schoolStatusForStudy = false;
+            schoolStatus = false;
             schoolTitle = "none";
         } else if (reponse.equalsIgnoreCase("n")) { // returns back to regular useage
             return;
@@ -834,14 +845,15 @@ public class cpt {
                     System.out.println("8. leavegame - Quit the program");
                     System.out.println("9. job - allows you to obtain a job");
                     System.out.println("10. work - allows you to work at your job. Required 12 times yearly");
-                    System.out.println("11. job - allows you to work at your job");
-                    System.out.println("12. quit - allows you to quit your job.");
-                    System.out.println("13. school - allows you to go to a school.");
+                    System.out.println("11. quit - allows you to quit your job.");
+                    System.out.println("12. school - allows you to go to a school.");
+                    System.out.println("13. study - allows you to increase ur intelligence.");
                     return;
                 case "school":
                     applytoaSchool();
                     return;
                 case "study":
+                    study();
                     return;
                 case "increaseage":
                     Scanner in = new Scanner(System.in); // needed in every method to call for a user input
@@ -957,14 +969,14 @@ public class cpt {
                 if (resetI == true) { // if the method is not an essential method, such as checking stats it will not
                     // increase age stat
                     resetI = false;
-                    i--;
+                    i -= 2;
                 }
                 if (resetSpecificI == true) { // if the user just went up in age and increases their age with the
                                               // command, this catches that and prevents multiple age increases at once
                     resetSpecificI = false;
                     i = 1;
                 }
-                if (i % 50 == 0) {
+                if (i % 20 == 0) {
                     ageStats++;
                     randomAgeEvents();
                 }
