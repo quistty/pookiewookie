@@ -16,7 +16,9 @@ public class cpt {
     public static String schoolTitle = "none";
     public static int workCount = 0;
     public static boolean schoolStatus = false;
+    public static boolean schoolStatusForStudy = false;
     public static boolean resetSpecificI = false;
+    public static int schoolYearCount = 0;
 
     // ----------------------------------------------------------------COMMANDS------------------------------------------------
     // where all the commands for the game are
@@ -47,6 +49,11 @@ public class cpt {
     public static void randomAgeEvents() {
         Scanner in = new Scanner(System.in);
         System.out.println("Happy birthday! You turned " + ageStats + " years old!");
+        if (schoolStatus == true && schoolYearCount == 5) {
+            intelligenceStats += 50;
+            System.out.println("Congrats! You graduated! You gained 50 intelligence. Your new intelligence is: "
+                    + intelligenceStats);
+        }
 
         if ((ageStats <= 3) && (ageStats >= 0)) { // baby events
             String[] babyEvents = { "pneumonia", "flu", "gotDropped", "noCake", "reallyGoodMilk", "newToy",
@@ -56,6 +63,18 @@ public class cpt {
             String event = babyEvents[random];
             callEventMethodBaby(event);
         } else if ((ageStats < 18) && (ageStats >= 4)) {
+            if (ageStats == 6) {
+                System.out.println("You are enrolled in MapleWood Elementary School");
+                schoolTitle = "Maplewood Elementary School";
+                schoolStatus = true;
+                schoolStatusForStudy = true;
+            }
+            if (ageStats == 14) {
+                System.out.println("You are enrolled in Harmony High School");
+                schoolTitle = "Harmony High School";
+                schoolStatus = true;
+                schoolStatusForStudy = true;
+            }
             String[] childEvents = { "hitByBus", "bullyEncounter", "fallDownStairs", "attackedBySquirrel", "faceplant",
                     "goodGrades",
                     "madeFriend", "ateGoodCandy", "learnedNewSkill", "goodPoopSession", "playedAtRecital", };
@@ -71,7 +90,7 @@ public class cpt {
                 System.out.println("Currently these jobs are hiring. Pick a job!");
                 jobTitle = pickajob();
             } else if (graduationDecision == 2) {
-                System.out.println("Apply to a school!");
+                System.out.println("Apply to a school! These schools are taking admissions");
                 applytoaSchool();
             } else {
 
@@ -227,6 +246,9 @@ public class cpt {
     public static String pickajob() {
         if (jobStatus == true) {
             System.out.println("No more than 1 job in this game, quit your job to get a new one!");
+            return jobTitle;
+        } else if (ageStats < 14) {
+            System.out.println("Bossman! No jobs allowed at your age! Wait till you're 14!");
             return jobTitle;
         }
         Scanner in = new Scanner(System.in);
@@ -485,104 +507,201 @@ public class cpt {
         }
     }
 
+    public static void study() {
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("Pick how you want to study");
+        System.out.println("1. Reading books");
+        System.out.println("2. Participate in class");
+        System.out.println("3. Study for your tests and exams");
+        int userInput = in.nextInt();
+        double random;
+        int randomInt;
+        switch (userInput) {
+            case 1:
+                random = (5 - 1 + 1) * Math.random() + 1;
+                randomInt = (int) random;
+                intelligenceStats += randomInt;
+                System.out.println("Your intelligence went up by " + randomInt);
+                System.out.println("Your new intelligence is: " + intelligenceStats);
+                happinessStats -= 3;
+                break;
+            case 2:
+                random = (10 - 1 + 1) * Math.random() + 1;
+                randomInt = (int) random;
+                intelligenceStats += randomInt;
+                System.out.println("Your intelligence went up by " + randomInt);
+                System.out.println("Your new intelligence is: " + intelligenceStats);
+                happinessStats -= 3;
+                break;
+            case 3:
+                random = (10 - 1 + 1) * Math.random() + 1;
+                randomInt = (int) random;
+                intelligenceStats += randomInt;
+                System.out.println("Your intelligence went up by " + randomInt);
+                System.out.println("Your new intelligence is: " + intelligenceStats);
+                happinessStats -= 3;
+                break;
+        }
+    }
+
     public static String applytoaSchool() {
         if (schoolStatus == true) {
-            System.out.println("No more than 1 school in this game, quit your job to get a new one!");
-            return jobTitle;
+            System.out.println("No more than 1 school in this game, drop out to get a new one!");
+            return schoolTitle;
         }
         Scanner in = new Scanner(System.in);
         // print all jobs, with the title and the pay per yea
-        System.out.println("1. School Janitor - $38,480 a year ($20/hr)");
-        System.out.println("2. Barista - $62,400 a year ($30/hr)");
-        System.out.println("3. Car Salesman - $52,000 a year ($25/hr)");
-        System.out.println("4. Groccery store clerk - $31,200 a year ($15/hr)");
-        System.out.println("5. Administrative Assistant - $47,840 a year ($23/hr)");
-        System.out.println("6. Registered nurse - $83,240 a year ($23/hr)");
-        System.out.println("6. Engineer 1 - $72,800 a year ($35/hr)");
-        System.out.println("7. Engineer 2 - $72,800 a year ($35/hr)");
-        System.out.println("8. Project manager - $104,000 a year ($50/hr)");
-        System.out.println("Pick a job by inputting the number corresponding to the job");
-        int jobNumber = in.nextInt();
-        switch (jobNumber) {
+        System.out.println("1. WoodBridge college - trades ($30,000))");
+        System.out.println("2. Seneca college - trades ($40,000)");
+        System.out.println("3. Brock - gender studies ($10,000)");
+        System.out.println("4. York - Business ($50,000)");
+        System.out.println("5. Western - BioMedical ($70,000)");
+        System.out.println("6. McMaster - Accountant ($80,000)");
+        System.out.println("6. Queens - Dental Studies ($175,000)");
+        System.out.println("7. U of T - Neurosurgian doctor ($250,000)");
+        System.out.println("8. Waterloo - Software Engineer ($125,000)");
+        System.out.println(
+                "Pick a school by inputting the number corresponding to the school. You pay once you're accepted!");
+        int schoolNumber = in.nextInt();
+        switch (schoolNumber) {
             case 1:
                 if (intelligenceStats > 10) {
-                    jobTitle = "Janitor";
-                    System.out.println("You were hired as a janitor, you start tomorrow.");
-                    jobStatus = true;
+                    schoolTitle = "WoodBridge college";
+                    System.out.println(
+                            "You were accepted into WoodBridge College for any trade you want, you start tomorrow.");
+                    schoolStatus = true;
+                    happinessStats += 8;
+                    netWorth -= 30000;
+
+                    System.out.println("Your new netWorth is: $" + netWorth);
                 } else {
-                    System.out.println("You were not hired, use !job to try again!");
+                    System.out.println("You were not accepted, use !school to try again!");
+                    happinessStats -= 10;
                 }
+                break;
             case 2:
                 if (intelligenceStats > 10) {
-                    jobTitle = "Barista";
-                    System.out.println("You were hired as a Barista, you start tomorrow.");
-                    jobStatus = true;
+                    schoolTitle = "Seneca college";
+                    System.out.println(
+                            "You were accepted into Seneca College for any trade you want! You start tomorrow.");
+                    schoolStatus = true;
+                    happinessStats += 8;
+                    netWorth -= 40000;
+                    schoolStatusForStudy = true;
+                    System.out.println("Your new netWorth is: $" + netWorth);
                 } else {
-                    System.out.println("You were not hired, use !job to try again!");
+                    System.out.println("You were not accepted, use !school to try again!");
+                    happinessStats -= 10;
                 }
+                break;
             case 3:
-                if (intelligenceStats > 20) {
-                    jobTitle = "Car Salesman";
-                    System.out.println("You were hired as a car salesman, you start tomorrow.");
-                    jobStatus = true;
+                if (intelligenceStats > 0) {
+                    schoolTitle = "Brock (gender studies)";
+                    System.out.println(
+                            "You were accepted into Brock for gender studies, you start tomorrow. I would be suprised if you show up tomorrow ¯\\_(ツ)_/¯ ");
+                    schoolStatus = true;
+                    happinessStats += 8;
+                    netWorth -= 10000;
+                    schoolStatusForStudy = true;
+                    System.out.println("Your new netWorth is: $" + netWorth);
                 } else {
-                    System.out.println("You were not hired, use !job to try again!");
+                    System.out.println("You were not accepted, use !school to try again!");
+                    happinessStats -= 10;
                 }
-
+                break;
             case 4:
-                if (intelligenceStats > 10) {
-                    jobTitle = "Groccey Store clerk";
-                    System.out.println("You were hired as a Groccey Store clerk, you start tomorrow.");
-                    jobStatus = true;
+                if (intelligenceStats > 0) {
+                    schoolTitle = "York";
+                    System.out.println(
+                            "You were accepted into York for Business, you start tomorrow. If you can hold a fork you can go to york!");
+                    schoolStatus = true;
+                    happinessStats += 8;
+                    netWorth -= 50000;
+                    schoolStatusForStudy = true;
+                    System.out.println("Your new netWorth is: $" + netWorth);
                 } else {
-                    System.out.println("You were not hired, use !job to try again!");
+                    System.out.println("You were not accepted, use !school to try again!");
+                    happinessStats -= 10;
                 }
+                break;
             case 5:
-                if (intelligenceStats > 30) {
-                    jobTitle = "Administrative Assistant";
-                    System.out.println("You were hired as a Administrative Assistant, you start tomorrow.");
-                    jobStatus = true;
+                if (intelligenceStats > 40) {
+                    schoolTitle = "Western";
+                    System.out.println("You were accepted into Western for BioMedical, you start tomorrow.");
+                    schoolStatus = true;
+                    happinessStats += 8;
+                    netWorth -= 70000;
+                    schoolStatusForStudy = true;
+                    System.out.println("Your new netWorth is: $" + netWorth);
                 } else {
-                    System.out.println("You were not hired, use !job to try again!");
+                    System.out.println("You were not accepted, use !school to try again!");
+                    happinessStats -= 10;
                 }
+                break;
             case 6:
-                if (intelligenceStats > 300) {
-                    jobTitle = "Registered nurse";
-                    System.out.println("You were hired as a Registered nurse, you start tomorrow.");
-                    jobStatus = true;
+                if (intelligenceStats > 60) {
+                    schoolTitle = "McMaster";
+                    System.out.println(
+                            "You were accepted into McMaster for accounting, you start tomorrow. (good luck its boring)");
+                    schoolStatus = true;
+                    happinessStats += 8;
+                    netWorth -= 80000;
+                    schoolStatusForStudy = true;
+                    System.out.println("Your new netWorth is: $" + netWorth);
                 } else {
-                    System.out.println("You were not hired, use !job to try again!");
+                    System.out.println("You were not accepted, use !school to try again!");
+                    happinessStats -= 10;
                 }
+                break;
             case 7:
-                if (intelligenceStats > 300) {
-                    jobTitle = "Engineer 1";
-                    System.out.println("You were hired as an Engineer 1, you start tomorrow.");
-                    jobStatus = true;
+                if (intelligenceStats > 80) {
+                    schoolTitle = "Queens";
+                    System.out.println("You were accepted into Queens for Dental Studies, you start tomorrow.");
+                    schoolStatus = true;
+                    happinessStats += 8;
+                    schoolStatusForStudy = true;
+                    netWorth -= 175000;
+                    System.out.println("Your new netWorth is: $" + netWorth);
                 } else {
-                    System.out.println("You were not hired, use !job to try again!");
+                    System.out.println("You were not accepted, use !school to try again!");
+                    happinessStats -= 10;
                 }
+                break;
             case 8:
-                if (intelligenceStats > 300) {
-                    jobTitle = "Engineer 2";
-                    System.out.println("You were hired as an Engineer 2, you start tomorrow.");
-                    jobStatus = true;
+                if (intelligenceStats > 100) {
+                    schoolTitle = "U of T";
+                    System.out.println("You were accepted into U of T to be a Neurosurgian, you start tomorrow.");
+                    schoolStatus = true;
+                    happinessStats += 8;
+                    schoolStatusForStudy = true;
+                    netWorth -= 250000;
+                    System.out.println("Your new netWorth is: $" + netWorth);
                 } else {
-                    System.out.println("You were not hired, use !job to try again!");
+                    System.out.println("You were not accepted, use !school to try again!");
+                    happinessStats -= 10;
                 }
+                break;
             case 9:
-                if (intelligenceStats > 300) {
-                    jobTitle = "Project Manager";
-                    System.out.println("You were hired as a Project Manager, you start tomorrow.");
-                    jobStatus = true;
+                if (intelligenceStats > 100) {
+                    schoolTitle = "Waterloo";
+                    System.out.println("You were accepted into Waterloo for Software Engineering, you start tomorrow.");
+                    schoolStatus = true;
+                    happinessStats += 8;
+                    schoolStatusForStudy = true;
+                    netWorth -= 125000;
+                    System.out.println("Your new netWorth is: $" + netWorth);
                 } else {
-                    System.out.println("You were not hired, use !job to try again!");
+                    System.out.println("You were not accepted, use !school to try again!");
+                    happinessStats -= 10;
                 }
+                break;
             default:
                 System.out.println(
-                        "dude print a number between 1 and 9, is it that hard?? Use !job to get this prompt again. grrrrrrrrrrrr.");
-                return jobTitle;
+                        "dude print a number between 1 and 9, is it that hard?? Use !school to get this prompt again. grrrrrrrrrrrr.");
+                break;
         }
-
+        return schoolTitle;
     }
 
     public static void quitJob() {
@@ -596,6 +715,26 @@ public class cpt {
             System.out.println("You quit your job, effective today. use !job to get another job");
             jobStatus = false;
             jobTitle = "none";
+        } else if (reponse.equalsIgnoreCase("n")) { // returns back to regular useage
+            return;
+        } else { // err message
+            System.out.println("Please input Y or N, rerun the command to try again");
+        }
+        System.out.println("----------------------------------------");
+    }
+
+    public static void quitSchool() {
+        Scanner in = new Scanner(System.in); // needed in every method to call for a user input
+        System.out.println(
+                "-------------------- ARE YOU SURE YOU WANT TO DROP OUT OF SCHOOL? YOU WONT BE REFUNDED (Y/N) --------------------");
+        String reponse = in.nextLine();
+
+        // checks if the user wants to quit or not
+        if (reponse.equalsIgnoreCase("y")) { // ends the code
+            schoolYearCount = 0;
+            System.out.println("You dropped out of school, effective today. use !school to go back to school.");
+            schoolStatusForStudy = true;
+            schoolTitle = "none";
         } else if (reponse.equalsIgnoreCase("n")) { // returns back to regular useage
             return;
         } else { // err message
@@ -697,6 +836,12 @@ public class cpt {
                     System.out.println("10. work - allows you to work at your job. Required 12 times yearly");
                     System.out.println("11. job - allows you to work at your job");
                     System.out.println("12. quit - allows you to quit your job.");
+                    System.out.println("13. school - allows you to go to a school.");
+                    return;
+                case "school":
+                    applytoaSchool();
+                    return;
+                case "study":
                     return;
                 case "increaseage":
                     Scanner in = new Scanner(System.in); // needed in every method to call for a user input
