@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class cpt {
     // ---------------------------------------------------------------VARIABLES------------------------------------------------
     // always declare them here, and with public static before the variable
-    public static int healthStats = 300, happinessStats = 100, intelligenceStats = 50, ageStats = 1;
+    public static int healthStats = 50, happinessStats = 100, intelligenceStats = 50, ageStats = 1;
     public static double netWorth = 0;
     public static boolean beginnerInformation = false; // so beginner information runs once
     public static String command;
@@ -16,6 +16,7 @@ public class cpt {
     public static String schoolTitle = "none";
     public static int workCount = 0;
     public static boolean schoolStatus = false;
+    public static String userName;
     public static boolean schoolStatusForStudy = false; // created so that when we check if the user is going to school,
                                                         // it does not count post secondary
     public static boolean resetSpecificI = false;
@@ -848,9 +849,21 @@ public class cpt {
                     System.out.println("11. quit - allows you to quit your job.");
                     System.out.println("12. school - allows you to go to a school.");
                     System.out.println("13. study - allows you to increase ur intelligence.");
+                    System.out.println("14. doctor - Visit the doctor if you have low health.");
                     return;
                 case "school":
                     applytoaSchool();
+                    return;
+                case "doctor":
+                    if (healthStats > 60) {
+                        System.out.println(userName + ", you're healthy enough. Go home!");
+                    } else {
+                        healthStats += 50;
+                        int randomNmDoctor = (int) (10000 * Math.random() + 1);
+                        netWorth -= randomNmDoctor;
+                        System.out.println("Your health went up by 50. This costed :$" + randomNmDoctor);
+                        System.out.println("Your new net worth is :$" + netWorth);
+                    }
                     return;
                 case "study":
                     study();
@@ -943,7 +956,7 @@ public class cpt {
             System.out.println("Welcome to pookiewookie, a game made by Gianluca and David");
             System.out.println("\n");
             System.out.println("What username would you like for your character?");
-            String userName = in.nextLine();
+            userName = in.nextLine();
             System.out.println("Hi " + userName + ", your stats are: ");
             System.out.println("\n");
             System.out.println("----------------------------------------");
