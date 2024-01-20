@@ -4,27 +4,27 @@ import java.util.Scanner;
 public class cpt {
     // ---------------------------------------------------------------VARIABLES------------------------------------------------
     // always declare them here, and with public static before the variable
-    public static int healthStats = 50, happinessStats = 100, intelligenceStats = 50, ageStats = 1;
-    public static double netWorth = 0;
+    public static int healthStats = 500, happinessStats = 100, intelligenceStats = 50, ageStats = 1; // general stats for
+                                                                                                    // the user
+    public static double netWorth = 0; // how much money the user has
     public static boolean beginnerInformation = false; // so beginner information runs once
-    public static String command;
-    public static boolean alive = true;
-    public static boolean resetI = false;
-    public static int commandCountStats = 1;
-    public static boolean jobStatus = false;
-    public static String jobTitle = "none";
-    public static String schoolTitle = "none";
-    public static int workCount = 0;
-    public static boolean schoolStatus = false;
-    public static String userName;
-    public static boolean schoolStatusForStudy = false; // created so that when we check if the user is going to school,
-                                                        // it does not count post secondary
-    public static boolean resetSpecificI = false;
-    public static int schoolYearCount = 0;
+    public static String command; // the command the user inputted
+    public static boolean alive = true; // checks if the user is alive or not
+    public static boolean resetI = false; // resets commands that do not increase the command counter
+    public static int commandCountStats = 1; // counts the number of commands run
+    public static boolean jobStatus = false; // checks if user has a job
+    public static String jobTitle = "none"; // user's job name
+    public static String schoolTitle = "none"; // users's school name
+    public static int workCount = 0; // number of times user has worked in a year
+    public static boolean schoolStatus = false; // checks if user has a school
+    public static String userName; // user's name
+    public static boolean schoolStatusForStudy = false; // created so that when we check if the user is going to school, it does not count post secondary
+    public static boolean resetSpecificI = false; // resets I for the buggy age
+    public static int schoolYearCount = 0; // number of years in school
 
     // ----------------------------------------------------------------COMMANDS------------------------------------------------
     // where all the commands for the game are
-    public static String deathFromStats() {
+    public static String deathFromStats() { // random events to happen to a user if they run out of health
         alive = false;
         String[] randomDeaths = { "cancer", "flu", "heart attack", "cardiac arrest",
                 "bleeding out from little timmy stabbing you", "covid-19",
@@ -48,9 +48,11 @@ public class cpt {
 
     }
 
-    public static void randomAgeEvents() {
+    public static void randomAgeEvents() { // when age is increased, random events will happen based on your age.
         Scanner in = new Scanner(System.in);
         System.out.println("Happy birthday! You turned " + ageStats + " years old!");
+
+        // things to check on a yearly basis
         if (schoolStatusForStudy == true) {
             schoolYearCount++;
         }
@@ -60,7 +62,15 @@ public class cpt {
             System.out.println("Congrats! You graduated! You gained 100 intelligence. Your new intelligence is: "
                     + intelligenceStats);
         }
+        if (workCount <= 12 && jobStatus == true) {
+            System.out.println(
+                    "You were fired at your job for working too little. You also lost -20% intelligence. ");
+            jobTitle = "none";
+            jobStatus = false;
+            intelligenceStats -= 20;
+        }
 
+        // random events per year
         if ((ageStats <= 3) && (ageStats >= 0)) { // baby events
             String[] babyEvents = { "pneumonia", "flu", "gotDropped", "noCake", "reallyGoodMilk", "newToy",
                     "learnedNewSkill", "gotAPet" };
@@ -104,17 +114,10 @@ public class cpt {
         } else if ((ageStats <= 24) && (ageStats > 18)) {
             String[] studentEvents = { "drugdealer", "failedExam", "loudNoise", };
 
-            if (workCount <= 12 && jobStatus == true) {
-                System.out.println(
-                        "You were fired at your job for working too little. You also lost -20% intelligence. ");
-                jobTitle = "none";
-                jobStatus = false;
-                intelligenceStats -= 20;
-            }
         }
     }
 
-    // Method to dynamically call event methods
+    // method that runs baby events
     public static void callEventMethodBaby(String eventName) {
         switch (eventName) {
             case "pneumonia":
@@ -164,6 +167,7 @@ public class cpt {
         }
     }
 
+    // method that runs child events
     public static void callEventMethodChild(String eventName) {
         switch (eventName) {
             case "hitByBus":
@@ -203,7 +207,7 @@ public class cpt {
                 break;
             case "madeFriend":
                 happinessStats += 30;
-                System.out.println("You made a new friend! +30% health. Your current health is: " + healthStats);
+                System.out.println("You made a new friend! +30% happiness. Your current happiness is: " + happinessStats);
                 break;
             case "ateGoodCandy":
                 happinessStats += 30;
@@ -249,7 +253,8 @@ public class cpt {
         System.out.println("----------------------------------------");
     }
 
-    public static String pickajob() {
+    public static String pickajob() { // used when the user wants to get a job
+        // checks if user meets requirement to get a job
         if (jobStatus == true) {
             System.out.println("No more than 1 job in this game, quit your job to get a new one!");
             return jobTitle;
@@ -258,7 +263,7 @@ public class cpt {
             return jobTitle;
         }
         Scanner in = new Scanner(System.in);
-        // print all jobs, with the title and the pay per yea
+        // print all jobs, with the title and the pay per year/hour
         System.out.println("1. School Janitor - $38,480 a year ($20/hr)");
         System.out.println("2. Barista - $62,400 a year ($30/hr)");
         System.out.println("3. Car Salesman - $52,000 a year ($25/hr)");
@@ -269,8 +274,8 @@ public class cpt {
         System.out.println("8. Engineer 2 - $72,800 a year ($35/hr)");
         System.out.println("9. Project manager - $104,000 a year ($50/hr)");
         System.out.println("Pick a job by inputting the number corresponding to the job");
-        int jobNumber = in.nextInt();
-        boolean jobMiniGameWinnings;
+        int jobNumber = in.nextInt(); // gets the job the user wants
+        boolean jobMiniGameWinnings; // checks to see if the user was successful in winning the minigame for the job
         switch (jobNumber) {
             case 1:
                 if (intelligenceStats > 10) {
@@ -425,7 +430,8 @@ public class cpt {
 
     }
 
-    public static void workGame() {
+    public static void workGame() { // allows the user to work to get money
+        // checks to see if the user meets the requirements
         if (jobStatus == false) {
             System.out.println("You don't have a job, use !job to try get a job!");
             return;
@@ -434,6 +440,7 @@ public class cpt {
             System.out.println("Stop working overtime! Your family loves and needs you!");
             return;
         }
+        // pays the user based on their title
         switch (jobTitle) {
             case "Janitor":
                 netWorth += 3206;
@@ -513,12 +520,14 @@ public class cpt {
         }
     }
 
-    public static void study() {
+    public static void study() { // allows the user to increase intelligence
         Scanner in = new Scanner(System.in);
+        // checks if the user meets requirements
         if (schoolStatus == false) {
             System.out.println("Bossman! You need to be enrolled at a school first.");
             return;
         }
+        // asks the user for how they want to study
         System.out.println("Pick how you want to study");
         System.out.println("1. Reading books");
         System.out.println("2. Participate in class");
@@ -526,9 +535,10 @@ public class cpt {
         int userInput = in.nextInt();
         double random;
         int randomInt;
+        // gives intelligence based on the method of study
         switch (userInput) {
             case 1:
-                random = (5 - 1 + 1) * Math.random() + 1;
+                random = (5 - 1 + 1) * Math.random() + 1; // grants a random amount of intelligence
                 randomInt = (int) random;
                 intelligenceStats += randomInt;
                 System.out.println("Your intelligence went up by " + randomInt);
@@ -536,7 +546,7 @@ public class cpt {
                 happinessStats -= 3;
                 break;
             case 2:
-                random = (10 - 1 + 1) * Math.random() + 1;
+                random = (7 - 1 + 1) * Math.random() + 1; // grants a random amount of intelligence
                 randomInt = (int) random;
                 intelligenceStats += randomInt;
                 System.out.println("Your intelligence went up by " + randomInt);
@@ -544,7 +554,7 @@ public class cpt {
                 happinessStats -= 3;
                 break;
             case 3:
-                random = (10 - 1 + 1) * Math.random() + 1;
+                random = (10 - 1 + 1) * Math.random() + 1; // grants a random amount of intelligence
                 randomInt = (int) random;
                 intelligenceStats += randomInt;
                 System.out.println("Your intelligence went up by " + randomInt);
@@ -555,8 +565,11 @@ public class cpt {
     }
 
     public static String applytoaSchool() {
-        if (schoolStatusForStudy == true || ageStats < 18) {
-            System.out.println("No more than 1 school in this game, drop out to get a new one!");
+        // checks ifthe user meets the requirements
+        if (schoolStatusForStudy == true || ageStats < 18) { // school stats for study ensures that users who are in
+                                                             // elementary and high school can still improve
+                                                             // intelligence but cannot apply to a school as well
+            System.out.println("No more than 1 school in this game, drop out to get a new one!"); // hrdhsjhsdjkhkdshfkh hkjshfkjskdfhksdh fjkshdkfjdshkfjdsf
             System.out.println("you must be 18 or older to get another school");
             return schoolTitle;
         }
@@ -989,7 +1002,7 @@ public class cpt {
                     resetSpecificI = false;
                     i = 1;
                 }
-                if (i % 20 == 0) {
+                if (i % 35 == 0) {
                     ageStats++;
                     randomAgeEvents();
                 }
