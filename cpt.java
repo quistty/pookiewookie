@@ -36,11 +36,52 @@ public class cpt {
         return randomdeathString;
     }
 
-    public static void blackJack() {
+    public static void roulette() { //allows user to wager and gamble money
+        Scanner in = new Scanner (System.in); 
+        boolean noDebt = false;
+        double wager = 0;
+        while (noDebt = false) {
+            System.out.println("enter the amount you would like to wager");
+            wager = in.nextInt();
+            if (wager > netWorth) {
+                System.out.println("you can not wager more than you have!");
+            } else {
+                noDebt = true;
+            }
+        }
+            if (ageStats < 18) {
+                System.out.println("Hey! you cant gamble unless you are 18 or older!");
+                // idk how to make break in a method 
+            }
+            int colour = 0;
+            System.out.println("Would you like to bet on black or red?");
+            while (colour == 0) {
+                switch (in.nextLine()) {
+                    case "Black":
+                        colour = 1;
+                        break;
+                    case "black":
+                        colour = 1;
+                        break;
+                    case "Red":
+                        colour = 2;
+                        break;
+                    case "red":
+                        colour = 2;
+                        break;
+                    default:
+                        System.out.println("Please enter a valid colour");
 
+                }
+            }
+            int rouletteColour = (int) (2 * Math.random() + 1);
+            if (rouletteColour == colour){
+                System.out.println("You won! You doubled your wager and won" + wager*2);
+                netWorth = netWorth + wager*2;
+            }
     }
 
-    public static void roulette() {
+    public static void blackjack() {
 
     }
 
@@ -159,7 +200,7 @@ public class cpt {
             case "gotAPet":
                 happinessStats += 50;
                 System.out.println(
-                        "You got a pet dog! You named him Gojo Satoru. +50% happiness. Your current happiness is: "
+                        "You got a pet dog! You named him Gojo. +50% happiness. Your current happiness is: "
                                 + happinessStats);
                 break;
             default:
@@ -910,10 +951,10 @@ public class cpt {
 
                     // checks if the user wants to quit or not
                     if (gamblingResponse == 1) { // ends the code
-                        blackJack();
+                        roulette();
                         return;
                     } else if (gamblingResponse == 2) { // returns back to regular useage
-                        roulette();
+                        blackjack();
                         return;
                     } else if (gamblingResponse == 3) {
                         slots();
