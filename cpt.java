@@ -140,13 +140,14 @@ public class cpt {
     // method that runs baby events
     public static void callEventMethodBaby(String eventName) {
         switch (eventName) {
-            case "pneumonia":
-                healthStats -= 10;
-                System.out.println("You obtained pneumonia. -10% health. Your current health is: " + healthStats);
+            case "drugdealer":
+                healthStats -= 20;
+                System.out.println("You were approached by a drug dealer. You didnt buy his goods and were jumped by his men. You lost -20% health. Your current health is :" + healthStats);
                 break;
-            case "flu":
-                healthStats -= 10;
-                System.out.println("You obtained the flu. -10% health. Your current health is: " + healthStats);
+            case "failedExam":
+                happinessStats -= 40;
+                intelligenceStats -= 10;
+                System.out.println("You failed your exam from not studying. You lost 40% happiness and 10% intelligence. Your new happiness is: " + happinessStats + " and your new health is: " + healthStats);
                 break;
             case "gotDropped":
                 intelligenceStats -= 50;
@@ -276,8 +277,7 @@ public class cpt {
                 break;
             case "noCake":
                 happinessStats -= 30;
-                System.out.println(
-                        "You didnt get cake today. -30% happiness. Your current happiness is: " + happinessStats);
+                System.out.println("You didnt get cake today. -30% happiness. Your current happiness is: " + happinessStats);
                 break;
             case "reallyGoodMilk":
                 healthStats += 20;
