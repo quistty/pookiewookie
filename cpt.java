@@ -39,23 +39,24 @@ public class cpt {
 
     public static void roulette() { //allows user to wager and gamble money
         Scanner in = new Scanner (System.in); 
-        boolean noDebt = false;
+        int noDebt = 0;
         double wager = 0;
-        while (noDebt = false) {
+        while (noDebt == 0) {
             System.out.println("enter the amount you would like to wager");
             wager = in.nextInt();
             if (wager > netWorth) {
                 System.out.println("you can not wager more than you have!");
             } else {
-                noDebt = true;
+                noDebt = 1;
             }
         }
+            netWorth = netWorth - wager;
             if (ageStats < 18) {
                 System.out.println("Hey! you cant gamble unless you are 18 or older!");
                 // idk how to make break in a method 
             }
             int colour = 0;
-            System.out.println("Would you like to bet on black or red?");
+            System.out.println("Would you like to bet on black or red?"); //needs fixing
             while (colour == 0) {
                 switch (in.nextLine()) {
                     case "Black":
@@ -77,8 +78,11 @@ public class cpt {
             }
             int rouletteColour = (int) (2 * Math.random() + 1);
             if (rouletteColour == colour){
-                System.out.println("You won! You doubled your wager and won" + wager*2);
-                netWorth = netWorth + wager*2;
+                System.out.println("You won! You won 1.5x your wager:" + wager*1.5);
+                netWorth = netWorth + wager*1.5;
+            } else {
+                System.out.println("You did not win :( and lost half your wager:" + wager*0.5);
+                netWorth = netWorth + wager*0.5;
             }
     }
 
@@ -1038,8 +1042,12 @@ public class cpt {
                 case "gambling":
                     Scanner youwanttobespecial = new Scanner(System.in); // needed in every method to call for a user
                                                                          // input
+                    if (netWorth == 0){
+                        System.out.println("You have no money to gamble brokie");
+                        return;
+                    }
                     System.out.println("-------------------- PICK A NUMBER BETWEEN ONE AND THREE --------------------");
-                    System.out.println("1 for BlackJack, 2 for roulette, 3 for slots");
+                    System.out.println("1 for roulette, 2 for blackjack, 3 for slots");
                     int gamblingResponse = youwanttobespecial.nextInt();
 
                     // checks if the user wants to quit or not
