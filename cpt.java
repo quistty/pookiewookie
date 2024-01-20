@@ -4,8 +4,8 @@ import java.util.Scanner;
 public class cpt {
     // ---------------------------------------------------------------VARIABLES------------------------------------------------
     // always declare them here, and with public static before the variable
-    public static int healthStats = 500, happinessStats = 100, intelligenceStats = 50, ageStats = 1; // general stats for
-                                                                                                    // the user
+    public static int healthStats = 500, happinessStats = -10, intelligenceStats = 50, ageStats = 1; // general stats for the user
+    public static Scanner in = new Scanner(System.in);
     public static double netWorth = 0; // how much money the user has
     public static boolean beginnerInformation = false; // so beginner information runs once
     public static String command; // the command the user inputted
@@ -21,6 +21,7 @@ public class cpt {
     public static boolean schoolStatusForStudy = false; // created so that when we check if the user is going to school, it does not count post secondary
     public static boolean resetSpecificI = false; // resets I for the buggy age
     public static int schoolYearCount = 0; // number of years in school
+    public static boolean endingGame = false;
 
     // ----------------------------------------------------------------COMMANDS------------------------------------------------
     // where all the commands for the game are
@@ -28,7 +29,7 @@ public class cpt {
         alive = false;
         String[] randomDeaths = { "cancer", "flu", "heart attack", "cardiac arrest",
                 "bleeding out from little timmy stabbing you", "covid-19",
-                "set foot in oblock", "heart dissease", "stroke", "diabeties", "Stubbed toe", "Liver disease",
+                "setting foot in oblock", "heart dissease", "stroke", "diabeties", "Stubbed toe", "Liver disease",
                 "Struck by car", "Struck by lightning", "Died in a submarine (titan submersible from oceangate)" };
         int randomDeathNumber = (int) (15 * Math.random() + 1);
         randomDeathNumber--;
@@ -49,10 +50,8 @@ public class cpt {
     }
 
     public static void randomAgeEvents() { // when age is increased, random events will happen based on your age.
-        Scanner in = new Scanner(System.in);
         System.out.println("Happy birthday! You turned " + ageStats + " years old!");
-
-        // things to check on a yearly basis
+        // things to check on a yearly basis 
         if (schoolStatusForStudy == true) {
             schoolYearCount++;
         }
@@ -62,9 +61,10 @@ public class cpt {
             System.out.println("Congrats! You graduated! You gained 100 intelligence. Your new intelligence is: "
                     + intelligenceStats);
         }
+        
         if (workCount <= 12 && jobStatus == true) {
-            System.out.println(
-                    "You were fired at your job for working too little. You also lost -20% intelligence. ");
+            if (ageStats != 18) {}
+            System.out.println("You were fired at your job for working too little. You also lost -20% intelligence.");
             jobTitle = "none";
             jobStatus = false;
             intelligenceStats -= 20;
@@ -111,9 +111,29 @@ public class cpt {
 
             }
 
-        } else if ((ageStats <= 24) && (ageStats > 18)) {
-            String[] studentEvents = { "drugdealer", "failedExam", "loudNoise", };
+        } else if ((ageStats <= 23) && (ageStats > 18)) {
+            String[] studentEvents = { "drugdealer", "failedExam", "loudNoise", "foundMoney", "goodLab", "party", "wentOnVacation"};
+            int random = (int) (7 * Math.random() + 1);
+            random--;
+            String event = studentEvents[random];
+            callEventMethodStudent(event);
+        }
 
+        // checks if you've meet the threshold to stay alive every year
+        if (netWorth <= -600000){
+            endingGame = true;
+            System.out.println("CRA has taken you to jail for being in too much debt. You declared Bankcruptcy. This caused you to die from " + deathFromStats());
+            endgame();
+        }
+        if (intelligenceStats <= -50){
+            endingGame = true;
+            System.out.println("You have very little intelligence! This caused you to die from " + deathFromStats());
+            endgame();
+        }
+        if (happinessStats <= -50){
+            endingGame = true;
+            System.out.println("You have very little happiness! This caused you to die from " + deathFromStats());
+            endgame();
         }
     }
 
@@ -239,6 +259,54 @@ public class cpt {
                 break;
         }
     }
+    public static void callEventMethodStudent(String eventName) {
+        switch (eventName) {
+            case "pneumonia":
+                healthStats -= 10;
+                System.out.println("You obtained pneumonia. -10% health. Your current health is: " + healthStats);
+                break;
+            case "flu":
+                healthStats -= 10;
+                System.out.println("You obtained the flu. -10% health. Your current health is: " + healthStats);
+                break;
+            case "gotDropped":
+                intelligenceStats -= 50;
+                System.out.println("You were dropped as a baby. -50% intelligence. Your current intelligence is: "
+                        + intelligenceStats);
+                break;
+            case "noCake":
+                happinessStats -= 30;
+                System.out.println(
+                        "You didnt get cake today. -30% happiness. Your current happiness is: " + happinessStats);
+                break;
+            case "reallyGoodMilk":
+                healthStats += 20;
+                System.out.println(
+                        "Your mother gave you some milk and it tasted exqusite. +20% health. Your current happiness is: "
+                                + healthStats);
+                break;
+            case "newToy":
+                happinessStats += 30;
+                System.out.println(
+                        "Your parents bought you a new toy! +30% happiness. Your current happpiness is: "
+                                + happinessStats);
+                break;
+            case "learnedNewSkill":
+                intelligenceStats += 20;
+                System.out
+                        .println("You learned a new skill as a baby! +20% intelligence. Your currernt intelligence is: "
+                                + intelligenceStats);
+                break;
+            case "gotAPet":
+                happinessStats += 50;
+                System.out.println(
+                        "You got a pet dog! You named him Gojo Satoru. +50% happiness. Your current happiness is: "
+                                + happinessStats);
+                break;
+            default:
+                System.out.println("Gambling lesson #1: There are no losses, just intervals between winning");
+        }
+    }
 
     public static void stats() { // command to print out the stats of a player
         System.out.println("-------------------- STATS --------------------");
@@ -262,7 +330,6 @@ public class cpt {
             System.out.println("Bossman! No jobs allowed at your age! Wait till you're 14!");
             return jobTitle;
         }
-        Scanner in = new Scanner(System.in);
         // print all jobs, with the title and the pay per year/hour
         System.out.println("1. School Janitor - $38,480 a year ($20/hr)");
         System.out.println("2. Barista - $62,400 a year ($30/hr)");
@@ -521,7 +588,6 @@ public class cpt {
     }
 
     public static void study() { // allows the user to increase intelligence
-        Scanner in = new Scanner(System.in);
         // checks if the user meets requirements
         if (schoolStatus == false) {
             System.out.println("Bossman! You need to be enrolled at a school first.");
@@ -573,7 +639,6 @@ public class cpt {
             System.out.println("you must be 18 or older to get another school");
             return schoolTitle;
         }
-        Scanner in = new Scanner(System.in);
         // print all jobs, with the title and the pay per yea
         System.out.println("1. WoodBridge college - trades ($30,000))");
         System.out.println("2. Seneca college - trades ($40,000)");
@@ -729,7 +794,6 @@ public class cpt {
     }
 
     public static void quitJob() {
-        Scanner in = new Scanner(System.in); // needed in every method to call for a user input
         System.out.println("-------------------- ARE YOU SURE YOU WANT TO QUIT YOUR JOB? (Y/N) --------------------");
         String reponse = in.nextLine();
 
@@ -748,7 +812,6 @@ public class cpt {
     }
 
     public static void quitSchool() {
-        Scanner in = new Scanner(System.in); // needed in every method to call for a user input
         System.out.println(
                 "-------------------- ARE YOU SURE YOU WANT TO DROP OUT OF SCHOOL? YOU WONT BE REFUNDED (Y/N) --------------------");
         String reponse = in.nextLine();
@@ -769,7 +832,6 @@ public class cpt {
     }
 
     public static void leavegame() { // if the player wants to leave the game
-        Scanner in = new Scanner(System.in); // needed in every method to call for a user input
         System.out.println("-------------------- ARE YOU SURE YOU WANT TO END THE GAME? (Y/N) --------------------");
         String reponse = in.nextLine();
 
@@ -786,7 +848,6 @@ public class cpt {
     }
 
     public static boolean hilow() { // game to dictate if a player won or not
-        Scanner in = new Scanner(System.in);
         int correctNum = (int) (25 * Math.random() + 1); // picks a random # between 1 and 25
         int numGuesses = 0; // guess count
         boolean winner = false; //
@@ -819,7 +880,40 @@ public class cpt {
         }
         return winner;
     }
-
+    public static void endgame() {
+        System.out.println("Thanks for playing!");
+        int score = 0;
+        // makes sure the score isnt 0 when the numbers are calculated
+        if (intelligenceStats != 0) { 
+            score += (intelligenceStats * 5);
+        } else {
+            intelligenceStats--;
+            score += (intelligenceStats * 5);
+        }
+        if (happinessStats != 0) {
+            score += (happinessStats * 3);
+        } else {
+            happinessStats--;
+            score += (happinessStats * 3);
+        }
+        if (healthStats != 0) {
+            score += (intelligenceStats * 10);
+        } else {
+            healthStats--;
+            score += (healthStats * 10);
+        }
+        score += (netWorth);
+        score += (ageStats * 25);
+        if (ageStats < 80) { // average life span is around 80, if u make it u win!
+            System.out.println("The odds were never in your favour.");
+            stats();
+        } else {
+            System.out.println("The odds were in your favour");
+            stats();
+        }
+        System.out.println("You had a score of " + score + "! Not bad!");
+        // calculate ur death stats here
+    }
     // ----------------------------------------------------------------MAIN---------------------------------------------
     public static void commandProcess(String command) {
         if (command.startsWith("!")) {
@@ -882,7 +976,6 @@ public class cpt {
                     study();
                     return;
                 case "increaseage":
-                    Scanner in = new Scanner(System.in); // needed in every method to call for a user input
                     System.out.println(
                             "-------------------- ARE YOU SURE YOU WANT TO INCREASE YOUR AGE? (Y/N) --------------------");
                     String increaseAgeReponse = in.nextLine();
@@ -963,7 +1056,7 @@ public class cpt {
 
     public static void main(String[] args) {
 
-        Scanner in = new Scanner(System.in);
+
         if (!beginnerInformation) {
             beginnerInformation = true;
             System.out.println("Welcome to pookiewookie, a game made by Gianluca and David");
@@ -995,7 +1088,12 @@ public class cpt {
                 if (resetI == true) { // if the method is not an essential method, such as checking stats it will not
                     // increase age stat
                     resetI = false;
-                    i -= 2;
+                    if ((i - 1) % 35 == 0) {
+                        i = 1;
+                    } else {
+                        i--;
+                    }
+
                 }
                 if (resetSpecificI == true) { // if the user just went up in age and increases their age with the
                                               // command, this catches that and prevents multiple age increases at once
@@ -1006,12 +1104,12 @@ public class cpt {
                     ageStats++;
                     randomAgeEvents();
                 }
-                // System.out.println("Command count: " + i); // REMOVE ONLY FOR DEBUGGING
-                if (alive != true) {
+
+                if (alive != true) { //checks if the user is alive after every command
                     break;
                 }
 
-                if (healthStats <= 0) {
+                if (healthStats <= 0) { //kills the user if they have too low hp
                     String deathCause;
                     deathCause = deathFromStats();
                     System.out.println("You died from: " + deathCause);
@@ -1029,14 +1127,8 @@ public class cpt {
 
             }
         } while (alive == true);
-
-        System.out.println("Thanks for playing!");
-        if (ageStats < 80) { // average life span is around 80, if it is done it is
-            System.out.println("The odds were never in your favour.");
-            stats();
-        } else {
-            System.out.println("The odds were in your favour");
-            stats();
+        if (endingGame != true) { // so that it doesnt run endgame more than once if u die from something other than health
+            endgame();
         }
         in.close(); // this ensures we do not have a resource leak (leave at the end)
     }
