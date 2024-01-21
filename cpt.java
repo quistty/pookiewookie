@@ -39,7 +39,6 @@ public static boolean whyisthisbroken = false;
     }
 
     public static void roulette() { //allows user to wager and gamble money
-        Scanner in = new Scanner (System.in); 
         int noDebt = 0;
         double wager = 0;
         while (noDebt == 0) {
@@ -119,10 +118,10 @@ public static boolean whyisthisbroken = false;
         // random events per year
         if ((ageStats <= 3) && (ageStats >= 0)) { // baby events
             String[] babyEvents = { "pneumonia", "flu", "gotDropped", "noCake", "reallyGoodMilk", "newToy",
-                    "learnedNewSkill", "gotAPet" };
-            int random = (int) (8 * Math.random() + 1);
+                    "learnedNewSkill", "gotAPet" }; // seed bank of the random events
+            int random = (int) (8 * Math.random() + 1); // picks random number for the event
             random--;
-            String event = babyEvents[random];
+            String event = babyEvents[random]; // gathers the string from the corresponding index
             callEventMethodBaby(event);
         } else if ((ageStats < 18) && (ageStats >= 4)) {
             if (ageStats == 6) {
@@ -136,42 +135,40 @@ public static boolean whyisthisbroken = false;
                 schoolStatus = true;
             }
             String[] childEvents = { "hitByBus", "bullyEncounter", "fallDownStairs", "attackedBySquirrel", "faceplant",
-                    "goodGrades",
-                    "madeFriend", "ateGoodCandy", "learnedNewSkill", "goodPoopSession", "playedAtRecital", };
-            int random = (int) (10 * Math.random() + 1);
+                    "goodGrades", "madeFriend", "ateGoodCandy", "learnedNewSkill", "goodPoopSession", "playedAtRecital", }; // seed bank of the random events
+            int random = (int) (10 * Math.random() + 1); // picks random number for the event
             random--;
-            String event = childEvents[random];
+            String event = childEvents[random]; // gathers the string from the corresponding index
             callEventMethodChild(event);
-        } else if (ageStats == 18) {
-            schoolTitle = "none";
-            System.out.println(
-                    "You graduated from high school, what will you do now? Type 1 to look for a job, 2 to apply to university. You can always sign up for the other one later! Use !commands to find out more.");
+        } else if (ageStats == 18) { // puts user in school or a job
+            schoolTitle = "none"; 
+            System.out.println("You graduated from high school, what will you do now? Type 1 to look for a job, 2 to apply to university. You can always sign up for the other one later! Use !commands to find out more.");
             int graduationDecision = in.nextInt();
-            if (graduationDecision == 1) {
+            if (graduationDecision == 1) { // puts user in job
                 System.out.println("Currently these jobs are hiring. Pick a job!");
                 jobTitle = pickajob();
-            } else if (graduationDecision == 2) {
+            } else if (graduationDecision == 2) { // puts user in school
                 System.out.println("Apply to a school! These schools are taking admissions");
                 applytoaSchool();
             } else {
-
+                System.out.println("How could you not pick one? Use !school or !job to get either one."); // err message
             }
 
-        } else if ((ageStats <= 23) && (ageStats > 18)) {
-            String[] studentEvents = { "drugdealer", "failedExam", "loudNoise", "foundMoney", "goodLab", "party", "wentOnVacation"};
-            int random = (int) (7 * Math.random() + 1);
+        } else if ((ageStats <= 23) && (ageStats > 18)) { 
+            String[] studentEvents = { "drugdealer", "failedExam", "loudNoise", "foundMoney", "goodLab", "party", "wentOnVacation"}; // seed bank of the random events
+            int random = (int) (7 * Math.random() + 1); // picks random number for the event
             random--;
-            String event = studentEvents[random];
+            String event = studentEvents[random]; // gathers the string from the corresponding index
             callEventMethodStudent(event);
         } else if (ageStats == 40){
             // make parents die
         }
         else {
             String[] adultEvents = { "payTaxes", "bankError", "cancer", "midlifecrisis", "Infidelity", "friendDied", "burntOut", "identityTheft", "addiction", "fraud", "robbed", "inheritedDebt", 
-                                    "stalked", "party", "deadParents", "jobBonus", "vacation", "scratchTicket", "hitBenchPR", "goodDay", "newFriend", "richFriend", "hobbyMaster", "cookedDish"};
-            int random = (int) (24 * Math.random() + 1);
+                                    "stalked", "party", "deadParents", "jobBonus", "vacation", "scratchTicket", "hitBenchPR", "goodDay", "newFriend", "richFriend", "hobbyMaster", "cookedDish"}; // seed bank of the random events
+            int random = (int) (24 * Math.random() + 1); // picks random number for the event
             random--;
-            String event = adultEvents[random];
+            String event = adultEvents[random]; // gathers the string from the corresponding index
             callEventMethodAdult(event);
             }// 24
 
@@ -195,7 +192,7 @@ public static boolean whyisthisbroken = false;
 
     // method that runs baby events
     public static void callEventMethodBaby(String eventName) {
-        switch (eventName) {
+        switch (eventName) { // changes the user's stats based on the random event
             case "drugdealer":
                 healthStats -= 20;
                 System.out.println("You were approached by a drug dealer. You didnt buy his goods and were jumped by his men. You lost -20% health. Your current health is :" + healthStats);
@@ -246,7 +243,7 @@ public static boolean whyisthisbroken = false;
 
     // method that runs child events
     public static void callEventMethodChild(String eventName) {
-        switch (eventName) {
+        switch (eventName) { // changes the user's stats based on the random event
             case "hitByBus":
                 healthStats -= 50;
                 happinessStats -= 20;
@@ -317,7 +314,7 @@ public static boolean whyisthisbroken = false;
         }
     }
     public static void callEventMethodStudent(String eventName) {
-        switch (eventName) {
+        switch (eventName) { // changes the user's stats based on the random event
             case "pneumonia":
                 healthStats -= 20;
                 System.out.println("You were approached by a drug dealer. You didn't buy his good and his gang jumped you. You lost 20% hp. Your current health is: " + healthStats);
@@ -354,8 +351,8 @@ public static boolean whyisthisbroken = false;
     }
 
     public static void callEventMethodAdult(String eventName){
-        switch(eventName){
-            case "payTaxes":
+        switch(eventName){ // changes the user's stats based on the random event
+            case "payTaxes": 
                 netWorth -= 5000;
                 System.out.println("Your employer didn't pay your income taxes, and you got fined $5000. Your current netWorth is: $" + netWorth);
                 break;
@@ -785,10 +782,9 @@ public static boolean whyisthisbroken = false;
 
     public static String applytoaSchool() {
         // checks ifthe user meets the requirements
-        if (schoolStatusForStudy == true || ageStats < 18) { // school stats for study ensures that users who are in
-                                                             // elementary and high school can still improve
-                                                             // intelligence but cannot apply to a school as well
-            System.out.println("No more than 1 school in this game, drop out to get a new one!"); // hrdhsjhsdjkhkdshfkh hkjshfkjskdfhksdh fjkshdkfjdshkfjdsf
+        if (schoolStatusForStudy == true || ageStats < 18) { // school stats for study ensures that users who are in elementary and high school can still improve intelligence but cannot apply to a school as well
+            // err msg
+            System.out.println("No more than 1 school in this game, drop out to get a new one!"); 
             System.out.println("you must be 18 or older to get another school");
             return schoolTitle;
         }
@@ -802,10 +798,9 @@ public static boolean whyisthisbroken = false;
         System.out.println("7. Queens - Dental Studies ($175,000)");
         System.out.println("8. U of T - Neurosurgian doctor ($250,000)");
         System.out.println("9. Waterloo - Software Engineer ($125,000)");
-        System.out.println(
-                "Pick a school by inputting the number corresponding to the school. You pay once you're accepted!");
-        int schoolNumber = in.nextInt();
-        switch (schoolNumber) {
+        System.out.println("Pick a school by inputting the number corresponding to the school. You pay once you're accepted!");
+        int schoolNumber = in.nextInt(); // user input for school
+        switch (schoolNumber) { // puts the user in the school of choice
             case 1:
                 if (intelligenceStats > 10) {
                     schoolTitle = "WoodBridge college";
@@ -938,16 +933,15 @@ public static boolean whyisthisbroken = false;
                     happinessStats -= 10;
                 }
                 break;
-            default:
-                System.out.println(
-                        "dude print a number between 1 and 9, is it that hard?? Use !school to get this prompt again. grrrrrrrrrrrr.");
+            default: // err msg
+                System.out.println("dude print a number between 1 and 9, is it that hard?? Use !school to get this prompt again. grrrrrrrrrrrr.");
                 break;
         }
         return schoolTitle;
     }
 
     public static void quitJob() {
-        if (jobStatus == false) {
+        if (jobStatus == false) { // err msg
             System.out.println("You don't have a job! You can't quit something you don't have.");
             return;
         }
@@ -955,12 +949,12 @@ public static boolean whyisthisbroken = false;
         String reponse = in.nextLine();
 
         // checks if the user wants to quit or not
-        if (reponse.equalsIgnoreCase("y")) { // ends the code
+        if (reponse.equalsIgnoreCase("y")) { // quits the user's job
             workCount = 0;
             System.out.println("You quit your job, effective today. use !job to get another job");
             jobStatus = false;
             jobTitle = "none";
-        } else if (reponse.equalsIgnoreCase("n")) { // returns back to regular useage
+        } else if (reponse.equalsIgnoreCase("n")) { // returns back to command system
             return;
         } else { // err message
             System.out.println("Please input Y or N, rerun the command to try again");
@@ -969,12 +963,11 @@ public static boolean whyisthisbroken = false;
     }
 
     public static void quitSchool() {
-        System.out.println(
-                "-------------------- ARE YOU SURE YOU WANT TO DROP OUT OF SCHOOL? YOU WONT BE REFUNDED (Y/N) --------------------");
+        System.out.println("-------------------- ARE YOU SURE YOU WANT TO DROP OUT OF SCHOOL? YOU WONT BE REFUNDED (Y/N) --------------------");
         String reponse = in.nextLine();
 
         // checks if the user wants to quit or not
-        if (reponse.equalsIgnoreCase("y")) { // ends the code
+        if (reponse.equalsIgnoreCase("y")) { // drops out of the user's school
             schoolYearCount = 0;
             System.out.println("You dropped out of school, effective today. use !school to go back to school.");
             schoolStatusForStudy = false;
@@ -1007,10 +1000,8 @@ public static boolean whyisthisbroken = false;
     public static boolean hilow() { // game to dictate if a player won or not
         int correctNum = (int) (25 * Math.random() + 1); // picks a random # between 1 and 25
         int numGuesses = 0; // guess count
-        boolean winner = false; //
+        boolean winner = false; 
         int guess;
-        // System.out.println("BLAHHHHHHHHHHHHHHHHHH" + correctNum); // only used for
-        // debugging ------------------ REMOVE IN FINAL VERSION ------------------------
         while (numGuesses < 6) {
             System.out.println("Input a NUMBER between 1 and 25: ");
             guess = in.nextInt();
@@ -1026,8 +1017,8 @@ public static boolean whyisthisbroken = false;
             } else if (guess < correctNum) {
                 System.out.println("Too low, try again!");
             } else {
-                System.out.println("Incorrect input! how did you get here?");
-                numGuesses = 1000000000;
+                System.out.println("Incorrect input! how did you get here?"); // err msg
+                numGuesses = 1000000000; // makes them automatically lose
             }
         }
         if (!winner) {
@@ -1037,7 +1028,7 @@ public static boolean whyisthisbroken = false;
         }
         return winner;
     }
-    public static void endgame() {
+    public static void endgame() { // method that calculates user's score
         System.out.println("Thanks for playing!");
         int score = 0;
         // makes sure the score isnt 0 when the numbers are calculated
@@ -1059,9 +1050,9 @@ public static boolean whyisthisbroken = false;
             healthStats--;
             score += (healthStats * 10);
         }
-        score += (netWorth);
+        score += (netWorth*0.5);
         score += (ageStats * 25);
-        if (ageStats < 80) { // average life span is around 80, if u make it u win!
+        if (ageStats < 50) { // average life span is around 80, if u make it u get a special msg!
             System.out.println("The odds were never in your favour.");
             stats();
         } else {
@@ -1074,17 +1065,14 @@ public static boolean whyisthisbroken = false;
     // ----------------------------------------------------------------MAIN---------------------------------------------
     public static void commandProcess(String command) {
         if (command.startsWith("!")) {
-            String actualCommand = command.substring(1); // removes the first char of the variable, the exclamation mark
-                                                         // this is to run all the different commands available
-            switch (actualCommand) {
-                case "stats":
-                    resetI = true;
-                    stats();
-                    // resetI = true; // add this to every method in this switch if not an essential
-                    // program, to balance the rapidly increasing age
+            String actualCommand = command.substring(1); // removes the first char of the variable, the exclamation mark this is to run all the different commands available
+            switch (actualCommand) { // all commands that can be run go here
+                case "stats": 
+                    resetI = true; // doesnt count command to yearly quota
+                    stats(); 
                     return;
                 case "help":
-                    resetI = true;
+                    resetI = true; // doesnt count command to yearly quota
                     System.out.println(
                             "The objective of the game is to make the most money, have the highest stats and live the longest, all using commands given to you.");
                     System.out.println("Use !commands to see all the different commands you can do");
@@ -1095,8 +1083,8 @@ public static boolean whyisthisbroken = false;
                     System.out.println(
                             "You can increase your stats by performing commands, and winning games within those commands.");
                     return;
-                case "commands":
-                    resetI = true;
+                case "commands": 
+                    resetI = true; // doesnt count command to yearly quota
                     System.out.println("Available Functions:");
                     System.out.println("0. Commands - This one! Gives you a list of all the commands");
                     System.out.println("1. stats - Displays stats");
@@ -1120,12 +1108,12 @@ public static boolean whyisthisbroken = false;
                     return;
                 case "doctor":
                     if (healthStats > 60) {
-                        System.out.println(userName + ", you're healthy enough. Go home!");
-                    } else {
+                        System.out.println(userName + ", you're healthy enough. Go home!"); // doesnt add health if not sick enough
+                    } else { 
                         healthStats += 50;
                         int randomNmDoctor = (int) (10000 * Math.random() + 1);
                         netWorth -= randomNmDoctor;
-                        System.out.println("Your health went up by 50. This costed :$" + randomNmDoctor);
+                        System.out.println("The doctor gave you pills to grant you health. Your health went up by 50. The pills costed :$" + randomNmDoctor);
                         System.out.println("Your new net worth is :$" + netWorth);
                     }
                     return;
@@ -1137,10 +1125,10 @@ public static boolean whyisthisbroken = false;
                             "-------------------- ARE YOU SURE YOU WANT TO INCREASE YOUR AGE? (Y/N) --------------------");
                     String increaseAgeReponse = in.nextLine();
 
-                    // checks if the user wants to quit or not
-                    if (increaseAgeReponse.equalsIgnoreCase("y")) { // ends the code
+                    // checks if the user wants to increae age or not
+                    if (increaseAgeReponse.equalsIgnoreCase("y")) { // increases age
                         ageStats++;
-                        resetSpecificI = true;
+                        resetSpecificI = true; // specific to reset the command count to 0 to prevent another age increase
                         System.out.println("You are " + ageStats + " years old");
                         randomAgeEvents();
                         return;
@@ -1152,21 +1140,19 @@ public static boolean whyisthisbroken = false;
                     System.out.println("----------------------------------------");
                     return;
                 case "gambling":
-                    Scanner youwanttobespecial = new Scanner(System.in); // needed in every method to call for a user
-                                                                         // input
-                    if (netWorth == 0){
+                    if (netWorth == 0){ // err msg
                         System.out.println("You have no money to gamble brokie");
                         return;
                     }
                     System.out.println("-------------------- PICK A NUMBER BETWEEN ONE AND THREE --------------------");
-                    System.out.println("1 for roulette, 2 for blackjack, 3 for slots");
-                    int gamblingResponse = youwanttobespecial.nextInt();
+                    System.out.println("1 for roulette, 2 for blackjack, 3 for slots"); 
+                    int gamblingResponse = in.nextInt();
 
-                    // checks if the user wants to quit or not
-                    if (gamblingResponse == 1) { // ends the code
+                    // checks what gambling game they want to play
+                    if (gamblingResponse == 1) { 
                         roulette();
                         return;
-                    } else if (gamblingResponse == 2) { // returns back to regular useage
+                    } else if (gamblingResponse == 2) { 
                         blackjack();
                         return;
                     } else if (gamblingResponse == 3) {
@@ -1178,7 +1164,7 @@ public static boolean whyisthisbroken = false;
                     System.out.println("----------------------------------------");
                     return;
                 case "beg":
-                    boolean winner = hilow();
+                    boolean winner = hilow(); // makes them play a mini game to win
                     if (winner == true) {
                         int winnings = (int) (1000 * Math.random() + 1);
                         netWorth += winnings;
@@ -1191,34 +1177,33 @@ public static boolean whyisthisbroken = false;
                         System.out.println("Your new networth is: " + netWorth);
                     }
                     return;
-                // randomize a number between 1 and 3 to play the different types of games
-                case "leavegame":
+                case "leavegame": // makes user end the game
                     resetI = true;
                     leavegame();
                     return;
-                case "work":
+                case "work": // makes user work
                     workCount++;
                     workGame();
                     return;
-                case "job":
+                case "job": //makes user pick job
                     pickajob();
                     return;
-                case "quit":
+                case "quit": //lets user quit job
                     quitJob();
                     return;
-                default:
+                default: // err msg
                     System.out.println("Unknown command, make sure it exists and try again!");
                     return;
             }
-        } else {
+        } else { // err msg
             System.out.println("Unknown command, please make sure it exists and your command starts with \"!\"");
         }
     }
 
     public static void main(String[] args) {
 
-
-        if (!beginnerInformation) {
+        // tutorial
+        if (!beginnerInformation) { 
             beginnerInformation = true;
             System.out.println("Welcome to pookiewookie, a game made by Gianluca and David");
             System.out.println("\n");
@@ -1239,13 +1224,13 @@ public static boolean whyisthisbroken = false;
             System.out.println("Try a command by saying \"!stats\" or \"!commands\".");
             command = in.nextLine();
             commandProcess(command);
-            System.out.println(
-                    "See! its that easy! If you need help, do !help to guide you, or !commands to get a list of commands. Good luck, and may the odds be ever in your favour");
+            System.out.println("See! its that easy! If you need help, do !help to guide you, or !commands to get a list of commands. Good luck, and may the odds be ever in your favour");
         }
 
         do {
             for (int i = 1; i > 0; i++) { // counts the amount of commands that have occured
                 System.out.println("command count: " + i);
+
                 if (resetI == true) { // if the method is not an essential method, such as checking stats it will not
                     // increase age stat
                     resetI = false;
@@ -1256,8 +1241,7 @@ public static boolean whyisthisbroken = false;
                     }
 
                 }
-                if (resetSpecificI == true) { // if the user just went up in age and increases their age with the
-                                              // command, this catches that and prevents multiple age increases at once
+                if (resetSpecificI == true) { // if the user just went up in age and increases their age with the command, this catches that and prevents multiple age increases at once
                     resetSpecificI = false;
                     i = 1;
                 }
@@ -1265,6 +1249,8 @@ public static boolean whyisthisbroken = false;
                     ageStats++;
                     randomAgeEvents();
                 }
+
+                //anything that is to be checked after every command goes here 
 
                 if (alive != true) { //checks if the user is alive after every command
                     break;
@@ -1276,19 +1262,15 @@ public static boolean whyisthisbroken = false;
                     System.out.println("You died from: " + deathCause);
                     break;
                 }
-                // when ages goes up, by 1, do random event
-
-                // THIS SHOULD BE WHERE ALL THE CODE THAT HAPPENS AFTER A CERTAIN AGE OR RANDOM
-                // STUFF OCCURS GOES.
                 
                 System.out.println("Input a command:");
-                if (whyisthisbroken == true){
+                if (whyisthisbroken == true){ // fixes study command
                     whyisthisbroken = false;
                     command = in.nextLine();
                 }
-                command = in.nextLine();
-                commandProcess(command.toLowerCase());
-                commandCountStats++;
+                command = in.nextLine(); //gets user's command
+                commandProcess(command.toLowerCase()); // makes sure its lowercase
+                commandCountStats++; // increases yealy command count quota
 
             }
         } while (alive == true);
