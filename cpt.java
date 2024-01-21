@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class cpt {
     // ---------------------------------------------------------------VARIABLES------------------------------------------------
     // always declare them here, and with public static before the variable
-    public static int healthStats = 500, happinessStats = 50, intelligenceStats = 50, ageStats = 1; // general stats for the user
+    public static int healthStats = 100, happinessStats = 50, intelligenceStats = 50, ageStats = 1; // general stats for the user
     public static Scanner in = new Scanner(System.in);
     public static double netWorth = 0; // how much money the user has
     public static boolean beginnerInformation = false; // so beginner information runs once
@@ -167,7 +167,7 @@ public static boolean whyisthisbroken = false;
             // make parents die
         }
         else {
-            String[] adultEvents = { "payTaxes", "bankError", "cancer", "midlifecrisis", "Infidelity", "friendDied", "burntOut", "identityTheft", "addiction", "fraud", "robbed", "inherited debt", 
+            String[] adultEvents = { "payTaxes", "bankError", "cancer", "midlifecrisis", "Infidelity", "friendDied", "burntOut", "identityTheft", "addiction", "fraud", "robbed", "inheritedDebt", 
                                     "stalked", "party", "deadParents", "jobBonus", "vacation", "scratchTicket", "hitBenchPR", "goodDay", "newFriend", "richFriend", "hobbyMaster", "cookedDish"};
             int random = (int) (24 * Math.random() + 1);
             random--;
@@ -355,9 +355,106 @@ public static boolean whyisthisbroken = false;
 
     public static void callEventMethodAdult(String eventName){
         switch(eventName){
-            case "":
-            
-            break;
+            case "payTaxes":
+                netWorth -= 5000;
+                System.out.println("Your employer didn't pay your income taxes, and you got fined $5000. Your current netWorth is: $" + netWorth);
+                break;
+            case "bankError":
+                netWorth -= 674;
+                System.out.println("The bank had an error and you lost $674. Your current netWorth is: $" + netWorth);
+                break;
+            case "cancer":
+                healthStats -= 50;
+                System.out.println("The doctor diagnosed you with stage 4 lung cancer. You overcame it but became very sick. -50% hp. Your current health is: " + healthStats);
+                break;
+            case "midlifecrisis":
+                happinessStats -= 15;
+                netWorth -= 5000;
+                System.out.println("You bought some random junk as you're experiencing a mid life criss. -15% happiness. Your current happiness is: " + happinessStats);
+                break;
+            case "Infidelity":
+                happinessStats -= 60;
+                System.out.println("You found out someone you were seeing has a wife and kids. -60% happiness. Your current happiness is: " + happinessStats);
+                break;
+            case "friendDied":
+                happinessStats -= 50;
+                System.out.println("Your best friend from elementary school. -50% happiness. Your current happiness is: " + happinessStats);
+                break;
+            case "burntOut":
+                healthStats -= 60;
+                System.out.println("You got burnt out at your job and resorted to bad eating habits. -10% health. Your current health is: " + healthStats);
+                break;
+            case "identityTheft":
+                netWorth -= 80460;
+                System.out.println("You became a victim of identity theft. You lost $80460. Your new netWorth is: $" + netWorth);
+                break;
+            case "addiction":
+                healthStats -= 30;
+                System.out.println("You got addicted to crystal meth. -30% health. Your new health is: " + healthStats);
+                break;
+            case "fraud":
+                netWorth -= 10348;
+                System.out.println("Someone created a business venture in your name (fraud). CRA is after you for $10348. Your current networth is: " + netWorth);
+                break;
+            case "robbed":
+                healthStats -= 10;
+                System.out.println("You were robbed but had nothing on you. They beat you up. -10% health. Your current health is: " + healthStats);
+                break;
+            case "inheritedDebt":
+                netWorth -= 500;
+                System.out.println("You inherited debt from your long lost brother. -$5000. Your current netWorth is: $" + netWorth);
+                break;
+            case "stalked":
+                happinessStats += 10;
+                System.out.println("You have a stalker. This creeped you out but makes for good jokes at parties. +10% happiness. Your current happiness is: " + happinessStats);
+                break;
+            case "deadParents":
+                happinessStats -= 70;
+                netWorth -= 50000;
+                System.out.println("Your parents died! -70% happiness. You had to pay for their funeral. -50k. Your current happiness is: " + happinessStats + " and your current netWorth is: $" + netWorth);
+                break;
+            case "party":
+                happinessStats += 30;
+                System.out.println("You were invited to a high school reunion party. +30% happiness. Your current happiness is: " + happinessStats);
+                break;
+            case "jobBonus":
+                healthStats -= 30000;
+                happinessStats += 50;
+                System.out.println("Your job gave you a 30k bonus for helping them land a million dollar deal. Your current networth is: $" + netWorth);
+                break;
+            case "vacation":
+                happinessStats += 30;
+                System.out.println("You won a free vacation. +30% happiness. Your current happiness is: " + happinessStats);
+                break;
+            case "scratchTicket":
+                netWorth -= 600;
+                System.out.println("You won $600 from a scratch ticket. Your current netWorth is: $" + netWorth);
+                break;
+            case "hitBenchPR":
+                healthStats += 10;
+                System.out.println("You hit a new bench pr. +10% health. Your current health is: " + healthStats);
+                break;
+            case "goodDay":
+                happinessStats += 10;
+                System.out.println("You had a good day! +10% happiness. Your current happiness is: " + happinessStats);
+                break;
+            case "newFriend":
+                happinessStats += 30;
+                System.out.println("You got a new friend at the groccery store. +30% happiness. Your new happiness is: " + happinessStats);
+                break;
+            case "richFriend":
+                netWorth += 10000;
+                System.out.println("Your rich friend recently retired. He wired you 10k. Your current netWorth is: $" + netWorth);
+                break;
+            case "hobbyMaster":
+                intelligenceStats += 20;
+                System.out.println("You mastered playing golf. Every one at the golf course respects you and grants you intel. +20% intelligence. Your new intelligence is: " + intelligenceStats);
+                break;
+            case "cookedDish":
+                intelligenceStats += 30;
+                healthStats += 10;
+                System.out.println("You learned how to cook great dishes. +30% intelligence and +10% health. Your new intelligence is: " + intelligenceStats + " and your new health is: " + healthStats);
+                break; 
             default:
                 System.out.println("idk how u got here, there is an error in the code.");
         }
