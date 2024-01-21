@@ -1190,7 +1190,7 @@ public static boolean whyisthisbroken = false;
                     command = in.nextLine();
                 }
                 command = in.nextLine();
-                commandProcess(command);
+                commandProcess(command.toLowerCase());
                 commandCountStats++;
 
             }
