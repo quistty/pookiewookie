@@ -9,6 +9,13 @@
             "name": "cpt",
             "request": "launch",
             "mainClass": "cpt",
+            "projectName": "pookiewookie_9bf09db1"
+        },
+        {
+            "type": "java",
+            "name": "cpt",
+            "request": "launch",
+            "mainClass": "cpt",
             "projectName": "pookiewookie_b7d9f39a"
         },
         {
