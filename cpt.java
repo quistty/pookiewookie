@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class cpt {
     // ---------------------------------------------------------------VARIABLES------------------------------------------------
     // always declare them here, and with public static before the variable
-    public static int healthStats = 500, happinessStats = 50, intelligenceStats = 50, ageStats = 1; // general stats for the user
+    public static int healthStats = 100, happinessStats = 50, intelligenceStats = 50, ageStats = 1; // general stats for the user
     public static Scanner in = new Scanner(System.in);
     public static double netWorth = 0; // how much money the user has
     public static boolean beginnerInformation = false; // so beginner information runs once
@@ -943,6 +943,7 @@ public static boolean whyisthisbroken = false;
         return schoolTitle;
     }
     public static void exercise() {
+        whyisthisbroken = true;
         System.out.println("Pick how you want to exercise");
         System.out.println("1. Reach your PR (lift weights)");
         System.out.println("2. Run");
