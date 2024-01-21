@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class cpt {
     // ---------------------------------------------------------------VARIABLES------------------------------------------------
     // always declare them here, and with public static before the variable
-    public static int healthStats = 100, happinessStats = 50, intelligenceStats = 50, ageStats = 1; // general stats for the user
+    public static int healthStats = 500, happinessStats = 50, intelligenceStats = 50, ageStats = 1; // general stats for the user
     public static Scanner in = new Scanner(System.in);
     public static double netWorth = 0; // how much money the user has
     public static boolean beginnerInformation = false; // so beginner information runs once
@@ -78,10 +78,10 @@ public static boolean whyisthisbroken = false;
             }
             int rouletteColour = (int) (2 * Math.random() + 1);
             if (rouletteColour == colour){
-                System.out.println("You won! You won 1.5x your wager:" + wager*1.5);
+                System.out.println("You won! You won 1.5x your wagers: " + wager*1.5);
                 netWorth = netWorth + wager*1.5;
             } else {
-                System.out.println("You did not win :( and lost half your wager:" + wager*0.5);
+                System.out.println("You did not win :( and lost half your wagers: " + wager*0.5);
                 netWorth = netWorth + wager*0.5;
             }
     }
@@ -142,6 +142,8 @@ public static boolean whyisthisbroken = false;
             callEventMethodChild(event);
         } else if (ageStats == 18) { // puts user in school or a job
             schoolTitle = "none"; 
+            schoolStatus = false; // makes them out of school
+            schoolStatusForStudy = false;
             System.out.println("You graduated from high school, what will you do now? Type 1 to look for a job, 2 to apply to university. You can always sign up for the other one later! Use !commands to find out more.");
             int graduationDecision = in.nextInt();
             if (graduationDecision == 1) { // puts user in job
@@ -154,19 +156,19 @@ public static boolean whyisthisbroken = false;
                 System.out.println("How could you not pick one? Use !school or !job to get either one."); // err message
             }
 
-        } else if ((ageStats <= 23) && (ageStats > 18)) { 
+        } else if ((ageStats <= 23) && (ageStats > 18) && schoolStatusForStudy == true) { 
             String[] studentEvents = { "drugdealer", "failedExam", "loudNoise", "foundMoney", "goodLab", "party", "wentOnVacation"}; // seed bank of the random events
             int random = (int) (7 * Math.random() + 1); // picks random number for the event
             random--;
             String event = studentEvents[random]; // gathers the string from the corresponding index
             callEventMethodStudent(event);
         } else if (ageStats == 40){
-            // make parents die
+            callEventMethodAdult("deadParents");
         }
         else {
             String[] adultEvents = { "payTaxes", "bankError", "cancer", "midlifecrisis", "Infidelity", "friendDied", "burntOut", "identityTheft", "addiction", "fraud", "robbed", "inheritedDebt", 
-                                    "stalked", "party", "deadParents", "jobBonus", "vacation", "scratchTicket", "hitBenchPR", "goodDay", "newFriend", "richFriend", "hobbyMaster", "cookedDish"}; // seed bank of the random events
-            int random = (int) (24 * Math.random() + 1); // picks random number for the event
+                                    "stalked", "party", "jobBonus", "vacation", "scratchTicket", "hitBenchPR", "goodDay", "newFriend", "richFriend", "hobbyMaster", "cookedDish"}; // seed bank of the random events
+            int random = (int) (23 * Math.random() + 1); // picks random number for the event
             random--;
             String event = adultEvents[random]; // gathers the string from the corresponding index
             callEventMethodAdult(event);
@@ -491,6 +493,7 @@ public static boolean whyisthisbroken = false;
         System.out.println("Pick a job by inputting the number corresponding to the job");
         int jobNumber = in.nextInt(); // gets the job the user wants
         boolean jobMiniGameWinnings; // checks to see if the user was successful in winning the minigame for the job
+        whyisthisbroken = true;
         switch (jobNumber) {
             case 1:
                 if (intelligenceStats > 10) {
