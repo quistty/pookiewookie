@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class cpt {
     // ---------------------------------------------------------------VARIABLES------------------------------------------------
     // always declare them here, and with public static before the variable
-    public static int healthStats = 500, happinessStats = -10, intelligenceStats = 50, ageStats = 1; // general stats for the user
+    public static int healthStats = 500, happinessStats = 50, intelligenceStats = 50, ageStats = 1; // general stats for the user
     public static Scanner in = new Scanner(System.in);
     public static double netWorth = 0; // how much money the user has
     public static boolean beginnerInformation = false; // so beginner information runs once
@@ -22,6 +22,7 @@ public class cpt {
     public static boolean resetSpecificI = false; // resets I for the buggy age
     public static int schoolYearCount = 0; // number of years in school
     public static boolean endingGame = false;
+public static boolean whyisthisbroken = false;
 
     // ----------------------------------------------------------------COMMANDS------------------------------------------------
     // where all the commands for the game are
@@ -51,8 +52,8 @@ public class cpt {
             }
         }
             if (ageStats < 18) {
-                System.out.println("Hey! you cant gamble unless you are 18 or older!");
-                // idk how to make break in a method 
+                System.out.println("Hey! you can't gamble unless you are 18 or older!");
+                return;
             }
             int colour = 0;
             System.out.println("Would you like to bet on black or red?");
@@ -140,7 +141,7 @@ public class cpt {
         } else if (ageStats == 18) {
             schoolTitle = "none";
             System.out.println(
-                    "You graduated from high school, what will you do now? Type 1 to look for a job, 2 to apply to university.");
+                    "You graduated from high school, what will you do now? Type 1 to look for a job, 2 to apply to university. You can always sign up for the other one later! Use !commands to find out more.");
             int graduationDecision = in.nextInt();
             if (graduationDecision == 1) {
                 System.out.println("Currently these jobs are hiring. Pick a job!");
@@ -158,7 +159,17 @@ public class cpt {
             random--;
             String event = studentEvents[random];
             callEventMethodStudent(event);
+        } else if (ageStats == 40){
+            // make parents die
         }
+        else {
+            String[] adultEvents = { "payTaxes", "bankError", "cancer", "midlifecrisis", "Infidelity", "friendDied", "burntOut", "identityTheft", "addiction", "fraud", "robbed", "inherited debt", 
+                                    "stalked", "party", "deadParents", "jobBonus", "vacation", "scratchTicket", "hitBenchPR", "goodDay", "newFriend", "richFriend", "hobbyMaster", "cookedDish"};
+            int random = (int) (24 * Math.random() + 1);
+            random--;
+            String event = adultEvents[random];
+            callEventMethodAdult(event);
+            }// 24
 
         // checks if you've meet the threshold to stay alive every year
         if (netWorth <= -600000){
@@ -304,51 +315,49 @@ public class cpt {
     public static void callEventMethodStudent(String eventName) {
         switch (eventName) {
             case "pneumonia":
-                healthStats -= 10;
-                System.out.println("You obtained pneumonia. -10% health. Your current health is: " + healthStats);
+                healthStats -= 20;
+                System.out.println("You were approached by a drug dealer. You didn't buy his good and his gang jumped you. You lost 20% hp. Your current health is: " + healthStats);
                 break;
-            case "flu":
-                healthStats -= 10;
-                System.out.println("You obtained the flu. -10% health. Your current health is: " + healthStats);
+            case "failedExam":
+                happinessStats -= 20;
+                intelligenceStats -= 10;
+                System.out.println("You failed your exam. You lost 20% happiness and 10% intelligence. Your current happiness is: " + happinessStats + " and your current intelligence is: " + intelligenceStats);
                 break;
             case "gotDropped":
-                intelligenceStats -= 50;
-                System.out.println("You were dropped as a baby. -50% intelligence. Your current intelligence is: "
-                        + intelligenceStats);
+                happinessStats -= 5;
+                System.out.println("You kept hearing loud noises from upstains, making it hard to sleep. -5% happiness. Your current happiness is: " + happinessStats);
                 break;
-            case "noCake":
-                happinessStats -= 30;
-                System.out.println("You didnt get cake today. -30% happiness. Your current happiness is: " + happinessStats);
-                break;
-            case "reallyGoodMilk":
-                healthStats += 20;
-                System.out.println(
-                        "Your mother gave you some milk and it tasted exqusite. +20% health. Your current happiness is: "
-                                + healthStats);
-                break;
-            case "newToy":
+            case "foundMoney":
                 happinessStats += 30;
-                System.out.println(
-                        "Your parents bought you a new toy! +30% happiness. Your current happpiness is: "
-                                + happinessStats);
+                netWorth += 100;
+                System.out.println("You found $100 on the floor. +30% happiness. Your current happiness is: " + happinessStats);
                 break;
-            case "learnedNewSkill":
-                intelligenceStats += 20;
-                System.out
-                        .println("You learned a new skill as a baby! +20% intelligence. Your currernt intelligence is: "
-                                + intelligenceStats);
+            case "goodLab":
+                intelligenceStats += 10;
+                System.out.println("You did good on your lab. +10 intelligence. Your current intelligence is: " + intelligenceStats);
                 break;
-            case "gotAPet":
-                happinessStats += 50;
-                System.out.println(
-                        "You got a pet dog! You named him Gojo Satoru. +50% happiness. Your current happiness is: "
-                                + happinessStats);
+            case "party":
+                happinessStats += 30;
+                System.out.println("You were invited to a party and got laid! +30% happiness. Your current happpiness is: " + happinessStats);
+                break;
+            case "wentOnVacation":
+                happinessStats += 20;
+                System.out.println("You went on vacation with your family! +20% happiness. Your currernt happiness is: " + happinessStats);
                 break;
             default:
-                System.out.println("Gambling lesson #1: There are no losses, just intervals between winning");
+                System.out.println("idk how u got here, there is an error in the code.");
         }
     }
 
+    public static void callEventMethodAdult(String eventName){
+        switch(eventName){
+            case "":
+            
+            break;
+            default:
+                System.out.println("idk how u got here, there is an error in the code.");
+        }
+    }
     public static void stats() { // command to print out the stats of a player
         System.out.println("-------------------- STATS --------------------");
         System.out.println("Health: " + healthStats);
@@ -630,6 +639,7 @@ public class cpt {
 
     public static void study() { // allows the user to increase intelligence
         // checks if the user meets requirements
+        whyisthisbroken = true;
         if (schoolStatus == false) {
             System.out.println("Bossman! You need to be enrolled at a school first.");
             return;
@@ -639,11 +649,11 @@ public class cpt {
         System.out.println("1. Reading books");
         System.out.println("2. Participate in class");
         System.out.println("3. Study for your tests and exams");
-        int userInput = in.nextInt();
+        int bossmanInput = in.nextInt();
         double random;
         int randomInt;
         // gives intelligence based on the method of study
-        switch (userInput) {
+        switch (bossmanInput) {
             case 1:
                 random = (5 - 1 + 1) * Math.random() + 1; // grants a random amount of intelligence
                 randomInt = (int) random;
@@ -669,6 +679,7 @@ public class cpt {
                 happinessStats -= 3;
                 break;
         }
+        System.out.println("Don't study too much or you'll loose happiness");
     }
 
     public static String applytoaSchool() {
@@ -835,6 +846,10 @@ public class cpt {
     }
 
     public static void quitJob() {
+        if (jobStatus == false) {
+            System.out.println("You don't have a job! You can't quit something you don't have.");
+            return;
+        }
         System.out.println("-------------------- ARE YOU SURE YOU WANT TO QUIT YOUR JOB? (Y/N) --------------------");
         String reponse = in.nextLine();
 
@@ -1160,8 +1175,12 @@ public class cpt {
 
                 // THIS SHOULD BE WHERE ALL THE CODE THAT HAPPENS AFTER A CERTAIN AGE OR RANDOM
                 // STUFF OCCURS GOES.
-
+                
                 System.out.println("Input a command:");
+                if (whyisthisbroken == true){
+                    whyisthisbroken = false;
+                    command = in.nextLine();
+                }
                 command = in.nextLine();
                 commandProcess(command);
                 commandCountStats++;
