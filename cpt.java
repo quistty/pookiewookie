@@ -6,7 +6,7 @@ public class cpt {
     // always declare them here, and with public static before the variable
     public static int healthStats = 500, happinessStats = 50, intelligenceStats = 50, ageStats = 1; // general stats for the user
     public static Scanner in = new Scanner(System.in);
-    public static double netWorth = 1; // how much money the user has
+    public static double netWorth = 100; // how much money the user has
     public static boolean beginnerInformation = false; // so beginner information runs once
     public static String command; // the command the user inputted
     public static boolean alive = true; // checks if the user is alive or not
@@ -43,11 +43,12 @@ public static boolean whyisthisbroken = false;
         double wager = 0;
         while (noDebt == 0) {
             System.out.println("enter the amount you would like to wager");
-            wager = in.nextInt();
+            wager = in.nextDouble();
             if (wager > netWorth) {
                 System.out.println("you can not wager more than you have!");
             } else {
                 noDebt = 1;
+
             }
         }
             netWorth = netWorth - wager;
@@ -93,6 +94,7 @@ public static boolean whyisthisbroken = false;
         whyisthisbroken = true;
                 int noDebt = 0;
                 double pokerChoice = 0;
+                double pot = 0;
         double wager = 0;
         while (noDebt == 0) {
             System.out.println("enter the amount you would like to bring to the table");
@@ -109,15 +111,24 @@ public static boolean whyisthisbroken = false;
             }
             netWorth = netWorth - wager;
         int playerCard1 = (int) (52 * Math.random() + 1);
+        int blacklist1 = playerCard1;
         int playerCard2 = (int) (52 * Math.random() + 1);
+        int blacklist3 = playerCard2;
         int houseCard1 = (int) (52 * Math.random() + 1);
+        int blacklist2 = houseCard1;
         int houseCard2 = (int) (52 * Math.random() + 1);
+        int blacklist4 = houseCard2;
         int[] player = new int[7];
         int[] house = new int[7];
+        int[] blacklist = new int[9];
         player[1] = playerCard1;
         player[2] = playerCard2;
         house[1] = houseCard1;
         house[2] = houseCard2;
+        blacklist[1] = blacklist1;
+        blacklist[2] = blacklist2;
+        blacklist[3] = blacklist3;
+        blacklist[4] = blacklist4;
         System.out.println("Your cards are "+ cardReader(playerCard1) + " and " + cardReader(playerCard2));
             while (pokerChoice == 0) {
             System.out.println ("***************CHOOSE A NUMBER BETWEEN ONE AND THREE***************\n 1. Raise 2. Call 3. Fold");
@@ -129,33 +140,81 @@ public static boolean whyisthisbroken = false;
                         pokerChoice = 2;
                         break;
                     case 3:
-                        System.out.println("You folded and lost " + wager)
+                        System.out.println("You folded and lost " + pot + " :(\nThe house had " + cardReader(houseCard1) + " and " + cardReader(houseCard2));
+                        netWorth = netWorth - pot;
                         return;
                     default:
                         System.out.println("Please insert a valid number!");
                     }
                 }
-        pokerDecision(pokerChoice, wager);
+            Double choiceResult = (pokerDecision(pokerChoice, wager));
+            pot = choiceResult + pot;
+        System.out.println("The amount in the pot is " + pot );
+        if (choiceResult == 0) {
+            System.out.println("The house also calls");
+        }
+        else {
+            System.out.println("The house matches your raise, the new pot is" + (choiceResult + pot));
+        }
+        int commonCard1 = (int) (52 * Math.random() + 1);
+        int blacklist5 = commonCard1;
+        int commonCard2 = (int) (52 * Math.random() + 1);
+        int blacklist6 = commonCard2;
+        int commonCard3 = (int) (52 * Math.random() + 1);
+        int blacklist7 = commonCard3;
+        player[3] = commonCard1;
+        house[3] = commonCard1;
+        blacklist[5] = commonCard1;
+        player[4] = commonCard2;
+        house[4] = commonCard2;
+        blacklist[6] = commonCard2;
+        player[5] = commonCard3;
+        house[5] = commonCard3;
+        blacklist[7] = commonCard3;
+        
     }
 
-    public static double pokerDecision(int choice, int tableValue) {
-    boolean result = false;
-        while (result = false) {
+    public static void dupeCheck(blacklist[]) {
+        for (int i; i > blacklist.lenth; i++) {
+            if (blacklist[i]) {
+
+            }
+        }
+    }
+
+    public static double pokerDecision(double choice, double tableValue) {
+    int result = 0;
+    double raise = 0;
+    double amount = 0;
+    System.out.println("test");
+        while (result == 0) {
+            result = 1;
+            amount = 0;
             if (choice == 1) {
-              System.out.println("How much would you like to raise? You have " + tableValue + " at the table");
-                if ((in.nextInt()) > tableValue) {
-                    System.out.println("This value is greater than the amount you brought to the table, try again+");
+                System.out.println("How much would you like to raise? You have " + tableValue + " at the table");
+                amount = in.nextDouble();
+                if (amount > tableValue) {
+                    System.out.println("This value is greater than the amount you brought to the table, try again");
+                    result = 0;
                 }
-                if ((in.nextInt()) < 0) {
+                if (amount <= 0) {
                     System.out.println("Please insert a valid number");
-                }
-            double raise = in.nextInt();
-            result = true;
+                    result = 0;
+                } 
+            if (result == 1) {
+            raise = amount;
+            System.out.println(raise);
+            result = 0;
             return raise;
             }
-            if (choice == 2)
-        }
+         }
 
+            if (choice == 2) {
+                result = 0;
+                return raise;
+            }
+        }
+        return raise;
     }
     
     public static String cardReader(int cardValue) {
