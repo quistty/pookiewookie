@@ -87,7 +87,6 @@ public static boolean whyisthisbroken = false;
     }
     
     public static void poker() {
-        Scanner in = new Scanner (System.in); 
         int noDebt = 0;
         double wager = 0;
         while (noDebt == 0) {
@@ -167,7 +166,9 @@ public static boolean whyisthisbroken = false;
             case 23:
                 return "Ten of clubs";
             case 24:
-                return "Jack of clubs";      
+                return "Jack of clubs";
+            default:
+                return "idk how u got here but this is an error"; // err msg
 
         }
 
@@ -1277,7 +1278,7 @@ public static boolean whyisthisbroken = false;
                         roulette();
                         return;
                     } else if (gamblingResponse == 2) { 
-                        blackjack();
+                        poker();
                         return;
                     } else if (gamblingResponse == 3) {
                         slots();
