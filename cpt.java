@@ -85,9 +85,93 @@ public static boolean whyisthisbroken = false;
                 netWorth = netWorth + wager*0.5;
             }
     }
+    
+    public static void poker() {
+        int noDebt = 0;
+        double wager = 0;
+        while (noDebt == 0) {
+            System.out.println("enter the amount you would like to bring to the table");
+            wager = in.nextInt();
+            if (wager > netWorth) {
+                System.out.println("you can not bring more than you have!");
+            } else {
+                noDebt = 1;
+            }
+        }
+            if (ageStats < 18) {
+                System.out.println("Hey! you cant gamble unless you are 18 or older!");
+                // idk how to make break in a method 
+            }
+            netWorth = netWorth - wager;
+        int playerCard1 = (int) (52 * Math.random() + 1);
+        int playerCard2 = (int) (52 * Math.random() + 1);
+        int houseCard1 = (int) (52 * Math.random() + 1);
+        int houseCard2 = (int) (52 * Math.random() + 1);
+        int[] player = new int[7];
+        int[] house = new int[7];
+        player[1] = playerCard1;
+        player[2] = playerCard2;
+        house[1] = houseCard1;
+        house[2] = houseCard2;
+        System.out.println("Your cards are "+ cardReader(playerCard1) + " and " + cardReader(playerCard2));
 
-    public static void blackjack() {
-        
+    }
+    
+    public static String cardReader(int cardValue) {
+        switch (cardValue) {
+            case 1:
+                return"Ace of spades";
+            case 2:
+                return "Two of spades";
+            case 3:
+                return "Three of spades";
+            case 4:
+                return "Four of spades";
+            case 5:
+                return "Five of spades";
+            case 6:
+                return "Six of spades";   
+            case 7:
+                return "Seven of spades";
+            case 8:
+                return "Eight of spades";
+            case 9:
+                return "Nine of spades";
+            case 10:
+                return "Ten of spades";
+            case 11:
+                return "Jack of spades";
+            case 12:
+                return "Queen of spades";
+            case 13:
+                return "King of spades";
+            case 14:
+                return "Ace of clubs";
+            case 15:
+                return "Two of clubs";
+            case 16:
+                return "Three of clubs";
+            case 17:
+                return "Four of clubs";
+            case 18:
+                return "Five of clubs";   
+            case 19:
+                return "Six of clubs";
+            case 20:
+                return "Seven of clubs";
+            case 21:
+                return "Eight of clubs";
+            case 22:
+                return "Nine of clubs";
+            case 23:
+                return "Ten of clubs";
+            case 24:
+                return "Jack of clubs";
+            default:
+                return "idk how u got here but this is an error"; // err msg
+
+        }
+
     }
 
     public static void slots() {
@@ -1194,7 +1278,7 @@ public static boolean whyisthisbroken = false;
                         roulette();
                         return;
                     } else if (gamblingResponse == 2) { 
-                        blackjack();
+                        poker();
                         return;
                     } else if (gamblingResponse == 3) {
                         slots();
