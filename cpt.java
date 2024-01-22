@@ -1221,6 +1221,102 @@ public static boolean whyisthisbroken = false;
         System.out.println("Don't exercise too much or you'll loose happiness");
         
     }
+    public static void play() {
+        whyisthisbroken = true;
+        System.out.println("Pick how you want to play");
+        System.out.println("1. Arts and crafts");
+        System.out.println("2. Play outside");
+        System.out.println("3. Read a book");
+        System.out.println("4. Building blocks/lego");
+        System.out.println("5. Solve puzzles");
+        System.out.println("6. Go on a walk");
+        System.out.println("7. Play a sport");
+        System.out.println("8. Watch tv");
+        System.out.println("9. Listen to music and dance");
+        int bossmanInput = in.nextInt();
+        double random;
+        int randomInt;
+        // gives health based on the method of study
+        switch (bossmanInput) {
+            case 1:
+                random = (5 - 1 + 1) * Math.random() + 1; // grants a random amount
+                randomInt = (int) random;
+                happinessStats += randomInt;
+                System.out.println("You painted like michealangelo. You gained " + randomInt + " happiness.");
+                System.out.println("Your current happiness is: " + happinessStats);
+                break;
+            case 2:
+                random = (5 - 1 + 1) * Math.random() + 1; // grants a random amount
+                randomInt = (int) random;
+                happinessStats += randomInt;
+                System.out.println("You played outside with little timmy! You gained " + randomInt + " happiness.");
+                System.out.println("Your current happiness is: " + happinessStats);
+                break;
+            case 3:
+                random = (3 - 1 + 1) * Math.random() + 1; // grants a random amount
+                randomInt = (int) random;
+                intelligenceStats += randomInt;
+                System.out.println("You read a book! You gained " + randomInt + " intelligence.");
+                System.out.println("Your current intelligence is: " + intelligenceStats);
+                break;
+            case 4:
+                random = (3 - 1 + 1) * Math.random() + 1; // grants a random amount
+                randomInt = (int) random;
+                intelligenceStats += randomInt;
+                if (ageStats < 6) {
+                    System.out.println("You played with building blocks! You gained " + randomInt + " intelligence.");
+                    System.out.println("Your current intelligence is: " + intelligenceStats);
+                } else {
+                    System.out.println("You played with legos! You gained " + randomInt + " intelligence.");
+                    System.out.println("Your current intelligence is: " + intelligenceStats);
+                }
+                break;
+            case 5:
+                random = (3 - 1 + 1) * Math.random() + 1; // grants a random amount
+                randomInt = (int) random;
+                intelligenceStats += randomInt;
+                System.out.println("You solved puzzles! You gained " + randomInt + " intelligence.");
+                System.out.println("Your current intelligence is: " + intelligenceStats);
+            case 6:
+                random = (2 - 1 + 1) * Math.random() + 1; // grants a random amount
+                randomInt = (int) random;
+                healthStats += randomInt;
+                System.out.println("You went on a walk! You gained " + randomInt + " health.");
+                System.out.println("Your current health is: " + healthStats);
+                break;
+            case 7:
+                random = (4 - 1 + 1) * Math.random() + 1; // grants a random amount
+                randomInt = (int) random;
+                healthStats += randomInt;
+                double randomSportNm = (5 - 1 + 1)* Math.random() + 1;
+                int randomSportNumInt = (int) randomSportNm;
+                randomSportNumInt--;
+                String randomSport[] = {"basketball", "hockey", "soccer", "golf", "cricket"};
+                String randomSportString = randomSport[randomSportNumInt];
+                System.out.println("You played " + randomSportString + "! You gained " + randomInt + " health.");
+                System.out.println("Your current health is: " + healthStats);
+                break;
+            case 8:
+                random = (7 - 1 + 1) * Math.random() + 1; // grants a random amount
+                randomInt = (int) random;
+                happinessStats += randomInt;
+                System.out.println("You watched tv! You gained " + randomInt + " happiness.");
+                System.out.println("Your current happiness is: " + happinessStats);
+                System.out.println("Careful! Too much tv can make you stupid!");
+                intelligenceStats--;
+                break;
+            case 9:
+                random = (8 - 1 + 1) * Math.random() + 1; // grants a random amount
+                randomInt = (int) random;
+                happinessStats += randomInt;
+                System.out.println("You listened to music and dance! You gained " + randomInt + " happiness.");
+                System.out.println("Your current happiness is: " + happinessStats);
+                break;
+            default:
+                System.out.println("Bossman! pick a number from 1-9. Use !play to run this command again as a kid.");
+        }
+        
+    }
     public static void quitJob() {
         if (jobStatus == false) { // err msg
             System.out.println("You don't have a job! You can't quit something you don't have.");
@@ -1354,15 +1450,12 @@ public static boolean whyisthisbroken = false;
                     return;
                 case "help":
                     resetI = true; // doesnt count command to yearly quota
-                    System.out.println(
-                            "The objective of the game is to make the most money, have the highest stats and live the longest, all using commands given to you.");
+                    System.out.println("The objective of the game is to make the most money, have the highest stats and live the longest, all using commands given to you. ");
                     System.out.println("Use !commands to see all the different commands you can do");
-                    System.out.println(
-                            "You can perform commands at any time, unless currently in a command. You start at age 0 and you go up in age every 50 commands (though doing basic commands such as !stats will not increase this).");
-                    System.out.println(
-                            "Every time your age goes up, a random event can happen to you, based on your stats. For example, if you have low health, you have a higher chance of a bad event (such as sickness) occurring to you.");
-                    System.out.println(
-                            "You can increase your stats by performing commands, and winning games within those commands.");
+                    System.out.println("You can perform commands at any time, unless currently in a command. You start at age 0 and you go up in age every 25 commands (though doing basic commands such as !stats will not increase this).");
+                    System.out.println("Every time your age goes up, a random event can happen to you, based on your stats. For example, if you have low health, you have a higher chance of a bad event (such as sickness) occurring to you.");
+                    System.out.println("You can increase your stats by performing commands, and winning games within those commands.");
+                    System.out.println("When you quit the game or die, you will get your score, based on your stats. Get the highest one possible!");
                     return;
                 case "commands": 
                     resetI = true; // doesnt count command to yearly quota
@@ -1383,6 +1476,8 @@ public static boolean whyisthisbroken = false;
                     System.out.println("12. school - allows you to go to a school.");
                     System.out.println("13. study - allows you to increase ur intelligence.");
                     System.out.println("14. doctor - Visit the doctor if you have low health.");
+                    System.out.println("15. play - Allows the user to play!");
+                    System.out.println("16. ");
                     return;
                 case "school":
                     applytoaSchool();
@@ -1475,6 +1570,9 @@ public static boolean whyisthisbroken = false;
                 case "exercise": //lets user exercise
                     exercise();
                     return;
+                case "play":
+                    play();
+                    return;
                 default: // err msg
                     System.out.println("Unknown command, make sure it exists and try again!");
                     return;
@@ -1529,7 +1627,7 @@ public static boolean whyisthisbroken = false;
                     resetSpecificI = false;
                     i = 1;
                 }
-                if (i % 35 == 0) {
+                if (i % 25 == 0) {
                     ageStats++;
                     randomAgeEvents();
                 }
@@ -1550,7 +1648,8 @@ public static boolean whyisthisbroken = false;
                 System.out.println("Input a command:");
                 if (whyisthisbroken == true){ // fixes study command
                     whyisthisbroken = false;
-                    command = in.nextLine();
+                    in.nextLine(); // Consume the newline character left in the buffer
+
                 }
                 command = in.nextLine(); //gets user's command
                 commandProcess(command.toLowerCase()); // makes sure its lowercase
