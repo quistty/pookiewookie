@@ -1065,6 +1065,45 @@ public static boolean whyisthisbroken = false;
         System.out.println("Don't exercise too much or you'll loose happiness");
         
     }
+    public static void play() {
+        whyisthisbroken = true;
+        System.out.println("Pick how you want to play");
+        System.out.println("1. Reach your PR (lift weights)");
+        System.out.println("2. Run");
+        System.out.println("3. Diet");
+        int bossmanInput = in.nextInt();
+        double random;
+        int randomInt;
+        // gives health based on the method of study
+        switch (bossmanInput) {
+            case 1:
+                random = (5 - 1 + 1) * Math.random() + 1; // grants a random amount of intelligence
+                randomInt = (int) random;
+                healthStats += randomInt;
+                System.out.println("You surpassed your PR! You gained +" + randomInt + "% health.");
+                System.out.println("Your current health is: " + healthStats);
+                happinessStats -= 3;
+                break;
+            case 2:
+                random = (7 - 1 + 1) * Math.random() + 1; // grants a random amount of intelligence
+                randomInt = (int) random;
+                healthStats += randomInt;
+                System.out.println("You hit a new 5k run time! You gained: +" + randomInt + "% health.");
+                System.out.println("Your current health is: " + healthStats);
+                happinessStats -= 3;
+                break;
+            case 3:
+                random = (10 - 1 + 1) * Math.random() + 1; // grants a random amount of intelligence
+                randomInt = (int) random;
+                healthStats += randomInt;
+                System.out.println("Your lost 5 pounds from your diet! Your gained: +" + randomInt + "% health");
+                System.out.println("Your new health is: " + healthStats);
+                happinessStats -= 5;
+                break;
+        }
+        System.out.println("Don't exercise too much or you'll loose happiness");
+        
+    }
     public static void quitJob() {
         if (jobStatus == false) { // err msg
             System.out.println("You don't have a job! You can't quit something you don't have.");
@@ -1319,6 +1358,8 @@ public static boolean whyisthisbroken = false;
                 case "exercise": //lets user exercise
                     exercise();
                     return;
+                case "play":
+                    play();
                 default: // err msg
                     System.out.println("Unknown command, make sure it exists and try again!");
                     return;
@@ -1394,7 +1435,8 @@ public static boolean whyisthisbroken = false;
                 System.out.println("Input a command:");
                 if (whyisthisbroken == true){ // fixes study command
                     whyisthisbroken = false;
-                    command = in.nextLine();
+                    in.nextLine(); // Consume the newline character left in the buffer
+
                 }
                 command = in.nextLine(); //gets user's command
                 commandProcess(command.toLowerCase()); // makes sure its lowercase
