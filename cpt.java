@@ -4,9 +4,9 @@ import java.util.Scanner;
 public class cpt {
     // ---------------------------------------------------------------VARIABLES------------------------------------------------
     // always declare them here, and with public static before the variable
-    public static int healthStats = 100, happinessStats = 50, intelligenceStats = 50, ageStats = 1; // general stats for the user
+    public static int healthStats = 500, happinessStats = 50, intelligenceStats = 50, ageStats = 1; // general stats for the user
     public static Scanner in = new Scanner(System.in);
-    public static double netWorth = 0; // how much money the user has
+    public static double netWorth = 1; // how much money the user has
     public static boolean beginnerInformation = false; // so beginner information runs once
     public static String command; // the command the user inputted
     public static boolean alive = true; // checks if the user is alive or not
@@ -80,14 +80,19 @@ public static boolean whyisthisbroken = false;
             if (rouletteColour == colour){
                 System.out.println("You won! You won 1.5x your wagers: " + wager*1.5);
                 netWorth = netWorth + wager*1.5;
+                happinessStats +=2;
             } else {
                 System.out.println("You did not win :( and lost half your wagers: " + wager*0.5);
                 netWorth = netWorth + wager*0.5;
+                happinessStats -=2;
+                intelligenceStats -=3;
             }
     }
     
     public static void poker() {
-        int noDebt = 0;
+        whyisthisbroken = true;
+                int noDebt = 0;
+                double pokerChoice = 0;
         double wager = 0;
         while (noDebt == 0) {
             System.out.println("enter the amount you would like to bring to the table");
@@ -100,7 +105,7 @@ public static boolean whyisthisbroken = false;
         }
             if (ageStats < 18) {
                 System.out.println("Hey! you cant gamble unless you are 18 or older!");
-                // idk how to make break in a method 
+                return;
             }
             netWorth = netWorth - wager;
         int playerCard1 = (int) (52 * Math.random() + 1);
@@ -114,13 +119,49 @@ public static boolean whyisthisbroken = false;
         house[1] = houseCard1;
         house[2] = houseCard2;
         System.out.println("Your cards are "+ cardReader(playerCard1) + " and " + cardReader(playerCard2));
+            while (pokerChoice == 0) {
+            System.out.println ("***************CHOOSE A NUMBER BETWEEN ONE AND THREE***************\n 1. Raise 2. Call 3. Fold");
+                switch (in.nextInt()) {
+                    case 1: 
+                        pokerChoice = 1;
+                        break;
+                    case 2: 
+                        pokerChoice = 2;
+                        break;
+                    case 3:
+                        System.out.println("You folded and lost " + wager)
+                        return;
+                    default:
+                        System.out.println("Please insert a valid number!");
+                    }
+                }
+        pokerDecision(pokerChoice, wager);
+    }
+
+    public static double pokerDecision(int choice, int tableValue) {
+    boolean result = false;
+        while (result = false) {
+            if (choice == 1) {
+              System.out.println("How much would you like to raise? You have " + tableValue + " at the table");
+                if ((in.nextInt()) > tableValue) {
+                    System.out.println("This value is greater than the amount you brought to the table, try again+");
+                }
+                if ((in.nextInt()) < 0) {
+                    System.out.println("Please insert a valid number");
+                }
+            double raise = in.nextInt();
+            result = true;
+            return raise;
+            }
+            if (choice == 2)
+        }
 
     }
     
     public static String cardReader(int cardValue) {
         switch (cardValue) {
             case 1:
-                return"Ace of spades";
+                return "Ace of spades";
             case 2:
                 return "Two of spades";
             case 3:
@@ -166,7 +207,63 @@ public static boolean whyisthisbroken = false;
             case 23:
                 return "Ten of clubs";
             case 24:
-                return "Jack of clubs";
+                return "Jack of clubs";  
+            case 25:
+                return "Queen of clubs";
+            case 26:
+                return "King of clubs";
+            case 27:
+                return "Ace of hearts";
+            case 28:
+                return "Two of hearts";
+            case 29:
+                return "Three of hearts";
+            case 30:
+                return "Four of hearts";   
+            case 31:
+                return "Five of hearts";
+            case 32:
+                return "Six of hearts";
+            case 33:
+                return "Seven of hearts";
+            case 34:
+                return "Eight of hearts";
+            case 35:
+                return "Nine of hearts";
+            case 36:
+                return "Ten of hearts";
+            case 37:
+                return "Jack of hearts";
+            case 38:
+                return "Queen of hearts";
+            case 39:
+                return "King of hearts";
+            case 40:
+                return "Ace of diamonds";
+            case 41:
+                return "Two of diamonds";
+            case 42:
+                return "Three of diamonds";   
+            case 43:
+                return "Four of diamonds";
+            case 44:
+                return "Five of diamonds";
+            case 45:
+                return "Six of diamonds";
+            case 46:
+                return "Seven of diamonds";
+            case 47:
+                return "Eight of diamonds";
+            case 48:
+                return "Nine of diamonds";
+            case 49:
+                return "Ten of diamonds";
+            case 50:
+                return "Jack of diamonds";
+            case 51:
+                return "Queen of diamonds";
+            case 52:
+                return "King of diamonds";
             default:
                 return "idk how u got here but this is an error"; // err msg
 
@@ -1218,7 +1315,7 @@ public static boolean whyisthisbroken = false;
                     System.out.println(
                             "4. beg - play a mini game to beg people for money. If you win you gain money, but you can lose too!");
                     System.out.println("5. increaseage - Increase your age, and a random event will happen");
-                    System.out.println("6. gambling - blackjack, roulette, slots");
+                    System.out.println("6. gambling - roulette, poker, slots");
                     System.out.println("7. buy - buy items to add to your inventory!");
                     System.out.println("8. leavegame - Quit the program");
                     System.out.println("9. job - allows you to obtain a job");
@@ -1270,7 +1367,7 @@ public static boolean whyisthisbroken = false;
                         return;
                     }
                     System.out.println("-------------------- PICK A NUMBER BETWEEN ONE AND THREE --------------------");
-                    System.out.println("1 for roulette, 2 for blackjack, 3 for slots"); 
+                    System.out.println("1 for roulette, 2 for poker, 3 for slots"); 
                     int gamblingResponse = in.nextInt();
 
                     // checks what gambling game they want to play
