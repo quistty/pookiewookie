@@ -410,6 +410,7 @@ public class cpt {
                 applytoaSchool();
             } else {
                 System.out.println("How could you not pick one? Use !school or !job to get either one."); // err message
+                whyisthisbroken = true;
             }
 
         } else if ((ageStats <= 23) && (ageStats > 18) && schoolStatusForStudy == true) { 
@@ -1373,7 +1374,20 @@ public class cpt {
         }
         System.out.println("----------------------------------------");
     }
-
+    public static boolean oneMillionOdds(){
+        double millionDouble = (1000000 - 1 + 1) * Math.random() + 1;
+        int millionInt = (int) millionDouble;
+        int count = 0;
+        while (millionInt != 777) {
+            count++;
+            System.out.println("bossman: " + count);
+            if (millionInt == 777){
+                break;
+            }
+        }
+        System.out.println("wow, you a lucky boy!");
+        return true;
+    }
     public static void leavegame() { // if the player wants to leave the game
         System.out.println("-------------------- ARE YOU SURE YOU WANT TO END THE GAME? (Y/N) --------------------");
         String reponse = in.nextLine();
@@ -1806,6 +1820,7 @@ public class cpt {
             score += (healthStats * 10);
         }
         score += (netWorth*0.5);
+        score += (netWorthAssets*0.6);// assets are favoured over non assets, making it more valuable to spend money in this game!
         score += (ageStats * 25);
         if (ageStats < 50) { // average life span is around 80, if u make it u get a special msg!
             System.out.println("The odds were never in your favour.");
@@ -1878,6 +1893,9 @@ public class cpt {
                     } else {
                         System.out.println("That item isn't in your inventory! Check again!");
                     }
+                    return;
+                case "onemillion":
+                    oneMillionOdds();
                     return;
                 case "stats": 
                     resetI = true; // doesnt count command to yearly quota
