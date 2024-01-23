@@ -94,15 +94,15 @@ public class cpt {
             }
     }
     
-    public static void poker() {
+    public static void poker() { // method to play poker
         whyisthisbroken = true;
-                int noDebt = 0;
-                double pokerChoice = 0;
-                double pot = 0;
-        double wager = 0;
+                int noDebt = 0; // makes sure you do not bring more than you have
+                double pokerChoice = 0; // choice of events
+                double pot = 0; // total pot between you and the house
+        double wager = 0; // amount player has brought to the table
         while (noDebt == 0) {
             System.out.println("enter the amount you would like to bring to the table");
-            wager = in.nextInt();
+            wager = in.nextInt(); // amount on table
             if (wager > netWorth) {
                 System.out.println("you can not bring more than you have!");
             } else {
@@ -113,23 +113,23 @@ public class cpt {
                 System.out.println("Hey! you cant gamble unless you are 18 or older!");
                 return;
             }
-            netWorth = netWorth - wager;
-        int playerCard1 = (int) (52 * Math.random() + 1);
-        int playerCard2 = (int) (52 * Math.random() + 1);
-        int houseCard1 = (int) (52 * Math.random() + 1);
-        int houseCard2 = (int) (52 * Math.random() + 1);
-        int[] player = new int[7];
-        int[] house = new int[7];
-        int[] blacklist = new int[9];
-        player[1] = playerCard1;
-        player[2] = playerCard2;
-        house[1] = houseCard1;
-        house[2] = houseCard2;
-        blacklist[1] = playerCard1;
-        blacklist[2] = playerCard2;
-        blacklist[3] = houseCard1;
-        blacklist[4] = houseCard2;
-        blacklist = dupeCheck(blacklist);
+            netWorth = netWorth - wager; //takes wager from networth
+        int playerCard1 = (int) (52 * Math.random() + 1); // generates player card 1
+        int playerCard2 = (int) (52 * Math.random() + 1); // generates player card 2
+        int houseCard1 = (int) (52 * Math.random() + 1); // generates house card 1
+        int houseCard2 = (int) (52 * Math.random() + 1); // generates house card 2
+        int[] player = new int[7]; // array of all players cards
+        int[] house = new int[7]; // array of all house cards
+        int[] blacklist = new int[9]; // array of all total cards to removes dupe
+        player[1] = playerCard1; // inserts value into array
+        player[2] = playerCard2; // inserts value into array
+        house[1] = houseCard1; // inserts value into array
+        house[2] = houseCard2; // inserts value into array
+        blacklist[1] = playerCard1; // inserts value into array
+        blacklist[2] = playerCard2; // inserts value into array
+        blacklist[3] = houseCard1; // inserts value into array
+        blacklist[4] = houseCard2; // inserts value into array
+        blacklist = dupeCheck(blacklist); // checks and changes duplicate cards
         playerCard1 = blacklist[1];
         player[1] = playerCard1;
         playerCard2 = blacklist[2];
@@ -138,10 +138,10 @@ public class cpt {
         house[1] = houseCard1;
         houseCard2 = blacklist[4];
         house[2] = houseCard1;
-        System.out.println("Your cards are "+ cardReader(playerCard1) + " and " + cardReader(playerCard2));
-            while (pokerChoice == 0) {
+        System.out.println("Your cards are "+ cardReader(playerCard1) + " and " + cardReader(playerCard2)); // shows user their cards
+            while (pokerChoice == 0) { 
             System.out.println ("***************CHOOSE A NUMBER BETWEEN ONE AND THREE***************\n1. Raise 2. Call 3. Fold");
-                switch (in.nextInt()) {
+                switch (in.nextInt()) { // takes user input for a choice
                     case 1: 
                         pokerChoice = 1;
                         break;
@@ -149,37 +149,37 @@ public class cpt {
                         pokerChoice = 2;
                         break;
                     case 3:
-                        System.out.println("You folded and lost " + pot + " :(\nThe house had " + cardReader(houseCard1) + " and " + cardReader(houseCard2));
-                        netWorth = netWorth - pot;
+                        System.out.println("You folded and lost " + pot/2 + " :(\nThe house had " + cardReader(houseCard1) + " and " + cardReader(houseCard2));
+                        netWorth = netWorth + wager; 
                         return;
                     default:
                         System.out.println("Please insert a valid number!");
                     }
                 }
-            Double choiceResult = (pokerDecision(pokerChoice, wager));
-            pot = choiceResult + pot;
-            wager = wager - choiceResult;
+            Double choiceResult = (pokerDecision(pokerChoice, wager)); // runs a method to see how much money was put into the pot
+            pot = choiceResult + pot; // adds sum to the pot
+            wager = wager - choiceResult; // subtracts amount raised from the amount brought to the table
         System.out.println("The amount in the pot is " + pot );
         if (choiceResult == 0) {
             System.out.println("The house also calls");
         }
         else {
             System.out.println("The house matches your raise, the new pot is " + (choiceResult + pot));
-            pot = choiceResult + pot;
+            pot = choiceResult + pot; // the house matches your raise and adds to the pot
         }
-        int commonCard1 = (int) (52 * Math.random() + 1);
-        int commonCard2 = (int) (52 * Math.random() + 1);
-        int commonCard3 = (int) (52 * Math.random() + 1);
-        player[3] = commonCard1;
-        house[3] = commonCard1;
-        blacklist[5] = commonCard1;
-        player[4] = commonCard2;
-        house[4] = commonCard2;
-        blacklist[6] = commonCard2;
-        player[5] = commonCard3;
-        house[5] = commonCard3;
-        blacklist[7] = commonCard3;
-        blacklist = dupeCheck(blacklist);
+        int commonCard1 = (int) (52 * Math.random() + 1); // creates 1st common card
+        int commonCard2 = (int) (52 * Math.random() + 1); // creates 2nd common card
+        int commonCard3 = (int) (52 * Math.random() + 1); // creates 3rd common card
+        player[3] = commonCard1; // inserts value into array
+        house[3] = commonCard1; // inserts value into array
+        blacklist[5] = commonCard1; // inserts value into array
+        player[4] = commonCard2; // inserts value into array
+        house[4] = commonCard2; // inserts value into array
+        blacklist[6] = commonCard2; // inserts value into array
+        player[5] = commonCard3; // inserts value into array
+        house[5] = commonCard3; // inserts value into array
+        blacklist[7] = commonCard3; // inserts value into array
+        blacklist = dupeCheck(blacklist); // checks and fixes dupe cards
         commonCard1 = blacklist[5];
         player[3] = commonCard1;
         house[3] = commonCard1;
@@ -190,7 +190,7 @@ public class cpt {
         player[5] = commonCard3;
         house[5] = commonCard3;
         System.out.println("The first three cards have been revealed, they are: " + cardReader(commonCard1) + ", " + cardReader(commonCard2) + " and " + cardReader(commonCard3));
-        pokerChoice = 0;
+        pokerChoice = 0; // resets choice value so user can make a new choice
         while (pokerChoice == 0) {
             System.out.println ("***************CHOOSE A NUMBER BETWEEN ONE AND THREE***************\n1. Raise 2. Call 3. Fold");
                 switch (in.nextInt()) {
@@ -210,6 +210,7 @@ public class cpt {
                 }
             choiceResult = (pokerDecision(pokerChoice, wager));
             pot = choiceResult + pot;
+            wager = wager - choiceResult;
         System.out.println("The amount in the pot is " + pot );
         if (choiceResult == 0) {
             System.out.println("The house also calls");
@@ -218,7 +219,7 @@ public class cpt {
             System.out.println("The house matches your raise, the new pot is " + (choiceResult + pot));
             pot = choiceResult + pot;
         }
-        int commonCard4 = (int) (52 * Math.random() + 1);
+        int commonCard4 = (int) (52 * Math.random() + 1); // get 4th common card
         player[5] = commonCard4;
         house[5] = commonCard4;
         blacklist[8] = commonCard4;
@@ -244,6 +245,7 @@ public class cpt {
                 }
             choiceResult = (pokerDecision(pokerChoice, wager));
             pot = choiceResult + pot;
+            wager = wager - choiceResult;
         System.out.println("The amount in the pot is " + pot );
         if (choiceResult == 0) {
             System.out.println("The house also calls");
@@ -266,12 +268,12 @@ public class cpt {
     }
 
     public static double pokerDecision(double choice, double tableValue) {
-    int result = 0;
-    double raise = 0;
-    double amount = 0;
+    int result = 0; // loops the code if the amount is not valid
+    double raise = 0; // amount of money returned 
+    double amount = 0; // stores user input
         while (result == 0) {
-            result = 1;
-            amount = 0;
+            result = 1; // resets counter
+            amount = 0; // resets raise value
             if (choice == 1) {
                 System.out.println("How much would you like to raise? You have " + tableValue + " at the table");
                 amount = in.nextDouble();
@@ -284,21 +286,21 @@ public class cpt {
                     result = 0;
                 } 
             if (result == 1) {
-            raise = amount;
-            result = 0;
+            raise = amount; // converts stored variable to returned variable
+            result = 1;
             return raise;
             }
          }
 
             if (choice == 2) {
-                result = 0;
+                result = 1;
                 return raise;
             }
         }
         return raise;
     }
     
-    public static String cardReader(int cardValue) {
+    public static String cardReader(int cardValue) { // method to convert number into card
         switch (cardValue) {
             case 1:
                 return "Ace of spades";
