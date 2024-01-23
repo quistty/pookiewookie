@@ -180,7 +180,9 @@ public class cpt {
         house[5] = commonCard3; // inserts value into array
         blacklist[7] = commonCard3; // inserts value into array
         blacklist = dupeCheck(blacklist); // checks and fixes dupe cards
-        commonCard1 = blacklist[5];
+
+        // assignes the non duplicate numbers back to their original values
+        commonCard1 = blacklist[5]; 
         player[3] = commonCard1;
         house[3] = commonCard1;
         commonCard2 = blacklist[6];
@@ -606,10 +608,10 @@ public class cpt {
     public static void callEventMethodChild(String eventName) {
         switch (eventName) { // changes the user's stats based on the random event
             case "hitByBus":
-                healthStats -= 50;
+                healthStats -= 25;
                 happinessStats -= 20;
                 System.out.println(
-                        "You were hit by a bus! Ouchie!! -50% health and -20% happiness. Your current health is: "
+                        "You were hit by a bus! Ouchie!! -25% health and -20% happiness. Your current health is: "
                                 + healthStats + " and your current happiness is: " + happinessStats);
                 break;
             case "bullyEncounter":
