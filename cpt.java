@@ -111,24 +111,21 @@ public static boolean whyisthisbroken = false;
             }
             netWorth = netWorth - wager;
         int playerCard1 = (int) (52 * Math.random() + 1);
-        int blacklist1 = playerCard1;
         int playerCard2 = (int) (52 * Math.random() + 1);
-        int blacklist3 = playerCard2;
         int houseCard1 = (int) (52 * Math.random() + 1);
-        int blacklist2 = houseCard1;
         int houseCard2 = (int) (52 * Math.random() + 1);
-        int blacklist4 = houseCard2;
         int[] player = new int[7];
         int[] house = new int[7];
-        int[] blacklist = new int[9];
+        int[] blacklist = {0,0,0,0,0,0,0,0,0};
         player[1] = playerCard1;
         player[2] = playerCard2;
         house[1] = houseCard1;
         house[2] = houseCard2;
-        blacklist[1] = blacklist1;
-        blacklist[2] = blacklist2;
-        blacklist[3] = blacklist3;
-        blacklist[4] = blacklist4;
+        blacklist[1] = playerCard1;
+        blacklist[2] = playerCard2;
+        blacklist[3] = houseCard1;
+        blacklist[4] = houseCard2;
+        dupeCheck();
         System.out.println("Your cards are "+ cardReader(playerCard1) + " and " + cardReader(playerCard2));
             while (pokerChoice == 0) {
             System.out.println ("***************CHOOSE A NUMBER BETWEEN ONE AND THREE***************\n 1. Raise 2. Call 3. Fold");
@@ -157,11 +154,8 @@ public static boolean whyisthisbroken = false;
             System.out.println("The house matches your raise, the new pot is" + (choiceResult + pot));
         }
         int commonCard1 = (int) (52 * Math.random() + 1);
-        int blacklist5 = commonCard1;
         int commonCard2 = (int) (52 * Math.random() + 1);
-        int blacklist6 = commonCard2;
         int commonCard3 = (int) (52 * Math.random() + 1);
-        int blacklist7 = commonCard3;
         player[3] = commonCard1;
         house[3] = commonCard1;
         blacklist[5] = commonCard1;
@@ -171,13 +165,31 @@ public static boolean whyisthisbroken = false;
         player[5] = commonCard3;
         house[5] = commonCard3;
         blacklist[7] = commonCard3;
+        dupeCheck(int[] blacklist);
+        System.out.println ("***************CHOOSE A NUMBER BETWEEN ONE AND THREE***************\n 1. Raise 2. Call 3. Fold");
+                switch (in.nextInt()) {
+                    case 1: 
+                        pokerChoice = 1;
+                        break;
+                    case 2: 
+                        pokerChoice = 2;
+                        break;
+                    case 3:
+                        System.out.println("You folded and lost " + pot + " :(\nThe house had " + cardReader(houseCard1) + " and " + cardReader(houseCard2));
+                        netWorth = netWorth - pot;
+                        return;
+                    default:
+                        System.out.println("Please insert a valid number!");
+                    }
         
     }
 
-    public static void dupeCheck(blacklist[]) {
-        for (int i; i > blacklist.lenth; i++) {
-            if (blacklist[i]) {
-
+    public static void dupeCheck(int[] blacklist) {
+        for (int i = 0; i > blacklist.length; i++) {
+            for (int j = i + 1; j < blacklist.length; j++) {
+                if (blacklist[i] == blacklist[j]) {
+                    blacklist[j] = (int) (52 * Math.random() + 1);
+                }
             }
         }
     }
