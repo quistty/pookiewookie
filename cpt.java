@@ -24,7 +24,7 @@ public class cpt {
     public static int schoolYearCount = 0; // number of years in school
     public static boolean endingGame = false;
     public static boolean whyisthisbroken = false;
-    public static String[] inventory = {"none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", 
+    public static String[] inventory = {"Gulfstream G650", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", 
     "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", 
     "none", "none", "none", "none", "none", "none", }; // has 50 elements (49 indexes not including 0)
 
@@ -220,8 +220,8 @@ public class cpt {
             pot = choiceResult + pot;
         }
         int commonCard4 = (int) (52 * Math.random() + 1); // get 4th common card
-        player[5] = commonCard4;
-        house[5] = commonCard4;
+        player[6] = commonCard4;
+        house[6] = commonCard4;
         blacklist[8] = commonCard4;
         dupeCheck(blacklist);
         System.out.println("The fourth card has been revealed, it is a " + cardReader(commonCard4));
@@ -254,6 +254,42 @@ public class cpt {
             System.out.println("The house matches your raise, the new pot is " + (choiceResult + pot));
             pot = choiceResult + pot;
         }
+        int commonCard5 = (int) (52 * Math.random() + 1); // get 5th common card
+        player[7] = commonCard5;
+        house[7] = commonCard5;
+        blacklist[9] = commonCard5;
+        dupeCheck(blacklist);
+        System.out.println("The fifth card has been revealed, it is a " + cardReader(commonCard4));
+        pokerChoice = 0;
+        while (pokerChoice == 0) {
+            System.out.println ("***************CHOOSE A NUMBER BETWEEN ONE AND THREE***************\n1. Raise 2. Call 3. Fold");
+                switch (in.nextInt()) {
+                    case 1: 
+                        pokerChoice = 1;
+                        break;
+                    case 2: 
+                        pokerChoice = 2;
+                        break;
+                    case 3:
+                        System.out.println("You folded and lost " + pot + " :(\nThe house had " + cardReader(houseCard1) + " and " + cardReader(houseCard2));
+                        netWorth = netWorth - pot;
+                        return;
+                    default:
+                        System.out.println("Please insert a valid number!");
+                    }
+                }
+            choiceResult = (pokerDecision(pokerChoice, wager));
+            pot = choiceResult + pot;
+            wager = wager - choiceResult;
+        System.out.println("The amount in the pot is " + pot );
+        if (choiceResult == 0) {
+            System.out.println("The house also calls");
+        }
+        else {
+            System.out.println("The house matches your raise, the new pot is " + (choiceResult + pot));
+            pot = choiceResult + pot;
+        }
+
     }
 
     public static int[] dupeCheck(int[] blacklist) {
