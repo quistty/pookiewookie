@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class cpt {
     // ---------------------------------------------------------------VARIABLES------------------------------------------------
     // always declare them here, and with public static before the variable
-    public static int healthStats = 500, happinessStats = 50, intelligenceStats = 50, ageStats = 1; // general stats for the user
+    public static int healthStats = 500, happinessStats = 50, intelligenceStats = 50, ageStats = 18; // general stats for the user
     public static Scanner in = new Scanner(System.in);
     public static double netWorth = 100; // how much money the user has
     public static double netWorthAssets = 0; // the value of all the assets a user has.
@@ -120,7 +120,7 @@ public class cpt {
         int houseCard2 = (int) (52 * Math.random() + 1); // generates house card 2
         int[] player = new int[7]; // array of all players cards
         int[] house = new int[7]; // array of all house cards
-        int[] blacklist = {0,0,0,0,0,0,0,0,0}; // array of all total cards to removes dupe
+        int[] blacklist = new int[9]; // array of all total cards to removes dupe
         player[1] = playerCard1; // inserts value into array
         player[2] = playerCard2; // inserts value into array
         house[1] = houseCard1; // inserts value into array
@@ -129,7 +129,15 @@ public class cpt {
         blacklist[2] = playerCard2; // inserts value into array
         blacklist[3] = houseCard1; // inserts value into array
         blacklist[4] = houseCard2; // inserts value into array
-        dupeCheck(blacklist); // checks and changes duplicate cards
+        blacklist = dupeCheck(blacklist); // checks and changes duplicate cards
+        playerCard1 = blacklist[1];
+        player[1] = playerCard1;
+        playerCard2 = blacklist[2];
+        player[2] = playerCard2;
+        houseCard1 = blacklist[3];
+        house[1] = houseCard1;
+        houseCard2 = blacklist[4];
+        house[2] = houseCard1;
         System.out.println("Your cards are "+ cardReader(playerCard1) + " and " + cardReader(playerCard2)); // shows user their cards
             while (pokerChoice == 0) { 
             System.out.println ("***************CHOOSE A NUMBER BETWEEN ONE AND THREE***************\n1. Raise 2. Call 3. Fold");
@@ -171,7 +179,16 @@ public class cpt {
         player[5] = commonCard3; // inserts value into array
         house[5] = commonCard3; // inserts value into array
         blacklist[7] = commonCard3; // inserts value into array
-        dupeCheck(blacklist); // checks and fixes dupe cards
+        blacklist = dupeCheck(blacklist); // checks and fixes dupe cards
+        commonCard1 = blacklist[5];
+        player[3] = commonCard1;
+        house[3] = commonCard1;
+        commonCard2 = blacklist[6];
+        player[4] = commonCard2;
+        house[4] = commonCard2;
+        commonCard3 = blacklist[7];
+        player[5] = commonCard3;
+        house[5] = commonCard3;
         System.out.println("The first three cards have been revealed, they are: " + cardReader(commonCard1) + ", " + cardReader(commonCard2) + " and " + cardReader(commonCard3));
         pokerChoice = 0; // resets choice value so user can make a new choice
         while (pokerChoice == 0) {
@@ -239,7 +256,7 @@ public class cpt {
         }
     }
 
-    public static void dupeCheck(int[] blacklist) {
+    public static int[] dupeCheck(int[] blacklist) {
         for (int i = 0; i < blacklist.length; i++) {
             for (int j = i + 1; j < blacklist.length; j++) {
                 if (blacklist[i] == blacklist[j]) {
@@ -247,7 +264,7 @@ public class cpt {
                 }
             }
         }
-        return;
+        return blacklist;
     }
 
     public static double pokerDecision(double choice, double tableValue) {
