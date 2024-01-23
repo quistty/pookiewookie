@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class cpt {
     // ---------------------------------------------------------------VARIABLES------------------------------------------------
     // always declare them here, and with public static before the variable
-    public static int healthStats = 500, happinessStats = 50, intelligenceStats = 50, ageStats = 18; // general stats for the user
+    public static int healthStats = 100, happinessStats = 50, intelligenceStats = 50, ageStats = 1; // general stats for the user
     public static Scanner in = new Scanner(System.in);
     public static double netWorth = 100; // how much money the user has
     public static double netWorthAssets = 0; // the value of all the assets a user has.
@@ -516,17 +516,16 @@ public class cpt {
         }
     }
 
-    // method that runs baby events
+    // Method to dynamically call event methods
     public static void callEventMethodBaby(String eventName) {
-        switch (eventName) { // changes the user's stats based on the random event
-            case "drugdealer":
-                healthStats -= 20;
-                System.out.println("You were approached by a drug dealer. You didnt buy his goods and were jumped by his men. You lost -20% health. Your current health is :" + healthStats);
+        switch (eventName) {
+            case "pneumonia":
+                healthStats -= 10;
+                System.out.println("You obtained pneumonia. -10% health. Your current health is: " + healthStats);
                 break;
-            case "failedExam":
-                happinessStats -= 40;
-                intelligenceStats -= 10;
-                System.out.println("You failed your exam from not studying. You lost 40% happiness and 10% intelligence. Your new happiness is: " + happinessStats + " and your new health is: " + healthStats);
+            case "flu":
+                healthStats -= 10;
+                System.out.println("You obtained the flu. -10% health. Your current health is: " + healthStats);
                 break;
             case "gotDropped":
                 intelligenceStats -= 50;
@@ -535,8 +534,7 @@ public class cpt {
                 break;
             case "noCake":
                 happinessStats -= 30;
-                System.out.println(
-                        "You didnt get cake today. -30% happiness. Your current happiness is: " + happinessStats);
+                System.out.println("You didnt get cake today. -30% happiness. Your current happiness is: " + happinessStats);
                 break;
             case "reallyGoodMilk":
                 healthStats += 20;
@@ -559,13 +557,14 @@ public class cpt {
             case "gotAPet":
                 happinessStats += 50;
                 System.out.println(
-                        "You got a pet dog! You named him Gojo. +50% happiness. Your current happiness is: "
+                        "You got a pet dog! You named him Gojo Satoru. +50% happiness. Your current happiness is: "
                                 + happinessStats);
                 break;
             default:
                 System.out.println("Gambling lesson #1: There are no losses, just intervals between winning");
         }
     }
+
 
     // method that runs child events
     public static void callEventMethodChild(String eventName) {
@@ -788,7 +787,7 @@ public class cpt {
         System.out.println("Happiness: " + happinessStats);
         System.out.println("Intelligence: " + intelligenceStats);
         System.out.println("Networth: " + netWorth + ". Note that this does not include the assets, as it is the amount of cash you own!");
-        System.out.println("Assets in Networth: " + netWorth);
+        System.out.println("Assets in Networth: " + netWorthAssets);
         System.out.println("Age: " + ageStats);
         System.out.println("Command Count: " + commandCountStats);
         System.out.println("School: " + schoolTitle);
@@ -1361,6 +1360,7 @@ public class cpt {
                 intelligenceStats += randomInt;
                 System.out.println("You solved puzzles! You gained " + randomInt + " intelligence.");
                 System.out.println("Your current intelligence is: " + intelligenceStats);
+                break;
             case 6:
                 random = (2 - 1 + 1) * Math.random() + 1; // grants a random amount
                 randomInt = (int) random;
@@ -2059,6 +2059,7 @@ public class cpt {
                     System.out.println("----------------------------------------");
                     return;
                 case "beg":
+                    whyisthisbroken = true;
                     boolean winner = hilow(); // makes them play a mini game to win
                     if (winner == true) {
                         int winnings = (int) (1000 * Math.random() + 1);
@@ -2092,10 +2093,10 @@ public class cpt {
                 case "play":
                     play();
                     return;
-                case "videogames":
+                case "rockpaperscissors":
                     rockpaperscissors();
                     return;
-                case "8ball":
+                case "magic8ball":
                     magic8Ball();
                     return;
                 case "displayinventory":
