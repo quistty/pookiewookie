@@ -674,7 +674,7 @@ public class cpt {
                 System.out.println("You were invited to a high school reunion party. +30% happiness. Your current happiness is: " + happinessStats);
                 break;
             case "jobBonus":
-                healthStats -= 30000;
+                netWorth += 30000;
                 happinessStats += 50;
                 System.out.println("Your job gave you a 30k bonus for helping them land a million dollar deal. Your current networth is: $" + netWorth);
                 break;
@@ -1377,23 +1377,18 @@ public class cpt {
     public static boolean oneMillionOdds(){
         double millionDouble = (1000000 - 1 + 1) * Math.random() + 1;
         int millionInt = (int) millionDouble;
-        int count = 0;
-        while (millionInt != 777) {
-            count++;
-            System.out.println("bossman: " + count);
-            if (millionInt == 777){
-                break;
-            }
+        if (millionInt == 777) {
+            return true;
+        } else {
+            return false;
         }
-        System.out.println("wow, you a lucky boy!");
-        return true;
     }
     public static void leavegame() { // if the player wants to leave the game
         System.out.println("-------------------- ARE YOU SURE YOU WANT TO END THE GAME? (Y/N) --------------------");
         String reponse = in.nextLine();
 
         // checks if the user wants to quit or not
-        if (reponse.equalsIgnoreCase("y")) { // ends the code
+        if (reponse.equalsIgnoreCase("y")) { // ends the code   
             alive = false;
             return;
         } else if (reponse.equalsIgnoreCase("n")) { // returns back to regular useage
@@ -2086,7 +2081,7 @@ public class cpt {
                 if (resetI == true) { // if the method is not an essential method, such as checking stats it will not
                     // increase age stat
                     resetI = false;
-                    if ((i - 1) % 35 == 0) {
+                    if ((i - 1) % 25 == 0) {
                         i = 1;
                     } else {
                         i--;
