@@ -4,9 +4,9 @@ import java.util.Scanner;
 public class cpt {
     // ---------------------------------------------------------------VARIABLES------------------------------------------------
     // always declare them here, and with public static before the variable
-    public static int healthStats = 100, happinessStats = 50, intelligenceStats = 50, ageStats = 1; // general stats for the user
+    public static int healthStats = 500, happinessStats = 50, intelligenceStats = 50, ageStats = 1; // general stats for the user
     public static Scanner in = new Scanner(System.in);
-    public static double netWorth = 0; // how much money the user has
+    public static double netWorth = 100; // how much money the user has
     public static double netWorthAssets = 0; // the value of all the assets a user has.
     public static boolean beginnerInformation = false; // so beginner information runs once
     public static String command; // the command the user inputted
@@ -47,11 +47,12 @@ public class cpt {
         double wager = 0;
         while (noDebt == 0) {
             System.out.println("enter the amount you would like to wager");
-            wager = in.nextInt();
+            wager = in.nextDouble();
             if (wager > netWorth) {
                 System.out.println("you can not wager more than you have!");
             } else {
                 noDebt = 1;
+
             }
         }
             netWorth = netWorth - wager;
@@ -84,14 +85,20 @@ public class cpt {
             if (rouletteColour == colour){
                 System.out.println("You won! You won 1.5x your wagers: " + wager*1.5);
                 netWorth = netWorth + wager*1.5;
+                happinessStats +=2;
             } else {
                 System.out.println("You did not win :( and lost half your wagers: " + wager*0.5);
                 netWorth = netWorth + wager*0.5;
+                happinessStats -=2;
+                intelligenceStats -=3;
             }
     }
     
     public static void poker() {
-        int noDebt = 0;
+        whyisthisbroken = true;
+                int noDebt = 0;
+                double pokerChoice = 0;
+                double pot = 0;
         double wager = 0;
         while (noDebt == 0) {
             System.out.println("enter the amount you would like to bring to the table");
@@ -104,27 +111,120 @@ public class cpt {
         }
             if (ageStats < 18) {
                 System.out.println("Hey! you cant gamble unless you are 18 or older!");
-                // idk how to make break in a method 
+                return;
             }
             netWorth = netWorth - wager;
         int playerCard1 = (int) (52 * Math.random() + 1);
+        int blacklist1 = playerCard1;
         int playerCard2 = (int) (52 * Math.random() + 1);
+        int blacklist3 = playerCard2;
         int houseCard1 = (int) (52 * Math.random() + 1);
+        int blacklist2 = houseCard1;
         int houseCard2 = (int) (52 * Math.random() + 1);
+        int blacklist4 = houseCard2;
         int[] player = new int[7];
         int[] house = new int[7];
+        int[] blacklist = new int[9];
         player[1] = playerCard1;
         player[2] = playerCard2;
         house[1] = houseCard1;
         house[2] = houseCard2;
+        blacklist[1] = blacklist1;
+        blacklist[2] = blacklist2;
+        blacklist[3] = blacklist3;
+        blacklist[4] = blacklist4;
         System.out.println("Your cards are "+ cardReader(playerCard1) + " and " + cardReader(playerCard2));
+            while (pokerChoice == 0) {
+            System.out.println ("***************CHOOSE A NUMBER BETWEEN ONE AND THREE***************\n 1. Raise 2. Call 3. Fold");
+                switch (in.nextInt()) {
+                    case 1: 
+                        pokerChoice = 1;
+                        break;
+                    case 2: 
+                        pokerChoice = 2;
+                        break;
+                    case 3:
+                        System.out.println("You folded and lost " + pot + " :(\nThe house had " + cardReader(houseCard1) + " and " + cardReader(houseCard2));
+                        netWorth = netWorth - pot;
+                        return;
+                    default:
+                        System.out.println("Please insert a valid number!");
+                    }
+                }
+            Double choiceResult = (pokerDecision(pokerChoice, wager));
+            pot = choiceResult + pot;
+        System.out.println("The amount in the pot is " + pot );
+        if (choiceResult == 0) {
+            System.out.println("The house also calls");
+        }
+        else {
+            System.out.println("The house matches your raise, the new pot is" + (choiceResult + pot));
+        }
+        int commonCard1 = (int) (52 * Math.random() + 1);
+        int blacklist5 = commonCard1;
+        int commonCard2 = (int) (52 * Math.random() + 1);
+        int blacklist6 = commonCard2;
+        int commonCard3 = (int) (52 * Math.random() + 1);
+        int blacklist7 = commonCard3;
+        player[3] = commonCard1;
+        house[3] = commonCard1;
+        blacklist[5] = commonCard1;
+        player[4] = commonCard2;
+        house[4] = commonCard2;
+        blacklist[6] = commonCard2;
+        player[5] = commonCard3;
+        house[5] = commonCard3;
+        blacklist[7] = commonCard3;
+        
+    }
 
+    public static void dupeCheck(blacklist[]) {
+        for (int i; i > blacklist.lenth; i++) {
+            if (blacklist[i]) {
+
+            }
+        }
+    }
+
+    public static double pokerDecision(double choice, double tableValue) {
+    int result = 0;
+    double raise = 0;
+    double amount = 0;
+    System.out.println("test");
+        while (result == 0) {
+            result = 1;
+            amount = 0;
+            if (choice == 1) {
+                System.out.println("How much would you like to raise? You have " + tableValue + " at the table");
+                amount = in.nextDouble();
+                if (amount > tableValue) {
+                    System.out.println("This value is greater than the amount you brought to the table, try again");
+                    result = 0;
+                }
+                if (amount <= 0) {
+                    System.out.println("Please insert a valid number");
+                    result = 0;
+                } 
+            if (result == 1) {
+            raise = amount;
+            System.out.println(raise);
+            result = 0;
+            return raise;
+            }
+         }
+
+            if (choice == 2) {
+                result = 0;
+                return raise;
+            }
+        }
+        return raise;
     }
     
     public static String cardReader(int cardValue) {
         switch (cardValue) {
             case 1:
-                return"Ace of spades";
+                return "Ace of spades";
             case 2:
                 return "Two of spades";
             case 3:
@@ -170,7 +270,63 @@ public class cpt {
             case 23:
                 return "Ten of clubs";
             case 24:
-                return "Jack of clubs";
+                return "Jack of clubs";  
+            case 25:
+                return "Queen of clubs";
+            case 26:
+                return "King of clubs";
+            case 27:
+                return "Ace of hearts";
+            case 28:
+                return "Two of hearts";
+            case 29:
+                return "Three of hearts";
+            case 30:
+                return "Four of hearts";   
+            case 31:
+                return "Five of hearts";
+            case 32:
+                return "Six of hearts";
+            case 33:
+                return "Seven of hearts";
+            case 34:
+                return "Eight of hearts";
+            case 35:
+                return "Nine of hearts";
+            case 36:
+                return "Ten of hearts";
+            case 37:
+                return "Jack of hearts";
+            case 38:
+                return "Queen of hearts";
+            case 39:
+                return "King of hearts";
+            case 40:
+                return "Ace of diamonds";
+            case 41:
+                return "Two of diamonds";
+            case 42:
+                return "Three of diamonds";   
+            case 43:
+                return "Four of diamonds";
+            case 44:
+                return "Five of diamonds";
+            case 45:
+                return "Six of diamonds";
+            case 46:
+                return "Seven of diamonds";
+            case 47:
+                return "Eight of diamonds";
+            case 48:
+                return "Nine of diamonds";
+            case 49:
+                return "Ten of diamonds";
+            case 50:
+                return "Jack of diamonds";
+            case 51:
+                return "Queen of diamonds";
+            case 52:
+                return "King of diamonds";
             default:
                 return "idk how u got here but this is an error"; // err msg
 
@@ -1734,7 +1890,7 @@ public class cpt {
                     System.out.println(
                             "4. beg - play a mini game to beg people for money. If you win you gain money, but you can lose too!");
                     System.out.println("5. increaseage - Increase your age, and a random event will happen");
-                    System.out.println("6. gambling - blackjack, roulette, slots");
+                    System.out.println("6. gambling - roulette, poker, slots");
                     System.out.println("7. buy - buy items to add to your inventory!");
                     System.out.println("8. leavegame - Quit the program");
                     System.out.println("9. job - allows you to obtain a job");
@@ -1792,7 +1948,7 @@ public class cpt {
                         return;
                     }
                     System.out.println("-------------------- PICK A NUMBER BETWEEN ONE AND THREE --------------------");
-                    System.out.println("1 for roulette, 2 for blackjack, 3 for slots"); 
+                    System.out.println("1 for roulette, 2 for poker, 3 for slots"); 
                     int gamblingResponse = in.nextInt();
 
                     // checks what gambling game they want to play
