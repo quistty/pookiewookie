@@ -129,9 +129,10 @@ public class cpt {
         blacklist[2] = playerCard2;
         blacklist[3] = houseCard1;
         blacklist[4] = houseCard2;
+        dupeCheck(blacklist);
         System.out.println("Your cards are "+ cardReader(playerCard1) + " and " + cardReader(playerCard2));
             while (pokerChoice == 0) {
-            System.out.println ("***************CHOOSE A NUMBER BETWEEN ONE AND THREE***************\n 1. Raise 2. Call 3. Fold");
+            System.out.println ("***************CHOOSE A NUMBER BETWEEN ONE AND THREE***************\n1. Raise 2. Call 3. Fold");
                 switch (in.nextInt()) {
                     case 1: 
                         pokerChoice = 1;
@@ -149,12 +150,14 @@ public class cpt {
                 }
             Double choiceResult = (pokerDecision(pokerChoice, wager));
             pot = choiceResult + pot;
+            wager = wager - choiceResult;
         System.out.println("The amount in the pot is " + pot );
         if (choiceResult == 0) {
             System.out.println("The house also calls");
         }
         else {
-            System.out.println("The house matches your raise, the new pot is" + (choiceResult + pot));
+            System.out.println("The house matches your raise, the new pot is " + (choiceResult + pot));
+            pot = choiceResult + pot;
         }
         int commonCard1 = (int) (52 * Math.random() + 1);
         int commonCard2 = (int) (52 * Math.random() + 1);
@@ -169,7 +172,10 @@ public class cpt {
         house[5] = commonCard3;
         blacklist[7] = commonCard3;
         dupeCheck(blacklist);
-        System.out.println ("***************CHOOSE A NUMBER BETWEEN ONE AND THREE***************\n 1. Raise 2. Call 3. Fold");
+        System.out.println("The first three cards have been revealed, they are: " + cardReader(commonCard1) + ", " + cardReader(commonCard2) + " and " + cardReader(commonCard3));
+        pokerChoice = 0;
+        while (pokerChoice == 0) {
+            System.out.println ("***************CHOOSE A NUMBER BETWEEN ONE AND THREE***************\n1. Raise 2. Call 3. Fold");
                 switch (in.nextInt()) {
                     case 1: 
                         pokerChoice = 1;
@@ -184,7 +190,51 @@ public class cpt {
                     default:
                         System.out.println("Please insert a valid number!");
                     }
-        
+                }
+            choiceResult = (pokerDecision(pokerChoice, wager));
+            pot = choiceResult + pot;
+        System.out.println("The amount in the pot is " + pot );
+        if (choiceResult == 0) {
+            System.out.println("The house also calls");
+        }
+        else {
+            System.out.println("The house matches your raise, the new pot is " + (choiceResult + pot));
+            pot = choiceResult + pot;
+        }
+        int commonCard4 = (int) (52 * Math.random() + 1);
+        player[5] = commonCard4;
+        house[5] = commonCard4;
+        blacklist[8] = commonCard4;
+        dupeCheck(blacklist);
+        System.out.println("The fourth card has been revealed, it is a " + cardReader(commonCard4));
+        pokerChoice = 0;
+        while (pokerChoice == 0) {
+            System.out.println ("***************CHOOSE A NUMBER BETWEEN ONE AND THREE***************\n1. Raise 2. Call 3. Fold");
+                switch (in.nextInt()) {
+                    case 1: 
+                        pokerChoice = 1;
+                        break;
+                    case 2: 
+                        pokerChoice = 2;
+                        break;
+                    case 3:
+                        System.out.println("You folded and lost " + pot + " :(\nThe house had " + cardReader(houseCard1) + " and " + cardReader(houseCard2));
+                        netWorth = netWorth - pot;
+                        return;
+                    default:
+                        System.out.println("Please insert a valid number!");
+                    }
+                }
+            choiceResult = (pokerDecision(pokerChoice, wager));
+            pot = choiceResult + pot;
+        System.out.println("The amount in the pot is " + pot );
+        if (choiceResult == 0) {
+            System.out.println("The house also calls");
+        }
+        else {
+            System.out.println("The house matches your raise, the new pot is " + (choiceResult + pot));
+            pot = choiceResult + pot;
+        }
     }
 
     public static void dupeCheck(int[] blacklist) {
@@ -202,7 +252,6 @@ public class cpt {
     int result = 0;
     double raise = 0;
     double amount = 0;
-    System.out.println("test");
         while (result == 0) {
             result = 1;
             amount = 0;
@@ -219,7 +268,6 @@ public class cpt {
                 } 
             if (result == 1) {
             raise = amount;
-            System.out.println(raise);
             result = 0;
             return raise;
             }
