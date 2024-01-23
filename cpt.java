@@ -24,7 +24,7 @@ public class cpt {
     public static int schoolYearCount = 0; // number of years in school
     public static boolean endingGame = false;
     public static boolean whyisthisbroken = false;
-    public static String[] inventory = {"none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", 
+    public static String[] inventory = {"Gulfstream G650", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", 
     "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", 
     "none", "none", "none", "none", "none", "none", }; // has 50 elements (49 indexes not including 0)
 
@@ -771,7 +771,7 @@ public class cpt {
         System.out.println("Happiness: " + happinessStats);
         System.out.println("Intelligence: " + intelligenceStats);
         System.out.println("Networth: " + netWorth + ". Note that this does not include the assets, as it is the amount of cash you own!");
-        System.out.println("Assets in Networth: " + netWorth);
+        System.out.println("Assets in Networth: " + netWorthAssets);
         System.out.println("Age: " + ageStats);
         System.out.println("Command Count: " + commandCountStats);
         System.out.println("School: " + schoolTitle);
