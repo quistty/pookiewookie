@@ -7,6 +7,7 @@ public class cpt {
     public static int healthStats = 500, happinessStats = 50, intelligenceStats = 50, ageStats = 1; // general stats for the user
     public static Scanner in = new Scanner(System.in);
     public static double netWorth = 100; // how much money the user has
+    public static double netWorthAssets = 0; // the value of all the assets a user has.
     public static boolean beginnerInformation = false; // so beginner information runs once
     public static String command; // the command the user inputted
     public static boolean alive = true; // checks if the user is alive or not
@@ -22,7 +23,10 @@ public class cpt {
     public static boolean resetSpecificI = false; // resets I for the buggy age
     public static int schoolYearCount = 0; // number of years in school
     public static boolean endingGame = false;
-public static boolean whyisthisbroken = false;
+    public static boolean whyisthisbroken = false;
+    public static String[] inventory = {"none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", 
+    "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", 
+    "none", "none", "none", "none", "none", "none", }; // has 50 elements (49 indexes not including 0)
 
     // ----------------------------------------------------------------COMMANDS------------------------------------------------
     // where all the commands for the game are
@@ -715,7 +719,8 @@ public static boolean whyisthisbroken = false;
         System.out.println("Health: " + healthStats);
         System.out.println("Happiness: " + happinessStats);
         System.out.println("Intelligence: " + intelligenceStats);
-        System.out.println("Networth: " + netWorth);
+        System.out.println("Networth: " + netWorth + ". Note that this does not include the assets, as it is the amount of cash you own!");
+        System.out.println("Assets in Networth: " + netWorth);
         System.out.println("Age: " + ageStats);
         System.out.println("Command Count: " + commandCountStats);
         System.out.println("School: " + schoolTitle);
@@ -745,7 +750,6 @@ public static boolean whyisthisbroken = false;
         System.out.println("Pick a job by inputting the number corresponding to the job");
         int jobNumber = in.nextInt(); // gets the job the user wants
         boolean jobMiniGameWinnings; // checks to see if the user was successful in winning the minigame for the job
-        whyisthisbroken = true;
         switch (jobNumber) {
             case 1:
                 if (intelligenceStats > 10) {
@@ -1417,6 +1421,368 @@ public static boolean whyisthisbroken = false;
         }
         return winner;
     }
+
+
+    public static void rockpaperscissors() {
+        System.out.println("Enter your move (rock, paper, scissors) or 'quit' to exit:");
+        String userMove = in.nextLine().toLowerCase();
+
+        if (userMove.equals("quit")) {
+            System.out.println("ok!");
+            return;
+        } else if (!userMove.equals("rock") && !userMove.equals("paper") && !userMove.equals("scissors")) {
+            System.out.println("Invalid input! Try again by using the same command");
+            return;
+        }
+
+        String computerMove = generateComputerMove();
+        System.out.println("Computer's move: " + computerMove);
+
+        String result = determineWinner(userMove, computerMove);
+        System.out.println("Result: " + result);
+        if (result.equals("tie")) {
+            happinessStats += 2;
+            intelligenceStats--;
+            System.out.println("You gained 2 happiness! Play too many video games and you'll lose intelligence!"); 
+        } else if (result.equals("win")) {
+            happinessStats += 5;
+            intelligenceStats -= 2;
+            System.out.println("You gained 5 happiness! Play too many video games and you'll lose intelligence!"); 
+        } else { // this would be if it returned false
+            happinessStats -= 5;
+            intelligenceStats -= 2;
+            System.out.println("You lost 5 happiness! Play too many video games and you'll lose intelligence!"); 
+        }
+    }
+
+
+
+
+    public static String generateComputerMove() {
+        String[] moves = {"rock", "paper", "scissors"};
+        double randomIndexPlaceholder = (3 - 1 + 1) * Math.random() + 1;
+        int randomIndex = (int) randomIndexPlaceholder; 
+        randomIndex--;
+        return moves[randomIndex];
+    }
+
+    public static String determineWinner(String userMove, String computerMove) {
+        if (userMove.equals(computerMove)) {
+            return "tie";
+        }
+
+        if ((userMove.equals("rock") && computerMove.equals("scissors")) ||
+            (userMove.equals("paper") && computerMove.equals("rock")) ||
+            (userMove.equals("scissors") && computerMove.equals("paper"))) {
+            return "win";
+        } else {
+            return "lose";
+            
+        }
+    }
+    public static void replaceNone(String value){
+        for (int i = 0; i < 50; i++) {
+            if (inventory[i].equals("none")) {
+                inventory[i] = value;
+                break;
+            } 
+        }
+    }
+    public static boolean checkForInventorySpace(){
+        int value = 0;
+        for (int i = 0; i < 50; i++) {
+            if (inventory[i].equals("none")) {
+                value++;
+            }
+        }
+        if (value > 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public static void buy() {
+        whyisthisbroken = true;
+        displayinventory();
+        if (checkForInventorySpace() == false) {
+            System.out.println("You have too little inventory space! Get rid of an item to buy another!");
+            return;
+        }
+        System.out.println("What category of item would you like to buy?");
+        System.out.println("1. Cars");
+        System.out.println("2. Jewelry");
+        System.out.println("3. Houses");
+        System.out.println("4. Gadgets");
+        System.out.println("5. Planes");
+        int bossmanInput = in.nextInt();
+        switch (bossmanInput) {
+            case 1:
+                buyCars();
+                break;
+            case 2:
+                buyJewelry();
+                break;
+            case 3:
+                buyHouses();
+                break;
+            case 4:
+                buyGadgets();
+                break;
+            case 5:
+                buyPlanes();
+                break;
+            default:
+                System.out.println("Bossman! Input a valid number. Use the command to get this again!");
+        }
+    }
+    
+    public static void buyCars() {
+        System.out.println("What car are you buying?");
+        System.out.println("1. Porsche 911 Sport Classic ($250,000)");
+        System.out.println("2. Toyota Corolla ($25,000)");
+        System.out.println("3. Aston Martin DB11 ($125,000)");
+        System.out.println("4. Honda Civic ($35,000)");
+        System.out.println("5. Tesla Model S ($80,000)");
+        int bossmanInput = in.nextInt();
+        switch (bossmanInput){
+            case 1:
+                netWorth -= 250000;
+                netWorthAssets += 250000;
+                replaceNone("Porsche 911 Sport Classic");
+                System.out.println("You bought a Porsche 911 Sport Classic!");
+                break;
+            case 2:
+                netWorth -= 25000;
+                netWorthAssets += 25000;
+                replaceNone("Toyota Corolla");
+                System.out.println("You bought a Toyota Corolla!");
+                break;
+            case 3:
+                netWorth -= 125000;
+                netWorthAssets += 125000;
+                replaceNone("Aston Martin DB11");
+                System.out.println("You bought an Aston Martin DB11!");
+                break;
+            case 4:
+                netWorth -= 35000;
+                netWorthAssets += 35000;
+                replaceNone("Honda Civic");
+                System.out.println("You bought a Honda Civic!");
+                break;
+            case 5:
+                netWorth -= 80000;
+                netWorthAssets += 80000;
+                replaceNone("Tesla Model S");
+                System.out.println("You bought a Tesla Model S!");
+                break;
+            default:
+                System.out.println("Bossman! Input a valid number. Use the command to get this again!"); // err msg
+        }
+    }
+    
+    public static void buyJewelry() {
+        System.out.println("What jewelry are you buying?");
+        System.out.println("1. Diamond Ring ($10,000)");
+        System.out.println("2. Gold Necklace ($5,000)");
+        System.out.println("3. Sapphire Earrings ($8,000)");
+        System.out.println("4. Ruby Bracelet ($12,000)");
+        System.out.println("5. Emerald Brooch ($15,000)");
+        int bossmanInput = in.nextInt();
+        switch (bossmanInput){
+            case 1:
+                netWorth -= 10000;
+                netWorthAssets += 10000;
+                replaceNone("Diamond Ring");
+                System.out.println("You bought a Diamond Ring!");
+                break;
+            case 2:
+                netWorth -= 5000;
+                netWorthAssets += 5000;
+                replaceNone("Gold Necklace");
+                System.out.println("You bought a Gold Necklace!");
+                break;
+            case 3:
+                netWorth -= 8000;
+                netWorthAssets += 8000;
+                replaceNone("Sapphire Earrings");
+                System.out.println("You bought Sapphire Earrings!");
+                break;
+            case 4:
+                netWorth -= 12000;
+                netWorthAssets += 12000;
+                replaceNone("Ruby Bracelet");
+                System.out.println("You bought a Ruby Bracelet!");
+                break;
+            case 5:
+                netWorth -= 15000;
+                netWorthAssets += 15000;
+                replaceNone("Emerald Brooch");
+                System.out.println("You bought an Emerald Brooch!");
+                break;
+            default:
+                System.out.println("Bossman! Input a valid number. Use the command to get this again!"); // err msg
+        }
+    }
+    
+    public static void buyHouses() {
+        System.out.println("What house are you buying?");
+        System.out.println("1. Beachfront Villa ($500,000)");
+        System.out.println("2. City Penthouse ($3,000,000)");
+        System.out.println("3. Suburban Mansion ($400,000)");
+        System.out.println("4. Mountain Retreat ($250,000)");
+        System.out.println("5. Countryside Estate ($450,000)");
+        int bossmanInput = in.nextInt();
+        switch (bossmanInput){
+            case 1:
+                netWorth -= 500000;
+                netWorthAssets += 500000;
+                replaceNone("Beachfront Villa");
+                System.out.println("You bought a Beachfront Villa!");
+                break;
+            case 2:
+                netWorth -= 3000000;
+                netWorthAssets += 3000000;
+                replaceNone("City Penthouse");
+                System.out.println("You bought a City Penthouse!");
+                break;
+            case 3:
+                netWorth -= 400000;
+                netWorthAssets += 400000;
+                replaceNone("Suburban Mansion");
+                System.out.println("You bought a Suburban Mansion!");
+                break;
+            case 4:
+                netWorth -= 250000;
+                netWorthAssets += 250000;
+                replaceNone("Mountain Retreat");
+                System.out.println("You bought a Mountain Retreat!");
+                break;
+            case 5:
+                netWorth -= 450000;
+                netWorthAssets += 450000;
+                replaceNone("Countryside Estate");
+                System.out.println("You bought a Countryside Estate!");
+                break;
+            default:
+                System.out.println("Bossman! Input a valid number. Use the command to get this again!"); // err msg
+        }
+    }
+    
+    public static void buyGadgets() {
+        System.out.println("What gadget are you buying?");
+        System.out.println("1. iPhone 13 Pro ($1,000)");
+        System.out.println("2. Samsung Galaxy Z Fold 3 ($1,800)");
+        System.out.println("3. MacBook Pro 14 ($2,000)");
+        System.out.println("4. Sony PlayStation 5 ($500)");
+        System.out.println("5. Oculus Quest 2 ($300)");
+        int bossmanInput = in.nextInt();
+        switch (bossmanInput){
+            case 1:
+                netWorth -= 1000;
+                netWorthAssets += 1000;
+                replaceNone("iPhone 13 Pro");
+                System.out.println("You bought an iPhone 13 Pro!");
+                break;
+            case 2:
+                netWorth -= 1800;
+                netWorthAssets += 1800;
+                replaceNone("Samsung Galaxy Z Fold 3");
+                System.out.println("You bought a Samsung Galaxy Z Fold 3!");
+                break;
+            case 3:
+                netWorth -= 2000;
+                netWorthAssets += 2000;
+                replaceNone("MacBook Pro 14");
+                System.out.println("You bought a MacBook Pro 14!");
+                break;
+            case 4:
+                netWorth -= 500;
+                netWorthAssets += 500;
+                replaceNone("Sony PlayStation 5");
+                System.out.println("You bought a Sony PlayStation 5!");
+                break;
+            case 5:
+                netWorth -= 300;
+                netWorthAssets += 300;
+                replaceNone("Oculus Quest 2");
+                System.out.println("You bought an Oculus Quest 2!");
+                break;
+            default:
+                System.out.println("Bossman! Input a valid number. Use the command to get this again!"); // err msg
+        }
+    }
+    
+    public static void buyPlanes() {
+        System.out.println("What plane are you buying?");
+        System.out.println("1. Cessna 172 Skyhawk ($100,000)");
+        System.out.println("2. Gulfstream G650 ($65,000,000)");
+        System.out.println("3. Boeing 737 ($80,000,000)");
+        System.out.println("4. Airbus A380 ($450,000,000)");
+        System.out.println("5. Fighter Jet ($150,000,000)");
+        int bossmanInput = in.nextInt();
+        switch (bossmanInput){
+            case 1:
+                netWorth -= 100000;
+                netWorthAssets += 100000;
+                replaceNone("Cessna 172 Skyhawk");
+                System.out.println("You bought a Cessna 172 Skyhawk!");
+                break;
+            case 2:
+                netWorth -= 65000000;
+                netWorthAssets += 65000000;
+                replaceNone("Gulfstream G650");
+                System.out.println("You bought a Gulfstream G650!");
+                break;
+            case 3:
+                netWorth -= 80000000;
+                netWorthAssets += 80000000;
+                replaceNone("Boeing 737");
+                System.out.println("You bought a Boeing 737!");
+                break;
+            case 4:
+                netWorth -= 450000000;
+                netWorthAssets += 450000000;
+                replaceNone("Airbus A380");
+                System.out.println("You bought an Airbus A380!");
+                break;
+            case 5:
+                netWorth -= 150000000;
+                netWorthAssets += 150000000;
+                replaceNone("Fighter Jet");
+                System.out.println("You bought a Fighter Jet!");
+                break;
+            default:
+                System.out.println("Bossman! Input a valid number. Use the command to get this again!"); // err msg
+        }
+    }
+    public static void displayinventory(){
+        int emptyInventorySpace = 0;
+        System.out.println("Your inventory contains: ");
+        for (int i = 0; i < 50; i++){
+            String stringValue = inventory[i];
+            if (stringValue.equals("none")) {
+                emptyInventorySpace++;
+                continue;
+            }
+            System.out.print(stringValue + ", ");
+        }
+        System.out.println("and " + emptyInventorySpace + " empty inventory spaces");
+    }
+    public static void magic8Ball() {
+        System.out.println("Ask a question. Type exit to leave");
+        String bossmanInput = in.nextLine();
+
+        if (bossmanInput.equals("exit")) {
+            System.out.println("byebye! i await your return!");
+            return; 
+        }
+        String[] ballresponse = {"Yes", "no", "Ask again later", "Can't predict now", "Don't count on it", "Certain", "Most Likely", "Outlook  not good"};
+        double randomDouble = (8 - 1 + 1) * Math.random() + 1;
+        int randomInt = (int) randomDouble;
+        randomInt--;
+        System.out.println("The Magic 8ball says: " + ballresponse[randomInt]);
+
+    }
     public static void endgame() { // method that calculates user's score
         System.out.println("Thanks for playing!");
         int score = 0;
@@ -1451,11 +1817,68 @@ public static boolean whyisthisbroken = false;
         System.out.println("You had a score of " + score + "! Not bad!");
         // calculate ur death stats here
     }
+    public static boolean checkThrowout(String value){
+        int count = 0;
+        for (int i = 0; i < 50; i++) {
+            if (inventory[i].equals(value)) {
+                count++;
+            }
+        }
+        if (count > 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public static void throwout(String value){
+        for (int i = 0; i < 50; i++) {
+            if (inventory[i].equals(value)) {
+                inventory[i] = "none";
+                break;
+            } 
+        }
+    }
     // ----------------------------------------------------------------MAIN---------------------------------------------
     public static void commandProcess(String command) {
         if (command.startsWith("!")) {
             String actualCommand = command.substring(1); // removes the first char of the variable, the exclamation mark this is to run all the different commands available
             switch (actualCommand) { // all commands that can be run go here
+                case "throwout":
+                    displayinventory();
+                    System.out.println("What are you throwing out? It's case sensitive: ");
+                    String userThrowOut = in.nextLine();
+                    if (checkThrowout(userThrowOut) == true) {
+                        throwout(userThrowOut);
+                        System.out.println("You threw it out");
+                    } else {
+                        System.out.println("That item isn't in your inventory! Check again!");
+                    }
+                    break;
+                case "sell":
+                    String[] buyInventory = {"Porsche 911 Sport Classic", "Toyota Corolla", "Aston Martin DB11", "Honda Civic", "Tesla Model S", "Diamond Ring", "Gold Necklace", "Sapphire Earrings", "Ruby Bracelet", "Emerald Brooch",
+                    "Beachfront Villa", "City Penthouse", "Suburban Mansion", "Mountain Retreat", "Countryside Estate", "iPhone 13 Pro", "Samsung Galaxy Z Fold 3", "MacBook Pro 14", "Sony PlayStation 5", "Oculus Quest 2", 
+                    "Cessna 172 Skyhawk", "Gulfstream G650", "Boeing 737", "Airbus A380", "Fighter Jet"};
+                    int[] buyInventoryPrice = {250000,25000,125000,35000,80000,10000,5000,8000,12000,15000,500000,300000,400000,250000,450000,1000,1800,2000,500,300,100000,65000000,80000000,450000000,150000000};
+                    int NUMBA = 0; // index number the thing we're selling is at
+                    displayinventory();
+                    System.out.println("What are you selling? It's case sensitive: ");
+                    String userSell = in.nextLine();
+                    if (checkThrowout(userSell) == true) {
+                        int sellPrice = 0;
+                        for (int i = 0; i < buyInventory.length; i++){ // MAKE THIS ARRYA LENGTH AND CHECK THROUGH EVERYTHING IN THE BUY INVENTORY 
+                            if (buyInventory[i].equals(userSell)){ // if the string in the array equals the thing 
+                                NUMBA = i;
+                            }
+                        } 
+                        sellPrice = buyInventoryPrice[NUMBA];
+                        netWorth += sellPrice;
+                        netWorthAssets -= sellPrice;
+                        throwout(userSell);
+                        System.out.println("You sold it for: $" + sellPrice);
+                    } else {
+                        System.out.println("That item isn't in your inventory! Check again!");
+                    }
+                    return;
                 case "stats": 
                     resetI = true; // doesnt count command to yearly quota
                     stats(); 
@@ -1489,7 +1912,11 @@ public static boolean whyisthisbroken = false;
                     System.out.println("13. study - allows you to increase ur intelligence.");
                     System.out.println("14. doctor - Visit the doctor if you have low health.");
                     System.out.println("15. play - Allows the user to play!");
-                    System.out.println("16. ");
+                    System.out.println("16. magic8ball - Get a response from a magic 8 ball!");
+                    System.out.println("17. rockpaperscissors - Play rockpaperscissors with the ai!");
+                    System.out.println("18. displayinventory - print out the items in your inventory");
+                    System.out.println("19. sell - sell items in your inventory");
+                    System.out.println("20. throwout - throw out items in your inventory");
                     return;
                 case "school":
                     applytoaSchool();
@@ -1584,6 +2011,19 @@ public static boolean whyisthisbroken = false;
                     return;
                 case "play":
                     play();
+                    return;
+                case "videogames":
+                    rockpaperscissors();
+                    return;
+                case "8ball":
+                    magic8Ball();
+                    return;
+                case "displayinventory":
+                    displayinventory();
+                    return;
+                case "buy":
+                    whyisthisbroken = true;
+                    buy();
                     return;
                 default: // err msg
                     System.out.println("Unknown command, make sure it exists and try again!");
