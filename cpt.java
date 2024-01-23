@@ -129,7 +129,6 @@ public class cpt {
         blacklist[2] = playerCard2;
         blacklist[3] = houseCard1;
         blacklist[4] = houseCard2;
-        dupeCheck();
         System.out.println("Your cards are "+ cardReader(playerCard1) + " and " + cardReader(playerCard2));
             while (pokerChoice == 0) {
             System.out.println ("***************CHOOSE A NUMBER BETWEEN ONE AND THREE***************\n 1. Raise 2. Call 3. Fold");
@@ -169,7 +168,7 @@ public class cpt {
         player[5] = commonCard3;
         house[5] = commonCard3;
         blacklist[7] = commonCard3;
-        dupeCheck(int[] blacklist);
+        dupeCheck(blacklist);
         System.out.println ("***************CHOOSE A NUMBER BETWEEN ONE AND THREE***************\n 1. Raise 2. Call 3. Fold");
                 switch (in.nextInt()) {
                     case 1: 
@@ -189,13 +188,14 @@ public class cpt {
     }
 
     public static void dupeCheck(int[] blacklist) {
-        for (int i = 0; i > blacklist.length; i++) {
+        for (int i = 0; i < blacklist.length; i++) {
             for (int j = i + 1; j < blacklist.length; j++) {
                 if (blacklist[i] == blacklist[j]) {
                     blacklist[j] = (int) (52 * Math.random() + 1);
                 }
             }
         }
+        return;
     }
 
     public static double pokerDecision(double choice, double tableValue) {
