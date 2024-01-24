@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class cpt {
     // ---------------------------------------------------------------VARIABLES------------------------------------------------
     // always declare them here, and with public static before the variable
-    public static int healthStats = 500, happinessStats = 50, intelligenceStats = 50, ageStats = 18; // general stats for the user
+    public static int healthStats = 100, happinessStats = 50, intelligenceStats = 50, ageStats = 1; // general stats for the user
     public static Scanner in = new Scanner(System.in);
     public static double netWorth = 100; // how much money the user has
     public static double netWorthAssets = 0; // the value of all the assets a user has.
@@ -24,7 +24,7 @@ public class cpt {
     public static int schoolYearCount = 0; // number of years in school
     public static boolean endingGame = false;
     public static boolean whyisthisbroken = false;
-    public static String[] inventory = {"Gulfstream G650", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", 
+    public static String[] inventory = {"none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", 
     "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", 
     "none", "none", "none", "none", "none", "none", }; // has 50 elements (49 indexes not including 0)
 
@@ -137,14 +137,14 @@ public class cpt {
                     + intelligenceStats);
         }
         
-        if (workCount <= 12 && jobStatus == true) {
+        if (workCount <= 5 && jobStatus == true) {
             if (ageStats != 18) {}
             System.out.println("You were fired at your job for working too little. You also lost -20% intelligence.");
             jobTitle = "none";
             jobStatus = false;
             intelligenceStats -= 20;
         }
-
+        workCount = 0;
         // random events per year
         if ((ageStats <= 3) && (ageStats >= 0)) { // baby events
             String[] babyEvents = { "pneumonia", "flu", "gotDropped", "noCake", "reallyGoodMilk", "newToy",
@@ -223,17 +223,16 @@ public class cpt {
         }
     }
 
-    // method that runs baby events
+    // Method to dynamically call event methods
     public static void callEventMethodBaby(String eventName) {
-        switch (eventName) { // changes the user's stats based on the random event
-            case "drugdealer":
-                healthStats -= 20;
-                System.out.println("You were approached by a drug dealer. You didnt buy his goods and were jumped by his men. You lost -20% health. Your current health is :" + healthStats);
+        switch (eventName) {
+            case "pneumonia":
+                healthStats -= 10;
+                System.out.println("You obtained pneumonia. -10% health. Your current health is: " + healthStats);
                 break;
-            case "failedExam":
-                happinessStats -= 40;
-                intelligenceStats -= 10;
-                System.out.println("You failed your exam from not studying. You lost 40% happiness and 10% intelligence. Your new happiness is: " + happinessStats + " and your new health is: " + healthStats);
+            case "flu":
+                healthStats -= 10;
+                System.out.println("You obtained the flu. -10% health. Your current health is: " + healthStats);
                 break;
             case "gotDropped":
                 intelligenceStats -= 50;
@@ -242,8 +241,7 @@ public class cpt {
                 break;
             case "noCake":
                 happinessStats -= 30;
-                System.out.println(
-                        "You didnt get cake today. -30% happiness. Your current happiness is: " + happinessStats);
+                System.out.println("You didnt get cake today. -30% happiness. Your current happiness is: " + happinessStats);
                 break;
             case "reallyGoodMilk":
                 healthStats += 20;
@@ -266,7 +264,7 @@ public class cpt {
             case "gotAPet":
                 happinessStats += 50;
                 System.out.println(
-                        "You got a pet dog! You named him Gojo. +50% happiness. Your current happiness is: "
+                        "You got a pet dog! You named him Gojo Satoru. +50% happiness. Your current happiness is: "
                                 + happinessStats);
                 break;
             default:
@@ -274,14 +272,15 @@ public class cpt {
         }
     }
 
+
     // method that runs child events
     public static void callEventMethodChild(String eventName) {
         switch (eventName) { // changes the user's stats based on the random event
             case "hitByBus":
-                healthStats -= 50;
+                healthStats -= 25;
                 happinessStats -= 20;
                 System.out.println(
-                        "You were hit by a bus! Ouchie!! -50% health and -20% happiness. Your current health is: "
+                        "You were hit by a bus! Ouchie!! -25% health and -20% happiness. Your current health is: "
                                 + healthStats + " and your current happiness is: " + happinessStats);
                 break;
             case "bullyEncounter":
@@ -504,6 +503,7 @@ public class cpt {
     }
 
     public static String pickajob() { // used when the user wants to get a job
+       whyisthisbroken = true; 
         // checks if user meets requirement to get a job
         if (jobStatus == true) {
             System.out.println("No more than 1 job in this game, quit your job to get a new one!");
@@ -518,7 +518,7 @@ public class cpt {
         System.out.println("3. Car Salesman - $52,000 a year ($25/hr)");
         System.out.println("4. Groccery store clerk - $31,200 a year ($15/hr)");
         System.out.println("5. Administrative Assistant - $47,840 a year ($23/hr)");
-        System.out.println("6. Registered nurse - $83,240 a year ($23/hr)");
+        System.out.println("6. Registered nurse - $83,240 a year ($40/hr)");
         System.out.println("7. Engineer 1 - $72,800 a year ($35/hr)");
         System.out.println("8. Engineer 2 - $72,800 a year ($35/hr)");
         System.out.println("9. Project manager - $104,000 a year ($50/hr)");
@@ -685,7 +685,7 @@ public class cpt {
             System.out.println("You don't have a job, use !job to try get a job!");
             return;
         }
-        if (workCount > 14) {
+        if (workCount > 7) {
             System.out.println("Stop working overtime! Your family loves and needs you!");
             return;
         }
@@ -694,73 +694,73 @@ public class cpt {
             case "Janitor":
                 netWorth += 3206;
                 System.out.println("You got paid $3206 this month! Good work!");
-                if (workCount > 12) {
+                if (workCount > 5) {
                     System.out.println("You're working overtime! You lose 5% happiness");
-                    happinessStats -= 5;
+                    happinessStats -= 1;
                 }
                 break;
             case "Barista":
                 netWorth += 5200;
                 System.out.println("You got paid $5200 this month! Good work");
-                if (workCount > 12) {
+                if (workCount > 5) {
                     System.out.println("You're working overtime! You lose 5% happiness");
-                    happinessStats -= 5;
+                    happinessStats -= 1;
                 }
                 break;
             case "Car Salesman":
                 netWorth += 4333;
                 System.out.println("You got paid $4333 this month! Good work!");
-                if (workCount > 12) {
+                if (workCount > 5) {
                     System.out.println("You're working overtime! You lose 5% happiness");
-                    happinessStats -= 5;
+                    happinessStats -= 1;
                 }
                 break;
-            case "Groccery Store clerk":
+            case "Groccery store clerk":
                 netWorth += 4333;
                 System.out.println("You got paid $4333 this month! Good work!");
                 if (workCount > 12) {
                     System.out.println("You're working overtime! You lose 5% happiness");
-                    happinessStats -= 5;
+                    happinessStats -= 1;
                 }
                 break;
             case "Administrative Assistant":
                 netWorth += 3986;
                 System.out.println("You got paid $3986 this month! Good work!");
-                if (workCount > 12) {
+                if (workCount > 5) {
                     System.out.println("You're working overtime! You lose 5% happiness");
-                    happinessStats -= 5;
+                    happinessStats -= 1;
                 }
                 break;
             case "Registered nurse":
                 netWorth += 6936;
                 System.out.println("You got paid $6936 this month! Good work!");
-                if (workCount > 12) {
+                if (workCount > 5) {
                     System.out.println("You're working overtime! You lose 5% happiness");
-                    happinessStats -= 5;
+                    happinessStats -= 1;
                 }
                 break;
             case "Engineer 1":
                 netWorth += 6006;
                 System.out.println("You got paid $6006 this month! Good work!");
-                if (workCount > 12) {
+                if (workCount > 5) {
                     System.out.println("You're working overtime! You lose 5% happiness");
-                    happinessStats -= 5;
+                    happinessStats -= 1;
                 }
                 break;
             case "Engineer 2":
                 netWorth += 6006;
                 System.out.println("You got paid $6006 this month! Good work!");
-                if (workCount > 12) {
+                if (workCount > 5) {
                     System.out.println("You're working overtime! You lose 5% happiness");
-                    happinessStats -= 5;
+                    happinessStats -= 1;
                 }
                 break;
             case "Project Manager":
                 netWorth += 8666;
                 System.out.println("You got paid $8666 this month! Good work!");
-                if (workCount > 12) {
+                if (workCount > 5) {
                     System.out.println("You're working overtime! You lose 5% happiness");
-                    happinessStats -= 5;
+                    happinessStats -= 1;
                 }
                 break;
             default:
@@ -768,7 +768,32 @@ public class cpt {
                 return;
         }
     }
-
+    public static void sell(){
+        String[] buyInventory = {"Porsche 911 Sport Classic", "Toyota Corolla", "Aston Martin DB11", "Honda Civic", "Tesla Model S", "Diamond Ring", "Gold Necklace", "Sapphire Earrings", "Ruby Bracelet", "Emerald Brooch",
+                    "Beachfront Villa", "City Penthouse", "Suburban Mansion", "Mountain Retreat", "Countryside Estate", "iPhone 13 Pro", "Samsung Galaxy Z Fold 3", "MacBook Pro 14", "Sony PlayStation 5", "Oculus Quest 2", 
+                    "Cessna 172 Skyhawk", "Gulfstream G650", "Boeing 737", "Airbus A380", "Fighter Jet"};
+                    int[] buyInventoryPrice = {250000,25000,125000,35000,80000,10000,5000,8000,12000,15000,500000,300000,400000,250000,450000,1000,1800,2000,500,300,100000,65000000,80000000,450000000,150000000};
+                    int NUMBA = 0; // index number the thing we're selling is at
+                    displayinventory();
+                    System.out.println("What are you selling? It's case sensitive: ");
+                    String userSell = in.nextLine();
+                    if (checkThrowout(userSell) == true) {
+                        int sellPrice = 0;
+                        for (int i = 0; i < buyInventory.length; i++){ // MAKE THIS ARRYA LENGTH AND CHECK THROUGH EVERYTHING IN THE BUY INVENTORY 
+                            if (buyInventory[i].equals(userSell)){ // if the string in the array equals the thing 
+                                NUMBA = i;
+                            }
+                        } 
+                        sellPrice = buyInventoryPrice[NUMBA];
+                        netWorth += sellPrice;
+                        netWorthAssets -= sellPrice;
+                        throwout(userSell);
+                        System.out.println("You sold it for: $" + sellPrice);
+                    } else {
+                        System.out.println("That item isn't in your inventory! Check again!");
+                    }
+        return;
+    }
     public static void study() { // allows the user to increase intelligence
         // checks if the user meets requirements
         whyisthisbroken = true;
@@ -1068,6 +1093,7 @@ public class cpt {
                 intelligenceStats += randomInt;
                 System.out.println("You solved puzzles! You gained " + randomInt + " intelligence.");
                 System.out.println("Your current intelligence is: " + intelligenceStats);
+                break;
             case 6:
                 random = (2 - 1 + 1) * Math.random() + 1; // grants a random amount
                 randomInt = (int) random;
@@ -1589,7 +1615,7 @@ public class cpt {
             score += (healthStats * 10);
         }
         score += (netWorth*0.5);
-        score += (netWorthAssets*0.6);// assets are favoured over non assets, making it more valuable to spend money in this game!
+        score += (netWorthAssets*1);// assets are favoured over non assets, making it more valuable to spend money in this game!
         score += (ageStats * 25);
         if (ageStats < 50) { // average life span is around 80, if u make it u get a special msg!
             System.out.println("The odds were never in your favour.");
@@ -1639,32 +1665,7 @@ public class cpt {
                     }
                     break;
                 case "sell":
-                    String[] buyInventory = {"Porsche 911 Sport Classic", "Toyota Corolla", "Aston Martin DB11", "Honda Civic", "Tesla Model S", "Diamond Ring", "Gold Necklace", "Sapphire Earrings", "Ruby Bracelet", "Emerald Brooch",
-                    "Beachfront Villa", "City Penthouse", "Suburban Mansion", "Mountain Retreat", "Countryside Estate", "iPhone 13 Pro", "Samsung Galaxy Z Fold 3", "MacBook Pro 14", "Sony PlayStation 5", "Oculus Quest 2", 
-                    "Cessna 172 Skyhawk", "Gulfstream G650", "Boeing 737", "Airbus A380", "Fighter Jet"};
-                    int[] buyInventoryPrice = {250000,25000,125000,35000,80000,10000,5000,8000,12000,15000,500000,300000,400000,250000,450000,1000,1800,2000,500,300,100000,65000000,80000000,450000000,150000000};
-                    int NUMBA = 0; // index number the thing we're selling is at
-                    displayinventory();
-                    System.out.println("What are you selling? It's case sensitive: ");
-                    String userSell = in.nextLine();
-                    if (checkThrowout(userSell) == true) {
-                        int sellPrice = 0;
-                        for (int i = 0; i < buyInventory.length; i++){ // MAKE THIS ARRYA LENGTH AND CHECK THROUGH EVERYTHING IN THE BUY INVENTORY 
-                            if (buyInventory[i].equals(userSell)){ // if the string in the array equals the thing 
-                                NUMBA = i;
-                            }
-                        } 
-                        sellPrice = buyInventoryPrice[NUMBA];
-                        netWorth += sellPrice;
-                        netWorthAssets -= sellPrice;
-                        throwout(userSell);
-                        System.out.println("You sold it for: $" + sellPrice);
-                    } else {
-                        System.out.println("That item isn't in your inventory! Check again!");
-                    }
-                    return;
-                case "onemillion":
-                    oneMillionOdds();
+                    sell();
                     return;
                 case "stats": 
                     resetI = true; // doesnt count command to yearly quota
@@ -1742,12 +1743,17 @@ public class cpt {
                     System.out.println("----------------------------------------");
                     return;
                 case "gambling":
+                whyisthisbroken = true;
                     if (netWorth == 0){ // err msg
                         System.out.println("You have no money to gamble brokie");
                         return;
                     }
+                    if (ageStats < 0) {
+                        System.out.println("You have to be at least 18 years old!");
+                        return;
+                    }
                     System.out.println("-------------------- PICK A NUMBER BETWEEN ONE AND THREE --------------------");
-                    System.out.println("1 for roulette, 2 for poker, 3 for slots"); 
+                    System.out.println("1 for roulette, 2 for poker, 3 for slots, 4 for lotto ticket"); 
                     int gamblingResponse = in.nextInt();
 
                     // checks what gambling game they want to play
@@ -1760,12 +1766,24 @@ public class cpt {
                     } else if (gamblingResponse == 3) {
                         slots();
                         return;
+                    } else if (gamblingResponse == 4) {
+                        netWorth -= 200;
+                        System.out.println("You spent $200 to buy a lottery ticket. May the odds be in your favour!");
+                        boolean odds = oneMillionOdds();
+                        if (odds == true){
+                            netWorth += 7000000;
+                            System.out.println("You won 7 milllion dollars! You're very lucky!");
+                        } else {
+                            System.out.println("You did not win :()");
+                        }
+                        return;
                     } else { // err message
-                        System.out.println("Please input a number between 1 and 3, rerun the command to try again");
+                        System.out.println("Please input a number between 1 and 4, rerun the command to try again");
                     }
                     System.out.println("----------------------------------------");
                     return;
                 case "beg":
+                    whyisthisbroken = true;
                     boolean winner = hilow(); // makes them play a mini game to win
                     if (winner == true) {
                         int winnings = (int) (1000 * Math.random() + 1);
@@ -1799,10 +1817,10 @@ public class cpt {
                 case "play":
                     play();
                     return;
-                case "videogames":
+                case "rockpaperscissors":
                     rockpaperscissors();
                     return;
-                case "8ball":
+                case "magic8ball":
                     magic8Ball();
                     return;
                 case "displayinventory":
@@ -1826,7 +1844,7 @@ public class cpt {
         // tutorial
         if (!beginnerInformation) { 
             beginnerInformation = true;
-            System.out.println("Welcome to pookiewookie, a game made by Gianluca and David");
+            System.out.println("Welcome to lifemaxing, a game made by Gianluca and David");
             System.out.println("\n");
             System.out.println("What username would you like for your character?");
             userName = in.nextLine();
@@ -1850,7 +1868,6 @@ public class cpt {
 
         do {
             for (int i = 1; i > 0; i++) { // counts the amount of commands that have occured
-                System.out.println("command count: " + i);
 
                 if (resetI == true) { // if the method is not an essential method, such as checking stats it will not
                     // increase age stat
