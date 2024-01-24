@@ -1690,7 +1690,7 @@ public class cpt {
                     System.out.println(
                             "4. beg - play a mini game to beg people for money. If you win you gain money, but you can lose too!");
                     System.out.println("5. increaseage - Increase your age, and a random event will happen");
-                    System.out.println("6. gambling - roulette, poker, slots");
+                    System.out.println("6. gambling - roulette, slots, lottery ticket");
                     System.out.println("7. buy - buy items to add to your inventory!");
                     System.out.println("8. leavegame - Quit the program");
                     System.out.println("9. job - allows you to obtain a job");
@@ -1753,7 +1753,7 @@ public class cpt {
                         return;
                     }
                     System.out.println("-------------------- PICK A NUMBER BETWEEN ONE AND THREE --------------------");
-                    System.out.println("1 for roulette, 2 for poker, 3 for slots, 4 for lotto ticket"); 
+                    System.out.println("1 for roulette, 2 for slots, 3 for lotto ticket"); 
                     int gamblingResponse = in.nextInt();
 
                     // checks what gambling game they want to play
@@ -1764,9 +1764,6 @@ public class cpt {
                         slots();
                         return;
                     } else if (gamblingResponse == 3) {
-                        slots();
-                        return;
-                    } else if (gamblingResponse == 4) {
                         netWorth -= 200;
                         System.out.println("You spent $200 to buy a lottery ticket. May the odds be in your favour!");
                         boolean odds = oneMillionOdds();
