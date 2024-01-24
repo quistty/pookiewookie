@@ -55,11 +55,11 @@ public class cpt {
 
             }
         }
-            netWorth = netWorth - wager;
             if (ageStats < 18) {
                 System.out.println("Hey! you can't gamble unless you are 18 or older!");
                 return;
             }
+            netWorth = netWorth - wager;
             int colour = 0;
             System.out.println("Would you like to bet on black or red?"); //needs fixing
             while (colour == 0) {
@@ -93,9 +93,34 @@ public class cpt {
                 intelligenceStats -=3;
             }
     }
-
+    
 
     public static void slots() {
+        int noDebt = 0;
+        double wager = 0;
+        while (noDebt == 0) {
+            System.out.println("enter the amount you would like to wager");
+            wager = in.nextDouble();
+            if (wager > netWorth) {
+                System.out.println("you can not wager more than you have!");
+            } else {
+                noDebt = 1;
+
+            }
+        }
+            if (ageStats < 18) {
+                System.out.println("Hey! you can't gamble unless you are 18 or older!");
+                return;
+            }
+            netWorth = netWorth - wager;
+            System.out.println("Slots are rolling!");
+            if ((int) (216 * Math.random() + 1) == 216) {
+                System.out.println("CONGRATS YOU WON!!!! you won" + wager*100);
+                netWorth = netWorth + wager*100;
+                happinessStats +=20;
+            } else {
+                System.out.println("You didnt win :( and you lost your wager");
+        }
 
     }
 
@@ -261,7 +286,7 @@ public class cpt {
             case "bullyEncounter":
                 happinessStats -= 30;
                 System.out.println(
-                        "You were bullied by a bully named Dio Brando. -30% happiness. Your current happiness is: "
+                        "You were bullied by a bully named Dio. -30% happiness. Your current happiness is: "
                                 + happinessStats);
                 break;
             case "fallDownStairs":
@@ -382,7 +407,7 @@ public class cpt {
                 break;
             case "friendDied":
                 happinessStats -= 50;
-                System.out.println("Your best friend from elementary school. -50% happiness. Your current happiness is: " + happinessStats);
+                System.out.println("Your best friend from elementary school died. -50% happiness. Your current happiness is: " + happinessStats);
                 break;
             case "burntOut":
                 healthStats -= 60;
@@ -444,7 +469,7 @@ public class cpt {
                 break;
             case "newFriend":
                 happinessStats += 30;
-                System.out.println("You got a new friend at the groccery store. +30% happiness. Your new happiness is: " + happinessStats);
+                System.out.println("You made a new friend at the groccery store. +30% happiness. Your new happiness is: " + happinessStats);
                 break;
             case "richFriend":
                 netWorth += 10000;
