@@ -6,7 +6,7 @@ public class cpt {
     // always declare them here, and with public static before the variable
     public static int healthStats = 100, happinessStats = 50, intelligenceStats = 50, ageStats = 1; // general stats for the user
     public static Scanner in = new Scanner(System.in);
-    public static double netWorth = 100; // how much money the user has
+    public static double netWorth = 0; // how much money the user has
     public static double netWorthAssets = 0; // the value of all the assets a user has.
     public static boolean beginnerInformation = false; // so beginner information runs once
     public static String command; // the command the user inputted
@@ -108,10 +108,6 @@ public class cpt {
 
             }
         }
-            if (ageStats < 18) {
-                System.out.println("Hey! you can't gamble unless you are 18 or older!");
-                return;
-            }
             netWorth = netWorth - wager;
             System.out.println("Slots are rolling!");
             if ((int) (216 * Math.random() + 1) == 216) {
@@ -246,7 +242,7 @@ public class cpt {
             case "reallyGoodMilk":
                 healthStats += 20;
                 System.out.println(
-                        "Your mother gave you some milk and it tasted exqusite. +20% health. Your current happiness is: "
+                        "Your mother gave you some milk and it tasted exqusite. +20% health. Your current health is: "
                                 + healthStats);
                 break;
             case "newToy":
@@ -775,7 +771,7 @@ public class cpt {
                     int[] buyInventoryPrice = {250000,25000,125000,35000,80000,10000,5000,8000,12000,15000,500000,300000,400000,250000,450000,1000,1800,2000,500,300,100000,65000000,80000000,450000000,150000000};
                     int NUMBA = 0; // index number the thing we're selling is at
                     displayinventory();
-                    System.out.println("What are you selling? It's case sensitive: ");
+                    System.out.println("What are you selling? It's case sensitive. Enter 'quit' to leave the program: ");
                     String userSell = in.nextLine();
                     if (checkThrowout(userSell) == true) {
                         int sellPrice = 0;
@@ -789,6 +785,9 @@ public class cpt {
                         netWorthAssets -= sellPrice;
                         throwout(userSell);
                         System.out.println("You sold it for: $" + sellPrice);
+                    } else if (userSell.equals("quit")){
+                        System.out.println("ok no sell!");
+                        return;
                     } else {
                         System.out.println("That item isn't in your inventory! Check again!");
                     }
@@ -796,11 +795,12 @@ public class cpt {
     }
     public static void study() { // allows the user to increase intelligence
         // checks if the user meets requirements
-        whyisthisbroken = true;
+        
         if (schoolStatus == false) {
             System.out.println("Bossman! You need to be enrolled at a school first.");
             return;
         }
+        whyisthisbroken = true;
         // asks the user for how they want to study
         System.out.println("Pick how you want to study");
         System.out.println("1. Reading books");
@@ -835,6 +835,9 @@ public class cpt {
                 System.out.println("Your new intelligence is: " + intelligenceStats);
                 happinessStats -= 3;
                 break;
+            default:
+                System.out.println("Pick a number between 1 and 3!");
+
         }
         System.out.println("Don't study too much or you'll loose happiness");
     }
@@ -1626,14 +1629,14 @@ public class cpt {
         System.out.println("You had a score of " + score + "! Not bad!");
     
     }
-    public static boolean checkThrowout(String value){
+    public static boolean checkThrowout(String value){ // checks if the item can be thrown out
         int count = 0;
         for (int i = 0; i < 50; i++) {
-            if (inventory[i].equals(value)) {
-                count++;
+            if (inventory[i].equals(value)) { // find the item index
+                count++; 
             }
         }
-        if (count > 0){
+        if (count > 0){ //if there is more than 1 of the item, it returns true
             return true;
         } else {
             return false;
@@ -1641,8 +1644,8 @@ public class cpt {
     }
     public static void throwout(String value){
         for (int i = 0; i < 50; i++) {
-            if (inventory[i].equals(value)) {
-                inventory[i] = "none";
+            if (inventory[i].equals(value)) { //searches for the first instance of the value
+                inventory[i] = "none"; // replaces the first instance with none
                 break;
             } 
         }
@@ -1652,15 +1655,18 @@ public class cpt {
         if (command.startsWith("!")) {
             String actualCommand = command.substring(1); // removes the first char of the variable, the exclamation mark this is to run all the different commands available
             switch (actualCommand) { // all commands that can be run go here
-                case "throwout":
+                case "throwout": // lets the user throw out items that cannot be sold
                     displayinventory();
                     System.out.println("What are you throwing out? It's case sensitive: ");
                     String userThrowOut = in.nextLine();
                     if (checkThrowout(userThrowOut) == true) {
-                        throwout(userThrowOut);
+                        throwout(userThrowOut); // removes it from their inventory
                         System.out.println("You threw it out");
+                    } else if (userThrowOut.equals("quit")){
+                        System.out.println("ok no sell!");
+                        return;
                     } else {
-                        System.out.println("That item isn't in your inventory! Check again!");
+                        System.out.println("That item isn't in your inventory! Check again!"); //err msg
                     }
                     break;
                 case "sell":
@@ -1715,7 +1721,7 @@ public class cpt {
                         healthStats += 50;
                         int randomNmDoctor = (int) (10000 * Math.random() + 1);
                         netWorth -= randomNmDoctor;
-                        System.out.println("The doctor gave you pills to grant you health. Your health went up by 50. The pills costed :$" + randomNmDoctor);
+                        System.out.println("The doctor gave you pills to grant you health. Your health went up by 50. The pills costed: $" + randomNmDoctor);
                         System.out.println("Your new net worth is :$" + netWorth);
                     }
                     return;
@@ -1742,7 +1748,6 @@ public class cpt {
                     System.out.println("----------------------------------------");
                     return;
                 case "gambling":
-                whyisthisbroken = true;
                     if (netWorth == 0){ // err msg
                         System.out.println("You have no money to gamble brokie");
                         return;
@@ -1771,6 +1776,7 @@ public class cpt {
                         }
                         return;
                     } else if (gamblingResponse == 3) {
+                        whyisthisbroken = true; // requests for int in the slots
                         slots();
                         return;
                     } else { // err message
@@ -1810,10 +1816,10 @@ public class cpt {
                 case "exercise": //lets user exercise
                     exercise();
                     return;
-                case "play":
+                case "play": // lets user play to increase stats
                     play();
                     return;
-                case "rockpaperscissors":
+                case "rockpaperscissors": 
                     rockpaperscissors();
                     return;
                 case "magic8ball":
