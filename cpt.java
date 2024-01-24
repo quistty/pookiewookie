@@ -2195,7 +2195,6 @@ public class cpt {
 
         do {
             for (int i = 1; i > 0; i++) { // counts the amount of commands that have occured
-                System.out.println("command count: " + i);
 
                 if (resetI == true) { // if the method is not an essential method, such as checking stats it will not
                     // increase age stat
