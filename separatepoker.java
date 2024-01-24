@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
 // FIX wrap line length
-public class cpt {
+public class separatepoker {
     // ---------------------------------------------------------------VARIABLES------------------------------------------------
     // always declare them here, and with public static before the variable
     public static int healthStats = 100, happinessStats = 50, intelligenceStats = 50, ageStats = 1; // general stats for the user
     public static Scanner in = new Scanner(System.in);
-    public static double netWorth = 0; // how much money the user has
+    public static double netWorth = 100; // how much money the user has
     public static double netWorthAssets = 0; // the value of all the assets a user has.
     public static boolean beginnerInformation = false; // so beginner information runs once
     public static String command; // the command the user inputted
@@ -55,11 +55,11 @@ public class cpt {
 
             }
         }
+            netWorth = netWorth - wager;
             if (ageStats < 18) {
                 System.out.println("Hey! you can't gamble unless you are 18 or older!");
                 return;
             }
-            netWorth = netWorth - wager;
             int colour = 0;
             System.out.println("Would you like to bet on black or red?"); //needs fixing
             while (colour == 0) {
@@ -94,29 +94,360 @@ public class cpt {
             }
     }
     
-
-    public static void slots() {
-        int noDebt = 0;
-        double wager = 0;
+    public static void poker() { // method to play poker
+        whyisthisbroken = true;
+                int noDebt = 0; // makes sure you do not bring more than you have
+                double pokerChoice = 0; // choice of events
+                double pot = 0; // total pot between you and the house
+        double wager = 0; // amount player has brought to the table
         while (noDebt == 0) {
-            System.out.println("enter the amount you would like to wager");
-            wager = in.nextDouble();
+            System.out.println("enter the amount you would like to bring to the table");
+            wager = in.nextInt(); // amount on table
             if (wager > netWorth) {
-                System.out.println("you can not wager more than you have!");
+                System.out.println("you can not bring more than you have!");
             } else {
                 noDebt = 1;
-
             }
         }
-            netWorth = netWorth - wager;
-            System.out.println("Slots are rolling!");
-            if ((int) (216 * Math.random() + 1) == 216) {
-                System.out.println("CONGRATS YOU WON!!!! you won" + wager*100);
-                netWorth = netWorth + wager*100;
-                happinessStats +=20;
-            } else {
-                System.out.println("You didnt win :( and you lost your wager");
+        netWorth = netWorth - wager; //takes wager from networth
+        int playerCard1 = (int) (52 * Math.random() + 1); // generates player card 1
+        int playerCard2 = (int) (52 * Math.random() + 1); // generates player card 2
+        int houseCard1 = (int) (52 * Math.random() + 1); // generates house card 1
+        int houseCard2 = (int) (52 * Math.random() + 1); // generates house card 2
+        int[] player = new int[7]; // array of all players cards
+        int[] house = new int[7]; // array of all house cards
+        int[] blacklist = new int[9]; // array of all total cards to removes dupe
+        player[1] = playerCard1; // inserts value into array
+        player[2] = playerCard2; // inserts value into array
+        house[1] = houseCard1; // inserts value into array
+        house[2] = houseCard2; // inserts value into array
+        blacklist[1] = playerCard1; // inserts value into array
+        blacklist[2] = playerCard2; // inserts value into array
+        blacklist[3] = houseCard1; // inserts value into array
+        blacklist[4] = houseCard2; // inserts value into array
+        blacklist = dupeCheck(blacklist); // checks and changes duplicate cards
+        playerCard1 = blacklist[1];
+        player[1] = playerCard1;
+        playerCard2 = blacklist[2];
+        player[2] = playerCard2;
+        houseCard1 = blacklist[3];
+        house[1] = houseCard1;
+        houseCard2 = blacklist[4];
+        house[2] = houseCard1;
+        System.out.println("Your cards are "+ cardReader(playerCard1) + " and " + cardReader(playerCard2)); // shows user their cards
+            while (pokerChoice == 0) { 
+            System.out.println ("***************CHOOSE A NUMBER BETWEEN ONE AND THREE***************\n1. Raise 2. Call 3. Fold");
+                switch (in.nextInt()) { // takes user input for a choice
+                    case 1: 
+                        pokerChoice = 1;
+                        break;
+                    case 2: 
+                        pokerChoice = 2;
+                        break;
+                    case 3:
+                        System.out.println("You folded and lost " + pot/2 + " :(\nThe house had " + cardReader(houseCard1) + " and " + cardReader(houseCard2));
+                        netWorth = netWorth + wager; 
+                        return;
+                    default:
+                        System.out.println("Please insert a valid number!");
+                    }
+                }
+            Double choiceResult = (pokerDecision(pokerChoice, wager)); // runs a method to see how much money was put into the pot
+            pot = choiceResult + pot; // adds sum to the pot
+            wager = wager - choiceResult; // subtracts amount raised from the amount brought to the table
+        System.out.println("The amount in the pot is " + pot );
+        if (choiceResult == 0) {
+            System.out.println("The house also calls");
         }
+        else {
+            System.out.println("The house matches your raise, the new pot is " + (choiceResult + pot));
+            pot = choiceResult + pot; // the house matches your raise and adds to the pot
+        }
+        int commonCard1 = (int) (52 * Math.random() + 1); // creates 1st common card
+        int commonCard2 = (int) (52 * Math.random() + 1); // creates 2nd common card
+        int commonCard3 = (int) (52 * Math.random() + 1); // creates 3rd common card
+        player[3] = commonCard1; // inserts value into array
+        house[3] = commonCard1; // inserts value into array
+        blacklist[5] = commonCard1; // inserts value into array
+        player[4] = commonCard2; // inserts value into array
+        house[4] = commonCard2; // inserts value into array
+        blacklist[6] = commonCard2; // inserts value into array
+        player[5] = commonCard3; // inserts value into array
+        house[5] = commonCard3; // inserts value into array
+        blacklist[7] = commonCard3; // inserts value into array
+        blacklist = dupeCheck(blacklist); // checks and fixes dupe cards
+
+        // assignes the non duplicate numbers back to their original values
+        commonCard1 = blacklist[5]; 
+        player[3] = commonCard1;
+        house[3] = commonCard1;
+        commonCard2 = blacklist[6];
+        player[4] = commonCard2;
+        house[4] = commonCard2;
+        commonCard3 = blacklist[7];
+        player[5] = commonCard3;
+        house[5] = commonCard3;
+        System.out.println("The first three cards have been revealed, they are: " + cardReader(commonCard1) + ", " + cardReader(commonCard2) + " and " + cardReader(commonCard3));
+        pokerChoice = 0; // resets choice value so user can make a new choice
+        while (pokerChoice == 0) {
+            System.out.println ("***************CHOOSE A NUMBER BETWEEN ONE AND THREE***************\n1. Raise 2. Call 3. Fold");
+                switch (in.nextInt()) {
+                    case 1: 
+                        pokerChoice = 1;
+                        break;
+                    case 2: 
+                        pokerChoice = 2;
+                        break;
+                    case 3:
+                        System.out.println("You folded and lost " + pot + " :(\nThe house had " + cardReader(houseCard1) + " and " + cardReader(houseCard2));
+                        netWorth = netWorth - pot;
+                        return;
+                    default:
+                        System.out.println("Please insert a valid number!");
+                    }
+                }
+            choiceResult = (pokerDecision(pokerChoice, wager));
+            pot = choiceResult + pot;
+            wager = wager - choiceResult;
+        System.out.println("The amount in the pot is " + pot );
+        if (choiceResult == 0) {
+            System.out.println("The house also calls");
+        }
+        else {
+            System.out.println("The house matches your raise, the new pot is " + (choiceResult + pot));
+            pot = choiceResult + pot;
+        }
+        int commonCard4 = (int) (52 * Math.random() + 1); // get 4th common card
+        player[6] = commonCard4;
+        house[6] = commonCard4;
+        blacklist[8] = commonCard4;
+        dupeCheck(blacklist);
+        System.out.println("The fourth card has been revealed, it is a " + cardReader(commonCard4));
+        pokerChoice = 0;
+        while (pokerChoice == 0) {
+            System.out.println ("***************CHOOSE A NUMBER BETWEEN ONE AND THREE***************\n1. Raise 2. Call 3. Fold");
+                switch (in.nextInt()) {
+                    case 1: 
+                        pokerChoice = 1;
+                        break;
+                    case 2: 
+                        pokerChoice = 2;
+                        break;
+                    case 3:
+                        System.out.println("You folded and lost " + pot + " :(\nThe house had " + cardReader(houseCard1) + " and " + cardReader(houseCard2));
+                        netWorth = netWorth - pot;
+                        return;
+                    default:
+                        System.out.println("Please insert a valid number!");
+                    }
+                }
+            choiceResult = (pokerDecision(pokerChoice, wager));
+            pot = choiceResult + pot;
+            wager = wager - choiceResult;
+        System.out.println("The amount in the pot is " + pot );
+        if (choiceResult == 0) {
+            System.out.println("The house also calls");
+        }
+        else {
+            System.out.println("The house matches your raise, the new pot is " + (choiceResult + pot));
+            pot = choiceResult + pot;
+        }
+        int commonCard5 = (int) (52 * Math.random() + 1); // get 5th common card
+        player[7] = commonCard5;
+        house[7] = commonCard5;
+        blacklist[9] = commonCard5;
+        dupeCheck(blacklist);
+        System.out.println("The fifth card has been revealed, it is a " + cardReader(commonCard4));
+        pokerChoice = 0;
+        while (pokerChoice == 0) {
+            System.out.println ("***************CHOOSE A NUMBER BETWEEN ONE AND THREE***************\n1. Raise 2. Call 3. Fold");
+                switch (in.nextInt()) {
+                    case 1: 
+                        pokerChoice = 1;
+                        break;
+                    case 2: 
+                        pokerChoice = 2;
+                        break;
+                    case 3:
+                        System.out.println("You folded and lost " + pot + " :(\nThe house had " + cardReader(houseCard1) + " and " + cardReader(houseCard2));
+                        netWorth = netWorth - pot;
+                        return;
+                    default:
+                        System.out.println("Please insert a valid number!");
+                    }
+                }
+            choiceResult = (pokerDecision(pokerChoice, wager));
+            pot = choiceResult + pot;
+            wager = wager - choiceResult;
+        System.out.println("The amount in the pot is " + pot );
+        if (choiceResult == 0) {
+            System.out.println("The house also calls");
+        }
+        else {
+            System.out.println("The house matches your raise, the new pot is " + (choiceResult + pot));
+            pot = choiceResult + pot;
+        }
+
+    }
+
+    public static int[] dupeCheck(int[] blacklist) {
+        for (int i = 0; i < blacklist.length; i++) {
+            for (int j = i + 1; j < blacklist.length; j++) {
+                if (blacklist[i] == blacklist[j]) {
+                    blacklist[j] = (int) (52 * Math.random() + 1);
+                }
+            }
+        }
+        return blacklist;
+    }
+
+    public static double pokerDecision(double choice, double tableValue) {
+    int result = 0; // loops the code if the amount is not valid
+    double raise = 0; // amount of money returned 
+    double amount = 0; // stores user input
+        while (result == 0) {
+            result = 1; // resets counter
+            amount = 0; // resets raise value
+            if (choice == 1) {
+                System.out.println("How much would you like to raise? You have " + tableValue + " at the table");
+                amount = in.nextDouble();
+                if (amount > tableValue) {
+                    System.out.println("This value is greater than the amount you brought to the table, try again");
+                    result = 0;
+                }
+                if (amount <= 0) {
+                    System.out.println("Please insert a valid number");
+                    result = 0;
+                } 
+            if (result == 1) {
+            raise = amount; // converts stored variable to returned variable
+            result = 1;
+            return raise;
+            }
+         }
+
+            if (choice == 2) {
+                result = 1;
+                return raise;
+            }
+        }
+        return raise;
+    }
+    
+    public static String cardReader(int cardValue) { // method to convert number into card
+        switch (cardValue) {
+            case 1:
+                return "Ace of spades";
+            case 2:
+                return "Two of spades";
+            case 3:
+                return "Three of spades";
+            case 4:
+                return "Four of spades";
+            case 5:
+                return "Five of spades";
+            case 6:
+                return "Six of spades";   
+            case 7:
+                return "Seven of spades";
+            case 8:
+                return "Eight of spades";
+            case 9:
+                return "Nine of spades";
+            case 10:
+                return "Ten of spades";
+            case 11:
+                return "Jack of spades";
+            case 12:
+                return "Queen of spades";
+            case 13:
+                return "King of spades";
+            case 14:
+                return "Ace of clubs";
+            case 15:
+                return "Two of clubs";
+            case 16:
+                return "Three of clubs";
+            case 17:
+                return "Four of clubs";
+            case 18:
+                return "Five of clubs";   
+            case 19:
+                return "Six of clubs";
+            case 20:
+                return "Seven of clubs";
+            case 21:
+                return "Eight of clubs";
+            case 22:
+                return "Nine of clubs";
+            case 23:
+                return "Ten of clubs";
+            case 24:
+                return "Jack of clubs";  
+            case 25:
+                return "Queen of clubs";
+            case 26:
+                return "King of clubs";
+            case 27:
+                return "Ace of hearts";
+            case 28:
+                return "Two of hearts";
+            case 29:
+                return "Three of hearts";
+            case 30:
+                return "Four of hearts";   
+            case 31:
+                return "Five of hearts";
+            case 32:
+                return "Six of hearts";
+            case 33:
+                return "Seven of hearts";
+            case 34:
+                return "Eight of hearts";
+            case 35:
+                return "Nine of hearts";
+            case 36:
+                return "Ten of hearts";
+            case 37:
+                return "Jack of hearts";
+            case 38:
+                return "Queen of hearts";
+            case 39:
+                return "King of hearts";
+            case 40:
+                return "Ace of diamonds";
+            case 41:
+                return "Two of diamonds";
+            case 42:
+                return "Three of diamonds";   
+            case 43:
+                return "Four of diamonds";
+            case 44:
+                return "Five of diamonds";
+            case 45:
+                return "Six of diamonds";
+            case 46:
+                return "Seven of diamonds";
+            case 47:
+                return "Eight of diamonds";
+            case 48:
+                return "Nine of diamonds";
+            case 49:
+                return "Ten of diamonds";
+            case 50:
+                return "Jack of diamonds";
+            case 51:
+                return "Queen of diamonds";
+            case 52:
+                return "King of diamonds";
+            default:
+                return "idk how u got here but this is an error"; // err msg
+
+        }
+
+    }
+
+    public static void slots() {
 
     }
 
@@ -133,7 +464,7 @@ public class cpt {
                     + intelligenceStats);
         }
         
-        if (workCount < 5 && jobStatus == true) {
+        if (workCount <= 5 && jobStatus == true) {
             if (ageStats != 18) {}
             System.out.println("You were fired at your job for working too little. You also lost -20% intelligence.");
             jobTitle = "none";
@@ -242,7 +573,7 @@ public class cpt {
             case "reallyGoodMilk":
                 healthStats += 20;
                 System.out.println(
-                        "Your mother gave you some milk and it tasted exqusite. +20% health. Your current health is: "
+                        "Your mother gave you some milk and it tasted exqusite. +20% health. Your current happiness is: "
                                 + healthStats);
                 break;
             case "newToy":
@@ -273,16 +604,16 @@ public class cpt {
     public static void callEventMethodChild(String eventName) {
         switch (eventName) { // changes the user's stats based on the random event
             case "hitByBus":
-                healthStats -= 35;
+                healthStats -= 25;
                 happinessStats -= 20;
                 System.out.println(
-                        "You were hit by a bus! Ouchie!! -35% health and -20% happiness. Your current health is: "
+                        "You were hit by a bus! Ouchie!! -25% health and -20% happiness. Your current health is: "
                                 + healthStats + " and your current happiness is: " + happinessStats);
                 break;
             case "bullyEncounter":
                 happinessStats -= 30;
                 System.out.println(
-                        "You were bullied by a bully named Dio. -30% happiness. Your current happiness is: "
+                        "You were bullied by a bully named Dio Brando. -30% happiness. Your current happiness is: "
                                 + happinessStats);
                 break;
             case "fallDownStairs":
@@ -403,7 +734,7 @@ public class cpt {
                 break;
             case "friendDied":
                 happinessStats -= 50;
-                System.out.println("Your best friend from elementary school died. -50% happiness. Your current happiness is: " + happinessStats);
+                System.out.println("Your best friend from elementary school. -50% happiness. Your current happiness is: " + happinessStats);
                 break;
             case "burntOut":
                 healthStats -= 60;
@@ -465,7 +796,7 @@ public class cpt {
                 break;
             case "newFriend":
                 happinessStats += 30;
-                System.out.println("You made a new friend at the groccery store. +30% happiness. Your new happiness is: " + happinessStats);
+                System.out.println("You got a new friend at the groccery store. +30% happiness. Your new happiness is: " + happinessStats);
                 break;
             case "richFriend":
                 netWorth += 10000;
@@ -508,16 +839,16 @@ public class cpt {
             System.out.println("Bossman! No jobs allowed at your age! Wait till you're 14!");
             return jobTitle;
         }
-        // print all jobs, with the title and the pay per work period
-        System.out.println("1. School Janitor - $3206 per work period");
-        System.out.println("2. Barista - $5200 per work period");
-        System.out.println("3. Car Salesman - $4333 per work period");
-        System.out.println("4. Groccery store clerk - $433 per work period");
-        System.out.println("5. Administrative Assistant - $3986 per work period");
-        System.out.println("6. Registered nurse - $6936 per work period");
-        System.out.println("7. Engineer 1 - $6006 per work period");
-        System.out.println("8. Engineer 2 - $6006 per work period");
-        System.out.println("9. Project manager - $8666 per work period");
+        // print all jobs, with the title and the pay per year/hour
+        System.out.println("1. School Janitor - $38,480 a year ($20/hr)");
+        System.out.println("2. Barista - $62,400 a year ($30/hr)");
+        System.out.println("3. Car Salesman - $52,000 a year ($25/hr)");
+        System.out.println("4. Groccery store clerk - $31,200 a year ($15/hr)");
+        System.out.println("5. Administrative Assistant - $47,840 a year ($23/hr)");
+        System.out.println("6. Registered nurse - $83,240 a year ($40/hr)");
+        System.out.println("7. Engineer 1 - $72,800 a year ($35/hr)");
+        System.out.println("8. Engineer 2 - $72,800 a year ($35/hr)");
+        System.out.println("9. Project manager - $104,000 a year ($50/hr)");
         System.out.println("Pick a job by inputting the number corresponding to the job");
         int jobNumber = in.nextInt(); // gets the job the user wants
         boolean jobMiniGameWinnings; // checks to see if the user was successful in winning the minigame for the job
@@ -714,7 +1045,7 @@ public class cpt {
             case "Groccery store clerk":
                 netWorth += 4333;
                 System.out.println("You got paid $4333 this month! Good work!");
-                if (workCount > 5) {
+                if (workCount > 12) {
                     System.out.println("You're working overtime! You lose 5% happiness");
                     happinessStats -= 1;
                 }
@@ -771,7 +1102,7 @@ public class cpt {
                     int[] buyInventoryPrice = {250000,25000,125000,35000,80000,10000,5000,8000,12000,15000,500000,300000,400000,250000,450000,1000,1800,2000,500,300,100000,65000000,80000000,450000000,150000000};
                     int NUMBA = 0; // index number the thing we're selling is at
                     displayinventory();
-                    System.out.println("What are you selling? It's case sensitive. Enter 'quit' to leave the program: ");
+                    System.out.println("What are you selling? It's case sensitive: ");
                     String userSell = in.nextLine();
                     if (checkThrowout(userSell) == true) {
                         int sellPrice = 0;
@@ -785,9 +1116,6 @@ public class cpt {
                         netWorthAssets -= sellPrice;
                         throwout(userSell);
                         System.out.println("You sold it for: $" + sellPrice);
-                    } else if (userSell.equals("quit")){
-                        System.out.println("ok no sell!");
-                        return;
                     } else {
                         System.out.println("That item isn't in your inventory! Check again!");
                     }
@@ -795,12 +1123,11 @@ public class cpt {
     }
     public static void study() { // allows the user to increase intelligence
         // checks if the user meets requirements
-        
+        whyisthisbroken = true;
         if (schoolStatus == false) {
             System.out.println("Bossman! You need to be enrolled at a school first.");
             return;
         }
-        whyisthisbroken = true;
         // asks the user for how they want to study
         System.out.println("Pick how you want to study");
         System.out.println("1. Reading books");
@@ -835,9 +1162,6 @@ public class cpt {
                 System.out.println("Your new intelligence is: " + intelligenceStats);
                 happinessStats -= 3;
                 break;
-            default:
-                System.out.println("Pick a number between 1 and 3!");
-
         }
         System.out.println("Don't study too much or you'll loose happiness");
     }
@@ -1595,48 +1919,49 @@ public class cpt {
         System.out.println("The Magic 8ball says: " + ballresponse[randomInt]);
 
     }
-    public static void endgame() {
+    public static void endgame() { // method that calculates user's score
         System.out.println("Thanks for playing!");
-    
         int score = 0;
-    
-        // Adjust stats to avoid multiplying by zero
-        intelligenceStats = Math.max(1, intelligenceStats);
-        happinessStats = Math.max(1, happinessStats);
-        healthStats = Math.max(1, healthStats);
-    
-        // Calculate scores based on stats
-        score += intelligenceStats * 5;
-        score += happinessStats * 3;
-        score += healthStats * 10;
-    
-        // Calculate scores based on net worth and assets
-        score += (int) (netWorth * 0.9);
-        score += netWorthAssets; // Assets are favored over non-assets, as cash goes down over time!
-    
-        // Calculate score based on age
-        score += ageStats * 5;
-    
-        // Display outcome based on age
-        if (ageStats < 50) {
+        // makes sure the score isnt 0 when the numbers are calculated
+        if (intelligenceStats != 0) { 
+            score += (intelligenceStats * 5);
+        } else {
+            intelligenceStats--;
+            score += (intelligenceStats * 5);
+        }
+        if (happinessStats != 0) {
+            score += (happinessStats * 3);
+        } else {
+            happinessStats--;
+            score += (happinessStats * 3);
+        }
+        if (healthStats != 0) {
+            score += (intelligenceStats * 10);
+        } else {
+            healthStats--;
+            score += (healthStats * 10);
+        }
+        score += (netWorth*0.5);
+        score += (netWorthAssets*1);// assets are favoured over non assets, making it more valuable to spend money in this game!
+        score += (ageStats * 25);
+        if (ageStats < 50) { // average life span is around 80, if u make it u get a special msg!
             System.out.println("The odds were never in your favour.");
+            stats();
         } else {
             System.out.println("The odds were in your favour");
+            stats();
         }
-    
-        // Display stats and final score
-        stats();
         System.out.println("You had a score of " + score + "! Not bad!");
-    
+        // calculate ur death stats here
     }
-    public static boolean checkThrowout(String value){ // checks if the item can be thrown out
+    public static boolean checkThrowout(String value){
         int count = 0;
         for (int i = 0; i < 50; i++) {
-            if (inventory[i].equals(value)) { // find the item index
-                count++; 
+            if (inventory[i].equals(value)) {
+                count++;
             }
         }
-        if (count > 0){ //if there is more than 1 of the item, it returns true
+        if (count > 0){
             return true;
         } else {
             return false;
@@ -1644,8 +1969,8 @@ public class cpt {
     }
     public static void throwout(String value){
         for (int i = 0; i < 50; i++) {
-            if (inventory[i].equals(value)) { //searches for the first instance of the value
-                inventory[i] = "none"; // replaces the first instance with none
+            if (inventory[i].equals(value)) {
+                inventory[i] = "none";
                 break;
             } 
         }
@@ -1655,18 +1980,15 @@ public class cpt {
         if (command.startsWith("!")) {
             String actualCommand = command.substring(1); // removes the first char of the variable, the exclamation mark this is to run all the different commands available
             switch (actualCommand) { // all commands that can be run go here
-                case "throwout": // lets the user throw out items that cannot be sold
+                case "throwout":
                     displayinventory();
                     System.out.println("What are you throwing out? It's case sensitive: ");
                     String userThrowOut = in.nextLine();
                     if (checkThrowout(userThrowOut) == true) {
-                        throwout(userThrowOut); // removes it from their inventory
+                        throwout(userThrowOut);
                         System.out.println("You threw it out");
-                    } else if (userThrowOut.equals("quit")){
-                        System.out.println("ok no sell!");
-                        return;
                     } else {
-                        System.out.println("That item isn't in your inventory! Check again!"); //err msg
+                        System.out.println("That item isn't in your inventory! Check again!");
                     }
                     break;
                 case "sell":
@@ -1680,9 +2002,9 @@ public class cpt {
                     resetI = true; // doesnt count command to yearly quota
                     System.out.println("The objective of the game is to make the most money, have the highest stats and live the longest, all using commands given to you. ");
                     System.out.println("Use !commands to see all the different commands you can do");
-                    System.out.println("You can perform commands at any time, unless currently in a command. You start at age 1 and you go up in age every 25 commands (though doing basic commands such as !stats will not increase this).");
-                    System.out.println("Every time your age goes up, a random event can happen to you, which can be good or bad to your stats!");
-                    System.out.println("You can increase your stats by performing commands. See !commands and try doing some to increase your health!");
+                    System.out.println("You can perform commands at any time, unless currently in a command. You start at age 0 and you go up in age every 25 commands (though doing basic commands such as !stats will not increase this).");
+                    System.out.println("Every time your age goes up, a random event can happen to you, based on your stats. For example, if you have low health, you have a higher chance of a bad event (such as sickness) occurring to you.");
+                    System.out.println("You can increase your stats by performing commands, and winning games within those commands.");
                     System.out.println("When you quit the game or die, you will get your score, based on your stats. Get the highest one possible!");
                     return;
                 case "commands": 
@@ -1721,7 +2043,7 @@ public class cpt {
                         healthStats += 50;
                         int randomNmDoctor = (int) (10000 * Math.random() + 1);
                         netWorth -= randomNmDoctor;
-                        System.out.println("The doctor gave you pills to grant you health. Your health went up by 50. The pills costed: $" + randomNmDoctor);
+                        System.out.println("The doctor gave you pills to grant you health. Your health went up by 50. The pills costed :$" + randomNmDoctor);
                         System.out.println("Your new net worth is :$" + netWorth);
                     }
                     return;
@@ -1748,6 +2070,7 @@ public class cpt {
                     System.out.println("----------------------------------------");
                     return;
                 case "gambling":
+                whyisthisbroken = true;
                     if (netWorth == 0){ // err msg
                         System.out.println("You have no money to gamble brokie");
                         return;
@@ -1776,7 +2099,6 @@ public class cpt {
                         }
                         return;
                     } else if (gamblingResponse == 3) {
-                        whyisthisbroken = true; // requests for int in the slots
                         slots();
                         return;
                     } else { // err message
@@ -1816,10 +2138,10 @@ public class cpt {
                 case "exercise": //lets user exercise
                     exercise();
                     return;
-                case "play": // lets user play to increase stats
+                case "play":
                     play();
                     return;
-                case "rockpaperscissors": 
+                case "rockpaperscissors":
                     rockpaperscissors();
                     return;
                 case "magic8ball":
