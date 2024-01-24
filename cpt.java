@@ -2171,7 +2171,7 @@ public class cpt {
         // tutorial
         if (!beginnerInformation) { 
             beginnerInformation = true;
-            System.out.println("Welcome to pookiewookie, a game made by Gianluca and David");
+            System.out.println("Welcome to lifemaxing, a game made by Gianluca and David");
             System.out.println("\n");
             System.out.println("What username would you like for your character?");
             userName = in.nextLine();
